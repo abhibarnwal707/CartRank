@@ -1,0 +1,134 @@
+"""Render results/search_dev.json into results/search_baselines.md."""
+
+import json
+
+from cartrank.data.paths import RESULTS
+
+# Ladder order; Phase 2 adds the fine-tuned and rerank rows by appending here.
+ROWS = [
+    ("bm25", "BM25"),
+    ("dense_base", "Dense, bge-small off-the-shelf"),
+    ("hybrid_base", "Hybrid RRF (BM25 + dense)"),
+]
+MODE_TITLES = {
+    "rerank": "Rerank mode (standard ESCI Task 1): rank each query's judged products only",
+    "full": "Full-corpus retrieval mode: retrieve from all US small-set products",
+}
+CAVEAT = (
+    "Unjudged products count as non-relevant, so full-corpus scores underestimate true quality "
+    "and are not comparable to rerank-mode scores."
+)
+
+
+def _table(headers: list[str], rows: list[list[str]]) -> str:
+    lines = ["| " + " | ".join(headers) + " |", "|" + "---|" * len(headers)]
+    lines += ["| " + " | ".join(r) + " |" for r in rows]
+    return "\n".join(lines)
+
+
+def _ladder(data: dict, mode: str) -> str:
+    rows, prev = [], None
+    for key, label in ROWS:
+        m = data["ladder"].get(f"{key}|{mode}")
+        if m is None:
+            continue
+        delta = "-" if prev is None else f"{m['ndcg@10'] - prev:+.4f}"
+        rows.append(
+            [label, f"{m['ndcg@10']:.4f}", delta, f"{m['recall@100']:.4f}", f"{m['mrr@10']:.4f}"]
+        )
+        prev = m["ndcg@10"]
+    return _table(["System", "NDCG@10", "Δ vs previous row", "Recall@100", "MRR@10"], rows)
+
+
+def write_report() -> None:
+    data = json.loads((RESULTS / "search_dev.json").read_text())
+    n = next(iter(data["ladder"].values()))["n_queries"]
+    out = [
+        "# Search baselines (ESCI dev)\n",
+        f"Dev split: {n:,} queries (10% of train query_ids, split by query). "
+        "Test split not used. NDCG@10 uses graded gains E=1.0, S=0.1, C=0.01, I=0; "
+        "Recall@100 counts Exact as relevant (queries with no Exact excluded); "
+        "MRR@10 is the first Exact result.\n",
+    ]
+    for mode, title in MODE_TITLES.items():
+        out.append(f"## {title}\n")
+        out.append(_ladder(data, mode))
+        if mode == "rerank":
+            out.append(
+                "\nRecall@100 is trivially 1.0 here: each query has about 20 judged products, so "
+                "all of them fit in the top 100. Hybrid RRF parameters were tuned on full-corpus "
+                "NDCG only, which is why hybrid does not beat dense in this mode."
+            )
+        if mode == "full":
+            out.append(f"\n{CAVEAT}")
+        out.append("")
+
+    if "hybrid_best" in data:
+        b = data["hybrid_best"]
+        out.append(
+            f"## Hybrid tuning (dev, full-corpus NDCG@10)\n\nBest: k={b['k']}, depth={b['depth']} "
+            f"(NDCG@10 {b['ndcg@10']:.4f}).\n"
+        )
+        out.append(
+            _table(
+                ["k", "depth", "NDCG@10", "Recall@100"],
+                [
+                    [str(r["k"]), str(r["depth"]), f"{r['ndcg@10']:.4f}", f"{r['recall@100']:.4f}"]
+                    for r in data["hybrid_tuning"]
+                ],
+            )
+        )
+        out.append("")
+
+    if "latency_ms" in data:
+        lat, idx = data["latency_ms"], data["index"]
+        out.append(
+            "## Latency and index size\n\nLatency is one full-corpus query at a time on the "
+            "local MacBook Air (query encoding on MPS for dense), 200 dev queries, top-100, "
+            f"{idx['corpus_size']:,} products.\n"
+        )
+        out.append(
+            _table(
+                ["System", "p50 ms", "p95 ms"],
+                [[k, f"{v['p50_ms']:.1f}", f"{v['p95_ms']:.1f}"] for k, v in lat.items()],
+            )
+        )
+        out.append(
+            f"\nBM25 index: build {idx['bm25_build_seconds']:.0f} s, {idx['bm25_index_mb']:.0f} MB "
+            f"on disk. Dense vectors: {idx['dense_dim']}-dim float32, "
+            f"{idx['dense_vectors_mb']:.0f} MB (FAISS flat inner product).\n"
+        )
+
+    if "ablation_text_bm25" in data:
+        out.append("## Ablation: product text (BM25)\n")
+        labels = {
+            "title": "title",
+            "tbc": "title + brand + color",
+            "tbcb": "title + brand + color + bullets (default)",
+            "tbcbd": "title + brand + color + bullets + description",
+        }
+        rows = [
+            [
+                labels[v],
+                f"{r['rerank']['ndcg@10']:.4f}",
+                f"{r['full']['ndcg@10']:.4f}",
+                f"{r['full']['recall@100']:.4f}",
+            ]
+            for v, r in data["ablation_text_bm25"].items()
+        ]
+        out.append(_table(["Text", "NDCG@10 rerank", "NDCG@10 full", "Recall@100 full"], rows))
+        out.append("")
+
+    if "ablation_text_dense" in data:
+        out.append(
+            "## Ablation: product text and query prefix (dense, bge-small)\n\n"
+            "Rerank mode only (the corpus is the dev queries' judged products).\n"
+        )
+        rows = [
+            [k.split("|")[0], k.split("|")[1], f"{r['ndcg@10']:.4f}", f"{r['mrr@10']:.4f}"]
+            for k, r in data["ablation_text_dense"].items()
+        ]
+        out.append(_table(["Text variant", "Query prefix", "NDCG@10", "MRR@10"], rows))
+        out.append("")
+
+    (RESULTS / "search_baselines.md").write_text("\n".join(out))

@@ -5,10 +5,14 @@ description = "Product search and recommendation: hybrid retrieval, reranking, t
 readme = "README.md"
 requires-python = ">=3.12,<3.13"
 dependencies = [
+    "bm25s>=0.3.14",
+    "faiss-cpu>=1.15.1",
     "numpy",
     "pandas",
     "pyarrow",
     "pydantic>=2",
+    "pystemmer>=3.1.0",
+    "sentence-transformers>=6.2.0",
 ]
 
 [dependency-groups]
