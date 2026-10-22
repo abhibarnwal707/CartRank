@@ -1,0 +1,25 @@
+# Claude Code project instructions (local only)
+CLAUDE.md
+
+# Data and artifacts
+data/
+artifacts/
+mlruns/
+wandb/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+
+# Secrets
+.env
+.streamlit/secrets.toml
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
