@@ -1,0 +1,50 @@
+{"id": 1, "type": "short", "query": "stapler"}
+{"id": 2, "type": "short", "query": "sticky notes"}
+{"id": 3, "type": "short", "query": "highlighters"}
+{"id": 4, "type": "short", "query": "whiteboard"}
+{"id": 5, "type": "short", "query": "paper clips"}
+{"id": 6, "type": "short", "query": "label maker"}
+{"id": 7, "type": "short", "query": "shredder"}
+{"id": 8, "type": "short", "query": "binder"}
+{"id": 9, "type": "short", "query": "envelopes"}
+{"id": 10, "type": "short", "query": "calculator"}
+{"id": 11, "type": "attribute", "query": "pastel highlighters chisel tip"}
+{"id": 12, "type": "attribute", "query": "black gel pens 0.5mm"}
+{"id": 13, "type": "attribute", "query": "heavy duty three hole punch"}
+{"id": 14, "type": "attribute", "query": "wide ruled composition notebook"}
+{"id": 15, "type": "attribute", "query": "large desk pad with leather finish"}
+{"id": 16, "type": "attribute", "query": "cordless electric pencil sharpener"}
+{"id": 17, "type": "attribute", "query": "mesh desk organizer with drawers"}
+{"id": 18, "type": "attribute", "query": "self adhesive laminating pouches letter size"}
+{"id": 19, "type": "attribute", "query": "magnetic dry erase board for fridge"}
+{"id": 20, "type": "attribute", "query": "adjustable monitor stand with storage"}
+{"id": 21, "type": "attribute", "query": "3 inch 3 ring binder with pockets"}
+{"id": 22, "type": "attribute", "query": "acid free cardstock paper 8.5 x 11"}
+{"id": 23, "type": "attribute", "query": "colored copy paper 500 sheets"}
+{"id": 24, "type": "attribute", "query": "bulk rubber bands assorted sizes"}
+{"id": 25, "type": "attribute", "query": "small desktop paper trimmer"}
+{"id": 26, "type": "brand", "query": "post-it super sticky notes 3x3"}
+{"id": 27, "type": "brand", "query": "sharpie permanent markers fine point"}
+{"id": 28, "type": "brand", "query": "bic cristal ballpoint pens"}
+{"id": 29, "type": "brand", "query": "hp 63 ink cartridge black"}
+{"id": 30, "type": "brand", "query": "avery 5160 address labels"}
+{"id": 31, "type": "brand", "query": "scotch magic tape refill"}
+{"id": 32, "type": "brand", "query": "brother tze label tape"}
+{"id": 33, "type": "brand", "query": "fiskars scissors for office"}
+{"id": 34, "type": "brand", "query": "pilot g2 pens blue"}
+{"id": 35, "type": "brand", "query": "swingline stapler 747"}
+{"id": 36, "type": "negation", "query": "pens without clips"}
+{"id": 37, "type": "negation", "query": "notebook not spiral bound"}
+{"id": 38, "type": "negation", "query": "paper that is not glossy"}
+{"id": 39, "type": "negation", "query": "stapler without staples included"}
+{"id": 40, "type": "negation", "query": "markers non toxic no odor"}
+{"id": 41, "type": "use_case", "query": "gift for a teacher classroom supplies"}
+{"id": 42, "type": "use_case", "query": "supplies to organize a home office"}
+{"id": 43, "type": "use_case", "query": "back to school pencil case for kids"}
+{"id": 44, "type": "use_case", "query": "planner for tracking daily tasks 2025"}
+{"id": 45, "type": "use_case", "query": "tools to label storage bins"}
+{"id": 46, "type": "use_case", "query": "keep cables tidy on desk"}
+{"id": 47, "type": "typo", "query": "hilighter pens"}
+{"id": 48, "type": "typo", "query": "stappler"}
+{"id": 49, "type": "typo", "query": "enevlopes self seal"}
+{"id": 50, "type": "typo", "query": "calender wall 2025"}

@@ -56,6 +56,44 @@ def _ladder(data: dict, mode: str, spec=None) -> str:
     return _table(["System", "NDCG@10", "Δ vs previous row", "Recall@100", "MRR@10"], rows)
 
 
+def _finetune_ablation(data: dict) -> str:
+    """Run 1 vs run 2 of the Kaggle fine-tune. Two settings differ, so this is not a clean test."""
+    lad = data["ladder"]
+    runs = [
+        ("Run 1: 1 epoch, (query, Exact) pairs, 163,752 examples", "ft"),
+        ("Run 2: 2 epochs, (query, Exact, Irrelevant) triplets, 95,703 examples", "ft2"),
+    ]
+    rows = []
+    for label, t in runs:
+        rows.append(
+            [
+                label,
+                f"{lad[f'dense_{t}|rerank']['ndcg@10']:.4f}",
+                f"{lad[f'dense_{t}|full']['ndcg@10']:.4f}",
+                f"{lad[f'hybrid_{t}|full']['ndcg@10']:.4f}",
+                f"{lad[f'hybrid_{t}_ce_k{CE_K}|full']['ndcg@10']:.4f}",
+            ]
+        )
+    return (
+        "## Ablation: fine-tune configuration (dev)\n\n"
+        "Run 2 changed two things at once (epochs and hard-negative triplets, which also shrinks "
+        "the training set to queries that have an Irrelevant product), so a difference cannot be "
+        "attributed to either change alone. Both runs: bge-small, lr 5e-5, batch 128 per GPU on "
+        "two T4s.\n\n"
+        + _table(
+            [
+                "Configuration",
+                "Dense NDCG@10 (rerank)",
+                "Dense NDCG@10 (full)",
+                "Hybrid NDCG@10 (full)",
+                f"Hybrid + CE top-{CE_K} NDCG@10 (full)",
+            ],
+            rows,
+        )
+        + "\n"
+    )
+
+
 def write_report() -> None:
     data = json.loads((RESULTS / "search_dev.json").read_text())
     n = next(iter(data["ladder"].values()))["n_queries"]
@@ -86,6 +124,9 @@ def write_report() -> None:
         out.append(f"{mode} mode:\n")
         out.append(_ladder(data, mode, REF_ROWS))
         out.append("")
+
+    if "dense_ft2|full" in data["ladder"]:
+        out.append(_finetune_ablation(data))
 
     if "hybrid_best_ft" in data:
         b = data["hybrid_best_ft"]

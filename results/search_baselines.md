@@ -42,6 +42,15 @@ full mode:
 | Hybrid RRF (BM25 + off-the-shelf dense) | 0.3620 | - | 0.6482 | 0.5268 |
 | Hybrid-base + cross-encoder rerank (full-corpus: top-50) | 0.4052 | +0.0432 | 0.6482 | 0.5807 |
 
+## Ablation: fine-tune configuration (dev)
+
+Run 2 changed two things at once (epochs and hard-negative triplets, which also shrinks the training set to queries that have an Irrelevant product), so a difference cannot be attributed to either change alone. Both runs: bge-small, lr 5e-5, batch 128 per GPU on two T4s.
+
+| Configuration | Dense NDCG@10 (rerank) | Dense NDCG@10 (full) | Hybrid NDCG@10 (full) | Hybrid + CE top-50 NDCG@10 (full) |
+|---|---|---|---|---|
+| Run 1: 1 epoch, (query, Exact) pairs, 163,752 examples | 0.7351 | 0.3542 | 0.3776 | 0.4070 |
+| Run 2: 2 epochs, (query, Exact, Irrelevant) triplets, 95,703 examples | 0.7405 | 0.3492 | 0.3812 | 0.4081 |
+
 ## Hybrid tuning, fine-tuned encoder (dev, full-corpus NDCG@10)
 
 Best: k=10, depth=200 (NDCG@10 0.3776).

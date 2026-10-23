@@ -1,0 +1,1360 @@
+{
+ "meta": {
+  "tag": "ft",
+  "hybrid_k": 10,
+  "hybrid_depth": 200,
+  "top": 10
+ },
+ "queries": {
+  "1": {
+   "query": "stapler",
+   "bm25": [
+    "B08FGNRXPW",
+    "B0BNPJFY7X",
+    "B0BHSL6CRX",
+    "B07F1X5L6M",
+    "B08NF2J4M4",
+    "B00006IFKW",
+    "B07Y98D26B",
+    "B0BGKH8PV5",
+    "B08LCMT4VY",
+    "B08C7F6Q1V"
+   ],
+   "final": [
+    "B0B36TN2J1",
+    "B08FGNRXPW",
+    "B019OUDW0G",
+    "B091N11F4Z",
+    "B019OUDY1S",
+    "B091MZ9MFS",
+    "B0017TJABI",
+    "B0BGKH8PV5",
+    "B0B4M61PVQ",
+    "B09BKNKK1D"
+   ]
+  },
+  "2": {
+   "query": "sticky notes",
+   "bm25": [
+    "B086DF1CR3",
+    "B086D9QS7R",
+    "B0BRW3SXP7",
+    "B092LCV3TH",
+    "B09ZX93YL3",
+    "B0BX2JHLB4",
+    "B0B3Y7LV5R",
+    "B092LHQKTW",
+    "B092LFJP1L",
+    "B0B18YMVZM"
+   ],
+   "final": [
+    "B086D9QS7R",
+    "B0BYJ4JRG4",
+    "B086DF1CR3",
+    "B0B3RJSC6H",
+    "B0B8DR83LP",
+    "B07S7Q3Z8C",
+    "B0BRW3SXP7",
+    "B078QBZT4V",
+    "B0BQ7HC9XW",
+    "B0BCQXCVMF"
+   ]
+  },
+  "3": {
+   "query": "highlighters",
+   "bm25": [
+    "B08KGZXFJQ",
+    "B0BX4PGZR1",
+    "B0BC7RVV1K",
+    "B0BQBTW163",
+    "B0B5T8D8P9",
+    "B07X8Z1RBG",
+    "B08FG9WK76",
+    "B0BCZC2MC8",
+    "B0BS13SQ5C",
+    "B0BQRFKCTQ"
+   ],
+   "final": [
+    "B07X8Z1RBG",
+    "B00006IEJ6",
+    "B000789JTS",
+    "B09QQV9GL2",
+    "B0C2PQMSTP",
+    "B09LH1PPJM",
+    "B002DS0W28",
+    "B0BHSKKD27",
+    "B0BYTMXGWX",
+    "B07FQJF9YV"
+   ]
+  },
+  "4": {
+   "query": "whiteboard",
+   "bm25": [
+    "B0C7R32CVC",
+    "B00MC4X5LS",
+    "B082QM1L5D",
+    "B0C6N37D4D",
+    "B09YR19HF6",
+    "B07K6JJQ92",
+    "B09GFPSMBH",
+    "B07W1ZYHHM",
+    "B0843G3D88",
+    "B08WWSZWFQ"
+   ],
+   "final": [
+    "B0BV5ZDC5Z",
+    "B0BJKWHSJ1",
+    "B07XFQ1D3D",
+    "B0843G3D88",
+    "B0BTBGSPSJ",
+    "B07P99C169",
+    "B09YR19HF6",
+    "B0BPRSH723",
+    "B096X6G13S",
+    "B09H6PXX25"
+   ]
+  },
+  "5": {
+   "query": "paper clips",
+   "bm25": [
+    "B0BV9FFXGL",
+    "B0BWWZKSLJ",
+    "B0BJNMJQPZ",
+    "B09XGLW9B2",
+    "B0885RD6NQ",
+    "B0C9CWGBBB",
+    "B09R7PTXJS",
+    "B0C6G2L2J9",
+    "B0885PMKPK",
+    "B0B1QV23M4"
+   ],
+   "final": [
+    "B09R7PTXJS",
+    "B09SM87FRJ",
+    "B07768G1WY",
+    "B000085J4Y",
+    "B09YV6K2NV",
+    "B0BCP768FT",
+    "B0B4BBZDLT",
+    "B0BJNMJQPZ",
+    "B0BNSL9K96",
+    "B09XGLW9B2"
+   ]
+  },
+  "6": {
+   "query": "label maker",
+   "bm25": [
+    "B0B5SMMR8C",
+    "B09Q8CNR9C",
+    "B0BR9VFG41",
+    "B09GFWTNCJ",
+    "B0C7LCDYS1",
+    "B0C2CQ41YZ",
+    "B0914RY68Z",
+    "B0C26VYTXW",
+    "B0C5H2YQ4J",
+    "B09F9FFCPG"
+   ],
+   "final": [
+    "B09Q8CNR9C",
+    "B0B5X66SGY",
+    "B0BHVH36PG",
+    "B0B9LYC4RM",
+    "B0C7VJHQQP",
+    "B0BNMF1NT2",
+    "B0C9MBLXQN",
+    "B0C2CQ41YZ",
+    "B0914RY68Z",
+    "B0BNBL1C19"
+   ]
+  },
+  "7": {
+   "query": "shredder",
+   "bm25": [
+    "B07JJVQ9V8",
+    "B079SRQN7L",
+    "B07D8LTKYR",
+    "B07YLM7FHV",
+    "B0BZYJPRL5",
+    "B00F63I5HQ",
+    "B077T12J48",
+    "B0BVP266HV",
+    "B07FC69DQK",
+    "B0B31KPMCF"
+   ],
+   "final": [
+    "B0BZYJPRL5",
+    "B07CXKMRDH",
+    "B0777SB25Q",
+    "B07YLM7FHV",
+    "B07JJVQ9V8",
+    "B08JP97XV7",
+    "B001E6MCKA",
+    "B0BGRC1FS9",
+    "B08JPCQT1D",
+    "B0BW44SJ3J"
+   ]
+  },
+  "8": {
+   "query": "binder",
+   "bm25": [
+    "B083YHQHV6",
+    "B09RR2G3X5",
+    "B09XM4N96C",
+    "B09KRC7VWB",
+    "B0BTL1R8Z8",
+    "B0BB3FWT7J",
+    "B0C3LNLDRD",
+    "B09F83K5CM",
+    "B07Q7348V5",
+    "B09B49Z32V"
+   ],
+   "final": [
+    "B07D7DLQPJ",
+    "B07TWCZ6P5",
+    "B09B4GC25W",
+    "B09B4FSJVV",
+    "B09LZ52YT4",
+    "B09KRC7VWB",
+    "B09B49Z32V",
+    "B001HA2IN4",
+    "B0B51ZZD7C",
+    "B0C3H6FJL2"
+   ]
+  },
+  "9": {
+   "query": "envelopes",
+   "bm25": [
+    "B07SYYHJC9",
+    "B07SXGP319",
+    "B081YB22B4",
+    "B01HKJFNOQ",
+    "B09CMQ8VHR",
+    "B0B2RCJ98C",
+    "B097KMZP4J",
+    "B01IRDB4JW",
+    "B098MFBLX2",
+    "B081C5G27X"
+   ],
+   "final": [
+    "B07T8GT1BX",
+    "B06Y26H7VL",
+    "B0BV8K5TNR",
+    "B004O2HUDK",
+    "B01MR9G4WU",
+    "B07H5MPRCK",
+    "B07PT7WHX9",
+    "B0B2RCJ98C",
+    "B007MED3X8",
+    "B00DB8M3I0"
+   ]
+  },
+  "10": {
+   "query": "calculator",
+   "bm25": [
+    "B0BD7C3NDC",
+    "B08FSGY3VX",
+    "B0B87LYHPS",
+    "B08D6C75CM",
+    "B09G358CM2",
+    "B000KED8GO",
+    "B0B1V7YZ4S",
+    "B07W3LXTVC",
+    "B0BQVFYHBX",
+    "B0BQJMG3YV"
+   ],
+   "final": [
+    "B08RP8FXCT",
+    "B0892GJD3Q",
+    "B09XJZS144",
+    "B09G358CM2",
+    "B0B9LXZX1W",
+    "B07X2N1SZS",
+    "B0BQVFYHBX",
+    "B08XYGKX5Q",
+    "B07QGXT33S",
+    "B09C4PFQMC"
+   ]
+  },
+  "11": {
+   "query": "pastel highlighters chisel tip",
+   "bm25": [
+    "B0BC7RVV1K",
+    "B0BYTMXGWX",
+    "B0BC7LGXT1",
+    "B0B5T8D8P9",
+    "B084SPBPQ6",
+    "B09PD42G96",
+    "B0BB7NC2BX",
+    "B0BZW2W3WR",
+    "B0B9TPBFY8",
+    "B0C619JTFN"
+   ],
+   "final": [
+    "B0917D6P5L",
+    "B0B5T8D8P9",
+    "B0B9TPBFY8",
+    "B08CRTKZV9",
+    "B0C619JTFN",
+    "B0BYTMXGWX",
+    "B0B5R9X69N",
+    "B0BZW2W3WR",
+    "B0BFWVLH9W",
+    "B07C3P9DG8"
+   ]
+  },
+  "12": {
+   "query": "black gel pens 0.5mm",
+   "bm25": [
+    "B01N8UTPUH",
+    "B00WE73XTC",
+    "B0BTPHHW1W",
+    "B07CWNWDRG",
+    "B00E1IBPGU",
+    "B0BZ6K3B5L",
+    "B08L6PM4QR",
+    "B071LB36LS",
+    "B09YL2NJ5N",
+    "B0BL3P3X4C"
+   ],
+   "final": [
+    "B0BTPHHW1W",
+    "B07QBYZQP8",
+    "B0C28JZCZN",
+    "B0BL3LNHZ9",
+    "B0BL3P3X4C",
+    "B09YL2NJ5N",
+    "B087BYP3PS",
+    "B0C3W7SYH1",
+    "B0BRTM4GBY",
+    "B00UESL3ZY"
+   ]
+  },
+  "13": {
+   "query": "heavy duty three hole punch",
+   "bm25": [
+    "B01HV6L5G8",
+    "B09D2JQ9HL",
+    "B08F9N31JV",
+    "B001M4SHCQ",
+    "B00007M9IU",
+    "B077CZL5G4",
+    "B00N9VSW6Q",
+    "B086N8NXHR",
+    "B0892XX6SY",
+    "B0C8DDLWJ6"
+   ],
+   "final": [
+    "B0C37YDFFT",
+    "B07W94ZMYK",
+    "B0C8DDLWJ6",
+    "B09VBQ3FTN",
+    "B0BMLCF25C",
+    "B09C99LLC5",
+    "B01HV6L5G8",
+    "B09D2JQ9HL",
+    "B004KU0V6Y",
+    "B01GIJLSGG"
+   ]
+  },
+  "14": {
+   "query": "wide ruled composition notebook",
+   "bm25": [
+    "B0C6VXHKKJ",
+    "B0C6VMMLT2",
+    "B005RTDDM6",
+    "B08VFFCX6Q",
+    "B0BZ2PFVNZ",
+    "B08VF9QF9R",
+    "B0C6W7PQ4N",
+    "B0C6VTCM77",
+    "B09RYX11S5",
+    "B0BNR4Z1C6"
+   ],
+   "final": [
+    "B07F1HZNVD",
+    "B0BG8PWRY2",
+    "B0BXBTLJRP",
+    "B0B524PFMZ",
+    "B08VFFCX6Q",
+    "B08VF9QF9R",
+    "B009NKWY34",
+    "B0C6VMMLT2",
+    "B08485GYKM",
+    "B0C6VXHKKJ"
+   ]
+  },
+  "15": {
+   "query": "large desk pad with leather finish",
+   "bm25": [
+    "B09V7QJ17F",
+    "B097R8N5ZV",
+    "B0B9WYDVT9",
+    "B08T6N11WX",
+    "B09K7HRYCP",
+    "B0BD4WT8P7",
+    "B0BMT8XGX6",
+    "B088PSQJZC",
+    "B09HWYNKQP",
+    "B07S2L8WV1"
+   ],
+   "final": [
+    "B09Y56Y4KR",
+    "B08LNZQ45R",
+    "B08GLPPD28",
+    "B09V7QJ17F",
+    "B08B7VB1NL",
+    "B0BD4WT8P7",
+    "B0B8GRT41Z",
+    "B09TQN796L",
+    "B0BRQSLWDZ",
+    "B083K5C3C5"
+   ]
+  },
+  "16": {
+   "query": "cordless electric pencil sharpener",
+   "bm25": [
+    "B0BGHS1FKC",
+    "B09D587FWW",
+    "B086PMM18D",
+    "B09D4WR1JF",
+    "B095RPJDS8",
+    "B0B9129MS1",
+    "B08NXMLJR4",
+    "B08BVZHR61",
+    "B097YR86CR",
+    "B0C9CNHTCP"
+   ],
+   "final": [
+    "B095RPJDS8",
+    "B0784TVXYY",
+    "B0BGHS1FKC",
+    "B014C7DH56",
+    "B08SJRLF5C",
+    "B09D4WR1JF",
+    "B082B32RGX",
+    "B0006HVPW4",
+    "B07WGZCHLT",
+    "B0C9CNHTCP"
+   ]
+  },
+  "17": {
+   "query": "mesh desk organizer with drawers",
+   "bm25": [
+    "B0C37VLKXG",
+    "B0BKMWCNR7",
+    "B09RV4WCDX",
+    "B07WKLHYN5",
+    "B09JWJKJD5",
+    "B073Q6CNCJ",
+    "B01HNZLV5M",
+    "B01ALJIWY0",
+    "B0BQLN5ZMC",
+    "B073Q6C72C"
+   ],
+   "final": [
+    "B09JWJKJD5",
+    "B01HNZLV5M",
+    "B09D3PNW2N",
+    "B07X2TJ4BV",
+    "B08PNXDYG8",
+    "B09M6RB7DH",
+    "B0BS3WRWZ9",
+    "B0C3GMYQZ3",
+    "B075MQYQCQ",
+    "B075MQTT3K"
+   ]
+  },
+  "18": {
+   "query": "self adhesive laminating pouches letter size",
+   "bm25": [
+    "B0C3DL3VG2",
+    "B0BHSTCRQ9",
+    "B09K7WDM1J",
+    "B007SNCF28",
+    "B00MHWXTRA",
+    "B07M652KC9",
+    "B06WLMVX5N",
+    "B0C2QND186",
+    "B006JKQMC0",
+    "B08L661LL5"
+   ],
+   "final": [
+    "B0BHSTCRQ9",
+    "B0C3DL3VG2",
+    "B07CKY3SKV",
+    "B06WLMVX5N",
+    "B00004TS60",
+    "B0C2QND186",
+    "B00MHWXTRA",
+    "B07M652KC9",
+    "B007SNCF28",
+    "B0B4RLRLKH"
+   ]
+  },
+  "19": {
+   "query": "magnetic dry erase board for fridge",
+   "bm25": [
+    "B0C9F65Y5Q",
+    "B0BLJ5NKNX",
+    "B09G1D872G",
+    "B0BS9GB8MM",
+    "B0BRPT5HFK",
+    "B0BYS2L9HQ",
+    "B0BBFWPGDY",
+    "B0943F47DQ",
+    "B0C64SZKR5",
+    "B09XWDTS9Q"
+   ],
+   "final": [
+    "B0BLJ5NKNX",
+    "B07PN4BMWG",
+    "B01N9V43UN",
+    "B09TQH1FF6",
+    "B09PFS9Q56",
+    "B0BLMVHL71",
+    "B00TGH3VYU",
+    "B09KBPX1MM",
+    "B08WYGX1DM",
+    "B0BS3MDSD2"
+   ]
+  },
+  "20": {
+   "query": "adjustable monitor stand with storage",
+   "bm25": [
+    "B0CBBSFLLB",
+    "B075TGRBND",
+    "B0BDKSFRDT",
+    "B0BDKDBRDB",
+    "B08PJF86X8",
+    "B01N9VV04L",
+    "B08PQ6641W",
+    "B079VT2ZPT",
+    "B078WXFS6Q",
+    "B081Z9DY54"
+   ],
+   "final": [
+    "B0CBBSFLLB",
+    "B081P5LSWR",
+    "B09NMYF2PR",
+    "B081Z9DY54",
+    "B0821NT6NM",
+    "B0BHQBLTZM",
+    "B0BDKSFRDT",
+    "B00UO4I85G",
+    "B0BC8615VW",
+    "B0BDKDBRDB"
+   ]
+  },
+  "21": {
+   "query": "3 inch 3 ring binder with pockets",
+   "bm25": [
+    "B0BTL1R8Z8",
+    "B09ZKH2WLV",
+    "B0BKP5Q3LT",
+    "B0B295LL7F",
+    "B07VFYY5LR",
+    "B09XM4N96C",
+    "B08MX35ZP5",
+    "B0BDPGDQN8",
+    "B07GQ72Z37",
+    "B0B76175VK"
+   ],
+   "final": [
+    "B0BXFFVQCL",
+    "B0C3LNLDRD",
+    "B0BTL1R8Z8",
+    "B0BZJJJLBW",
+    "B07ND59262",
+    "B0BKP5Q3LT",
+    "B09VC4VZ5L",
+    "B0BYJSC2DH",
+    "B0B295LL7F",
+    "B0B81G7J9B"
+   ]
+  },
+  "22": {
+   "query": "acid free cardstock paper 8.5 x 11",
+   "bm25": [
+    "B00JXBB1F0",
+    "B00LBKUOEU",
+    "B000F7IU7S",
+    "B0727R4V56",
+    "B071DVFVGD",
+    "B001QG0K48",
+    "B01KYG0GDK",
+    "B09MQPH1BP",
+    "B003A2I5T8",
+    "B00094EQCA"
+   ],
+   "final": [
+    "B00JXBB0HE",
+    "B01KYG0GDK",
+    "B01NAO1GA4",
+    "B0727R4V56",
+    "B00LBKUOEU",
+    "B00JXBB1F0",
+    "B003A2I5T8",
+    "B000SAR6MC",
+    "B006JSSDW4",
+    "B09MQPH1BP"
+   ]
+  },
+  "23": {
+   "query": "colored copy paper 500 sheets",
+   "bm25": [
+    "B09J5S3WCH",
+    "B00008XPMH",
+    "B09DZXSZ9S",
+    "B011KGEKT4",
+    "B09DZV92XM",
+    "B07M7ZVG8G",
+    "B000OZEY3A",
+    "B0C36Q7PM4",
+    "B095LDTSBJ",
+    "B00E4IQOCM"
+   ],
+   "final": [
+    "B00008XPMH",
+    "B07M7ZVG8G",
+    "B09DZXSZ9S",
+    "B000093IO9",
+    "B001EQ660C",
+    "B000J0EB42",
+    "B00006IDQE",
+    "B011KGEKT4",
+    "B09DZV92XM",
+    "B0013CNU6K"
+   ]
+  },
+  "24": {
+   "query": "bulk rubber bands assorted sizes",
+   "bm25": [
+    "B08FHHXVCP",
+    "B000093L25",
+    "B001CYCTUW",
+    "B09HVB6F7Z",
+    "B0BVZSXH6X",
+    "B07NHXTJKZ",
+    "B076C4Z448",
+    "B07QJH4NYQ",
+    "B001CIBPOY",
+    "B07J9KFJ4H"
+   ],
+   "final": [
+    "B08FHHXVCP",
+    "B09HVB6F7Z",
+    "B09ZKNTJST",
+    "B07NHXTJKZ",
+    "B000789466",
+    "B09ZK5JXQG",
+    "B06XRCR99K",
+    "B000093L25",
+    "B0B31Z3VGJ",
+    "B0017D778W"
+   ]
+  },
+  "25": {
+   "query": "small desktop paper trimmer",
+   "bm25": [
+    "B09ZLG66L2",
+    "B09FXLC5BM",
+    "B07CM7KD36",
+    "B074SMLFGB",
+    "B0843NCBKF",
+    "B0B3J1FJ9P",
+    "B08G7YMF62",
+    "B072RQQPWS",
+    "B013FCGNF0",
+    "B09MSGH2KW"
+   ],
+   "final": [
+    "B07R12TV9Z",
+    "B09HJFK5B1",
+    "B09ZLG66L2",
+    "B0BHZ1Q6YH",
+    "B0C4LG8WKK",
+    "B0B3J1FJ9P",
+    "B07LFJK8M8",
+    "B000OMYB18",
+    "B00LX398CY",
+    "B08G7YMF62"
+   ]
+  },
+  "26": {
+   "query": "post-it super sticky notes 3x3",
+   "bm25": [
+    "B001GX8PDY",
+    "B008PAIDD8",
+    "B004D7RMHK",
+    "B008PAIFZE",
+    "B00394Y5EQ",
+    "B008PAIEPK",
+    "B008PAIFU4",
+    "B01D8F5NLY",
+    "B0000DH8JG",
+    "B008PAIDO2"
+   ],
+   "final": [
+    "B001JTOLYW",
+    "B0CG21JC2Z",
+    "B00CMKA9HK",
+    "B005GZ21GK",
+    "B01D8F5JEU",
+    "B000TSAN9G",
+    "B0000DH8JG",
+    "B001BVDIDI",
+    "B00CMKA9BG",
+    "B09MWP45X2"
+   ]
+  },
+  "27": {
+   "query": "sharpie permanent markers fine point",
+   "bm25": [
+    "B072W5NKF9",
+    "B0BLGBCYFT",
+    "B00UG5850Q",
+    "B06ZZN5TJN",
+    "B07V1KGG2H",
+    "B00BEUPI0M",
+    "B00HRZB5Z0",
+    "B07H3J76Y7",
+    "B004NTJQN6",
+    "B00JU7VOU4"
+   ],
+   "final": [
+    "B00006IFES",
+    "B00006IFEU",
+    "B005FUGQGM",
+    "B000BITFCA",
+    "B00005NIUB",
+    "B004YHU1KO",
+    "B0C1P9QRW4",
+    "B0C1TBWCKG",
+    "B00A4DI91A",
+    "B000QYLCWK"
+   ]
+  },
+  "28": {
+   "query": "bic cristal ballpoint pens",
+   "bm25": [
+    "B0BH3TL1P5",
+    "B09LNX37PS",
+    "B0BCXZV4J3",
+    "B0793GZK64",
+    "B00PB044E2",
+    "B00O5WXW7W",
+    "B0CDWXNRS5",
+    "B008TSS0FM",
+    "B00JTGB5WS",
+    "B000NVPTU2"
+   ],
+   "final": [
+    "B09LNX37PS",
+    "B00PB044E2",
+    "B00O5WXW7W",
+    "B0BH3TL1P5",
+    "B0BCXZV4J3",
+    "B09QDWBT19",
+    "B0793GZK64",
+    "B09THR86T5",
+    "B000NVPTU2",
+    "B00JTGAMKE"
+   ]
+  },
+  "29": {
+   "query": "hp 63 ink cartridge black",
+   "bm25": [
+    "B0C78KFZDM",
+    "B088HFJCBX",
+    "B087Z3STGG",
+    "B08P4SKWSF",
+    "B07VNT56P9",
+    "B0C8FY3FT9",
+    "B07THZYFB4",
+    "B0BTTGHZ4M",
+    "B09KTFKYLS",
+    "B0C6H2Z9W5"
+   ],
+   "final": [
+    "B088GJDNZR",
+    "B0C78KFZDM",
+    "B0C6H2Z9W5",
+    "B0BTTGHZ4M",
+    "B0BGRHHGCT",
+    "B07VNT56P9",
+    "B08QF2NJB3",
+    "B016QRJGKU",
+    "B087Z3STGG",
+    "B08P4SKWSF"
+   ]
+  },
+  "30": {
+   "query": "avery 5160 address labels",
+   "bm25": [
+    "B0BXD3LGJ6",
+    "B075FYF36N",
+    "B07D1CFCV4",
+    "B000GAVWDS",
+    "B099DN92WG",
+    "B0BP6QR2HV",
+    "B001O7F5O4",
+    "B0BVQSJ66C",
+    "B08XMX8M2H",
+    "B07FBBTCDT"
+   ],
+   "final": [
+    "B075FYF36N",
+    "B0BXD3LGJ6",
+    "B0C3Y48Q5B",
+    "B0B6QPRM42",
+    "B07D1CFCV4",
+    "B00007LVCL",
+    "B0C73GML3W",
+    "B0B6QRY1ZB",
+    "B000GAVWDS",
+    "B0B6QVCW7R"
+   ]
+  },
+  "31": {
+   "query": "scotch magic tape refill",
+   "bm25": [
+    "B0018BNFBQ",
+    "B00MR9BOA2",
+    "B00AZESF26",
+    "B004E3HWUU",
+    "B01C5IFSME",
+    "B00394XUVU",
+    "B0BTPY8J5L",
+    "B000MFJNVK",
+    "B002VPDKSG",
+    "B07X9BBMYQ"
+   ],
+   "final": [
+    "B00MR9BOA2",
+    "B00394XUVU",
+    "B0018BNFBQ",
+    "B004E3HWUU",
+    "B000MFJNVK",
+    "B00AZESF26",
+    "B08VFZQBKR",
+    "B01C5IFSME",
+    "B07CFVN6Y8",
+    "B07X9BBMYQ"
+   ]
+  },
+  "32": {
+   "query": "brother tze label tape",
+   "bm25": [
+    "B0B87RGZNP",
+    "B00006B7R3",
+    "B07BHTK8LB",
+    "B08MH4YX94",
+    "B0002VS626",
+    "B000WKMS5S",
+    "B01BMS84KQ",
+    "B07CN72KTZ",
+    "B002KT1ZX0",
+    "B0002VS67G"
+   ],
+   "final": [
+    "B00FJWBPZ8",
+    "B07BHTK8LB",
+    "B002KT1ZX0",
+    "B0002VS67G",
+    "B01MZBCP8E",
+    "B08MH4YX94",
+    "B002M7W9GW",
+    "B0002VS626",
+    "B00006B7R3",
+    "B0002VS61W"
+   ]
+  },
+  "33": {
+   "query": "fiskars scissors for office",
+   "bm25": [
+    "B005BE54GU",
+    "B002BH3KC0",
+    "B004S8DN2W",
+    "B09FXLC5BM",
+    "B003W0V2QQ",
+    "B07NDFXMTV",
+    "B00NUX8C8G",
+    "B0843NCBKF",
+    "B000VPTLVI",
+    "B013FCGNF0"
+   ],
+   "final": [
+    "B000OMYB18",
+    "B0C6M8MJPL",
+    "B004S8DN2W",
+    "B0C6YJCRGF",
+    "B002BH3KC0",
+    "B09Z93J2K2",
+    "B005BE54GU",
+    "B09Z93HCW7",
+    "B0843NCBKF",
+    "B07Q5V5NWY"
+   ]
+  },
+  "34": {
+   "query": "pilot g2 pens blue",
+   "bm25": [
+    "B08H393JNT",
+    "B086Q788MQ",
+    "B00MELLCW8",
+    "B08LBCX2PX",
+    "B00QEC0NP0",
+    "B0C6MXD81Y",
+    "B00P19MK5I",
+    "B095MC1GCC",
+    "B07D8P3GPL",
+    "B01250XQ4Y"
+   ],
+   "final": [
+    "B086Q788MQ",
+    "B08KHQ1WWN",
+    "B08H393JNT",
+    "B08L6Q3C79",
+    "B0C6MXD81Y",
+    "B08LBCX2PX",
+    "B00MELLCW8",
+    "B08YKFFKB9",
+    "B07FL82C9N",
+    "B0C7WLXNRR"
+   ]
+  },
+  "35": {
+   "query": "swingline stapler 747",
+   "bm25": [
+    "B07Y2QZ59M",
+    "B09BKPKW53",
+    "B0BW46GVDB",
+    "B0B4M61PVQ",
+    "B00B10H5YC",
+    "B08LCMT4VY",
+    "B00006IFKW",
+    "B07Y98D26B",
+    "B0006HURKU",
+    "B09BKNKK1D"
+   ],
+   "final": [
+    "B0BW46GVDB",
+    "B09BKPKW53",
+    "B07Y2QZ59M",
+    "B0B4M61PVQ",
+    "B0BPHSL4KQ",
+    "B07RS4LNQV",
+    "B00RY8GJC4",
+    "B0006HURKU",
+    "B09BKNKK1D",
+    "B0006HUR5U"
+   ]
+  },
+  "36": {
+   "query": "pens without clips",
+   "bm25": [
+    "B073R8QLB2",
+    "B07QMV52S7",
+    "B00L248QRC",
+    "B0BL2SYVVX",
+    "B07S5YQ16N",
+    "B091GSHZF6",
+    "B07HSSFDXJ",
+    "B010MRVPD6",
+    "B01N1P2T2C",
+    "B0BL3LV7KR"
+   ],
+   "final": [
+    "B0BL2SYVVX",
+    "B07QMV52S7",
+    "B00L248QRC",
+    "B01N1P2T2C",
+    "B08R38JJVR",
+    "B07B6J3C9F",
+    "B0BL3LNHZ9",
+    "B0B34S9HBF",
+    "B0BL3LV7KR",
+    "B010MRVPD6"
+   ]
+  },
+  "37": {
+   "query": "notebook not spiral bound",
+   "bm25": [
+    "B0B2CWG9LT",
+    "B0C7C2WJ56",
+    "B09CFDRF1T",
+    "B078MP8M1R",
+    "B0BFSVLBPR",
+    "B079WLG5LG",
+    "B00N09CCXQ",
+    "B07TPJS9XD",
+    "B0764L89KZ",
+    "B01ADR7DTK"
+   ],
+   "final": [
+    "B0BRY7WRVQ",
+    "B0866JK79Y",
+    "B0B2CWG9LT",
+    "B07TPJS9XD",
+    "B0BR8BKZ7Z",
+    "B07GLN8T6D",
+    "B07TCDZVQG",
+    "B079XTDJW8",
+    "B0C7C2WJ56",
+    "B09447HN14"
+   ]
+  },
+  "38": {
+   "query": "paper that is not glossy",
+   "bm25": [
+    "B0B9F82GFX",
+    "B01M1P0WY8",
+    "B01BHL2ZLM",
+    "B01BHL2Y40",
+    "B09YD2ZBX4",
+    "B08NPD3RB9",
+    "B07CQ59YF1",
+    "B0021AEUGC",
+    "B008U4QZ9S",
+    "B01M1OZXQ9"
+   ],
+   "final": [
+    "B008U4QZJI",
+    "B09NKXX6FL",
+    "B01M1OZXQ9",
+    "B09YD2ZBX4",
+    "B0B9F82GFX",
+    "B08CDYYHGT",
+    "B0BFCDFMYY",
+    "B000W4FDW4",
+    "B0889PVK2B",
+    "B0BFC5ZBCJ"
+   ]
+  },
+  "39": {
+   "query": "stapler without staples included",
+   "bm25": [
+    "B07BH646LC",
+    "B07DCP1CF5",
+    "B0792J2W3R",
+    "B003KIT5BO",
+    "B0BGKH8PV5",
+    "B09QKRVF9X",
+    "B09W53HZ6L",
+    "B07F1X5L6M",
+    "B00006IFKW",
+    "B07VXGD3Y3"
+   ],
+   "final": [
+    "B07DCP1CF5",
+    "B00RY8GJC4",
+    "B08HQKQ5W3",
+    "B09V1T1Z3Z",
+    "B0792J2W3R",
+    "B07BH646LC",
+    "B09BKNKJZD",
+    "B07GX8DC8H",
+    "B075665G2K",
+    "B0B6R233LG"
+   ]
+  },
+  "40": {
+   "query": "markers non toxic no odor",
+   "bm25": [
+    "B09WVR151M",
+    "B0C4DPGB41",
+    "B0C6K759WG",
+    "B09JGRQBHS",
+    "B0B5TKN95D",
+    "B000XAL2F4",
+    "B0BPX7LK71",
+    "B000S12GWQ",
+    "B08KRJRQHH",
+    "B09MZQ81D9"
+   ],
+   "final": [
+    "B0006UZ8EM",
+    "B004WP16WA",
+    "B004S4ZA4K",
+    "B07FT9Q7VG",
+    "B09WVR151M",
+    "B00006IFJ9",
+    "B004G08V5G",
+    "B0BCZ98HCB",
+    "B0B8CL3X1C",
+    "B0BTP5Z9KD"
+   ]
+  },
+  "41": {
+   "query": "gift for a teacher classroom supplies",
+   "bm25": [
+    "B0B2DFX8BW",
+    "B079S5Q4K7",
+    "B08TT6S77N",
+    "B0BWTDP16L",
+    "B0BPZKHLJ8",
+    "B01NCOV3NS",
+    "B006TZZDSE",
+    "B0BVPPV1HZ",
+    "B000G3HT50",
+    "B0BBRKMD5G"
+   ],
+   "final": [
+    "B079S5Q4K7",
+    "B08TT6S77N",
+    "B0B2DFX8BW",
+    "B09M6D3LLJ",
+    "B07MQY8FJX",
+    "B0C275XNB8",
+    "B0BPZKHLJ8",
+    "B0B7RHSJ8B",
+    "B0BL13R2NX",
+    "B0BWTDP16L"
+   ]
+  },
+  "42": {
+   "query": "supplies to organize a home office",
+   "bm25": [
+    "B078G7YKW9",
+    "B08CZY95QL",
+    "B0BPHSKC9C",
+    "B0BPCHZZX7",
+    "B07ZSFM8RC",
+    "B077M6M8XY",
+    "B0BJ2VQCLB",
+    "B0C13CDYRT",
+    "B0C1CMWLRR",
+    "B078PQ38FV"
+   ],
+   "final": [
+    "B08Q7CJC7R",
+    "B078G7YKW9",
+    "B083TPXM9T",
+    "B081QJTGM2",
+    "B0B5WS75P8",
+    "B08DDH711H",
+    "B09TPN4JZQ",
+    "B015JQUTN2",
+    "B09XWYWLLY",
+    "B0C1CMWLRR"
+   ]
+  },
+  "43": {
+   "query": "back to school pencil case for kids",
+   "bm25": [
+    "B09ZRSMBVH",
+    "B0BPXKLRM9",
+    "B0B6WB9VN5",
+    "B0BT8HJPBC",
+    "B07GX5F116",
+    "B0BDJ4MGLM",
+    "B0BG7ZWCK9",
+    "B09CK9S8DR",
+    "B0C3YZB3ND",
+    "B0BD3G3JMZ"
+   ],
+   "final": [
+    "B0BG7ZWCK9",
+    "B0074MEYZY",
+    "B09ZRSMBVH",
+    "B0BPXKLRM9",
+    "B07GX5F116",
+    "B0B6WB9VN5",
+    "B09ZL2CK4M",
+    "B09ND8RWRD",
+    "B09943JGTW",
+    "B07839BGY4"
+   ]
+  },
+  "44": {
+   "query": "planner for tracking daily tasks 2025",
+   "bm25": [
+    "B0BMB5516J",
+    "B0B883SJ8C",
+    "B09B372DN8",
+    "B0CFKJ3SRG",
+    "B09QYCTYPQ",
+    "B09P3K5YQP",
+    "B09PQBH8QF",
+    "B09F2P5LT4",
+    "B0B6H3CDVC",
+    "B0BLNTNNBK"
+   ],
+   "final": [
+    "B0BLKKQRJB",
+    "B0BBQJFRJQ",
+    "B0C1ZQST8T",
+    "B09MM4WRKL",
+    "B0C1C552CS",
+    "B0B883SJ8C",
+    "B0B6H3CDVC",
+    "B09B372DN8",
+    "B09P3K5YQP",
+    "B09F2P5LT4"
+   ]
+  },
+  "45": {
+   "query": "tools to label storage bins",
+   "bm25": [
+    "B0C26WFBPH",
+    "B09FLNQWK5",
+    "B0BVZGY61F",
+    "B0B624W4J6",
+    "B0BS3GKBF4",
+    "B0BP1PH44N",
+    "B09TXRS7H5",
+    "B0BWRR7X4D",
+    "B0BRP3Q5YF",
+    "B07XX7FR6W"
+   ],
+   "final": [
+    "B0C26WFBPH",
+    "B0BGHX8PKC",
+    "B0B6QW7WP1",
+    "B0BVZGY61F",
+    "B09FLNQWK5",
+    "B0BDSY5GQ9",
+    "B0BS3GKBF4",
+    "B0B624W4J6",
+    "B0BRP3Q5YF",
+    "B0999CJVJC"
+   ]
+  },
+  "46": {
+   "query": "keep cables tidy on desk",
+   "bm25": [
+    "B0BCG6GG8Y",
+    "B077SRGT6R",
+    "B09YW36HWD",
+    "B01HFSQEFE",
+    "B0050K7HGK",
+    "B00HQQTRSW",
+    "B0756LD2PX",
+    "B089NYK3DK",
+    "B0BP6D8SMS",
+    "B0C361DCNG"
+   ],
+   "final": [
+    "B0756LD2PX",
+    "B08Z5J6G94",
+    "B0C361DCNG",
+    "B0BCG6GG8Y",
+    "B077SRGT6R",
+    "B0BP6D8SMS",
+    "B09YW36HWD",
+    "B0983VP27Y",
+    "B0BL8MKBZQ",
+    "B089NYK3DK"
+   ]
+  },
+  "47": {
+   "query": "hilighter pens",
+   "bm25": [
+    "B0032L3QQO",
+    "B0B9RQ9SMP",
+    "B0BZ6K3B5L",
+    "B07VJDXGDS",
+    "B077ZLDHGT",
+    "B09TVYS2JK",
+    "B08BZYK2NY",
+    "B0BWTDZQR1",
+    "B07RMV5ZSY",
+    "B0B17DPTTF"
+   ],
+   "final": [
+    "B0032L3QQO",
+    "B07NVFTBYG",
+    "B078H5NSWK",
+    "B07BKXYRZ9",
+    "B0BCZCPM3B",
+    "B08SMLXZY8",
+    "B0B38VX3VS",
+    "B08NPYJG67",
+    "B08WZ7CM9X",
+    "B00F9NDQ22"
+   ]
+  },
+  "48": {
+   "query": "stappler",
+   "bm25": [
+    "B09BKN9KTH",
+    "B0C9M8SKRV",
+    "B0B7CTX4YT",
+    "B0011DGJSC",
+    "B0817LTNCX",
+    "B08Y6529HJ",
+    "B004UTSCTI",
+    "B07CJ59HNR",
+    "B07HGL3F9Z",
+    "B008YL0MVE"
+   ],
+   "final": [
+    "B000MFHXIU",
+    "B06XZHC5XC",
+    "B00006IEE2",
+    "B0033PL968",
+    "B01LWLPW6P",
+    "B0127EURGI",
+    "B08HRKQH6F",
+    "B07J59657M",
+    "B07N1HH6KS",
+    "B004IR6QAO"
+   ]
+  },
+  "49": {
+   "query": "enevlopes self seal",
+   "bm25": [
+    "B0C1CVCT87",
+    "B0069DXXF6",
+    "B09K7WDM1J",
+    "B00XF5ZFN4",
+    "B00XF5Z8RM",
+    "B0010ZNFV0",
+    "B07C7845HD",
+    "B01N21F3DB",
+    "B01MZ8TXMA",
+    "B01N21FDD2"
+   ],
+   "final": [
+    "B0BZT7DBZT",
+    "B0BW3KLRZF",
+    "B0C1CVCT87",
+    "B0BLWL3RGV",
+    "B07P1MX5NV",
+    "B0C1KY2VCG",
+    "B09K7WDM1J",
+    "B0BX9NFWWH",
+    "B07FQYW9YK",
+    "B0952QNSCP"
+   ]
+  },
+  "50": {
+   "query": "calender wall 2025",
+   "bm25": [
+    "B0C2DJ23ZT",
+    "B076FVV44L",
+    "B0BS8RYX4T",
+    "B0C2HRLK65",
+    "B08YK3YXKF",
+    "B08XM4LD1W",
+    "B0BMB5516J",
+    "B0BLNTNNBK",
+    "B0C3PZLDGZ",
+    "B09ZKMWCGD"
+   ],
+   "final": [
+    "B0C6JYWRDQ",
+    "B0BFBY96HM",
+    "B0C3PZLDGZ",
+    "B0B9XHQ86H",
+    "B08XM4LD1W",
+    "B0C2DJ23ZT",
+    "B0C7W883VP",
+    "B0CG6FPD7P",
+    "B0C69FCX1H",
+    "B0BR3VWDKM"
+   ]
+  }
+ }
+}
