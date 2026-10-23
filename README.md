@@ -108,12 +108,13 @@ queries; at batch 4 it stays at 1,421 MB with identical rankings (`results/ce_ba
 
 ## Design
 
-The page is one idea: the sentence is the layout. The headline has the ten result photos where the word
-"ten" would go; a searched query becomes a heading with its constraints turned into flat tokens (mint
-for requirements, ink for exclusions); the narrowing from 51,814 products to ten is drawn from that
-query's own counts; rank 1 floods its row in mint. Hanken Grotesk in two weights, white, near-black and
-one mint, square corners, no rules, shadows or gradients. The first screen replays a precomputed example
-so it opens instantly and spends no language-model tokens; models load on the first real search.
+A working screen, not a poster. Three tabs sit at the top (Search, Recommend, How it ranks). On Search, the
+box, four example chips and the first results share one screen. Results are compact rows (rank, photo,
+title, why-line, price, a relative-score bar) beside a rail that shows what the parser understood
+(constraints as tokens: mint = need, ink = skip) and how the list narrowed from 51,814 products to ten,
+drawn from that query's own counts. Hanken Grotesk, white, near-black and one mint, square corners. The
+first screen replays a precomputed example so it opens instantly and spends no language-model tokens;
+models load on the first real search.
 
 ## Datasets and licences
 

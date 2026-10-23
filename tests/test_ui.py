@@ -65,10 +65,10 @@ def test_everything_from_outside_is_escaped():
     evil = "<script>alert(1)</script><img src=x onerror=alert(2)>"
     r = _result(title=evil, store=evil, why=evil, image_url='"><script>x</script>')
     html = ui.results_html(Response(evil, QueryIntent(text=evil), [r], "search"))
-    reading = ui.reading_html(
-        Response(evil, QueryIntent(text=evil, exclude=[evil]), [r], "search"), False
+    with_exclude = ui.results_html(
+        Response(evil, QueryIntent(text=evil, exclude=[evil]), [r], "search"), example=True
     )
-    for out in (html, reading):
+    for out in (html, with_exclude):
         tags, attrs = _tags_and_attrs(out)
         assert "script" not in tags
         assert not any(a.startswith("on") for a in attrs)
@@ -95,18 +95,18 @@ def test_tokens_cover_every_constraint_kind():
     assert ui.tokens_for(QueryIntent(price_min=20)) == [("need", "from $20")]
 
 
-def test_reading_shows_the_sentence_and_tokens_and_marks_examples():
-    html = ui.reading_html(_resp(), example=True)
+def test_rail_shows_the_sentence_and_tokens_and_results_mark_examples():
+    html = ui.results_html(_resp(), example=True)
     assert "black gel pens" in html and 'class="tok need"' in html and 'class="tok skip"' in html
-    assert "An example result, replayed" in html
-    assert "You asked" in ui.reading_html(_resp(), example=False)
+    assert "Example result for" in html
+    assert "Results for" in ui.results_html(_resp(), example=False)
 
 
 def test_funnel_uses_the_recorded_counts_in_order():
     stages = ui.funnel_stages(_resp())
     assert [n for _, n, _ in stages] == [51814, 300, 130, 50, 3]
     html = ui.funnel_html(_resp())
-    assert "51,814 products in the catalog" in html and "130 pass your filters" in html
+    assert "<b>51,814</b> in the catalog" in html and "<b>130</b> pass your filters" in html
     widths = [float(w) for w in __import__("re").findall(r"--w:([\d.]+)", html)]
     assert widths == sorted(widths, reverse=True) and widths[0] == 1.0
 
@@ -122,7 +122,7 @@ def test_rows_are_in_grid_column_order_and_carry_rank_and_price():
     assert html.count('class="row') == 3 and 'class="row first"' in html
     row = html.split("<article")[1]
     order = [
-        row.index(c) for c in ('class="rank"', 'class="photo"', 'class="info"', 'class="price"')
+        row.index(c) for c in ('class="rank"', 'class="photo"', 'class="body"', 'class="side"')
     ]
     assert order == sorted(order)  # DOM order must follow the columns or CSS grid wraps rows
     assert 'data-price="9.99"' in html and ">$9.99<" in html
@@ -132,16 +132,16 @@ def test_hero_strip_holds_at_most_ten_photos_and_skips_missing():
     imgs = [f"https://e.com/{i}.jpg" for i in range(14)] + [None]
     assert ui.strip_html(imgs).count("<img") == 10
     assert ui.strip_html([None, None]).count("<img") == 0
-    h = ui.hero_html(imgs)
+    h = ui.title_html(imgs)
     assert "<h1" in h and "Ask in a sentence." in h and "ranked." in h
 
 
 def test_how_panels_are_the_four_stages_in_order():
     html = ui.how_html()
-    verbs = [v for v in ("Read", "Retrieve", "Filter", "Rerank") if f">{v}</p>" in html]
+    verbs = [v for v in ("Read", "Retrieve", "Filter", "Rerank") if f">{v}</h2>" in html]
     assert verbs == ["Read", "Retrieve", "Filter", "Rerank"]
-    assert [html.index(f">{v}</p>") for v in verbs] == sorted(
-        html.index(f">{v}</p>") for v in verbs
+    assert [html.index(f">{v}</h2>") for v in verbs] == sorted(
+        html.index(f">{v}</h2>") for v in verbs
     )
 
 

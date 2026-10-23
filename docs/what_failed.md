@@ -42,3 +42,4 @@ Running log of things that went wrong, feeding the README.
 - Frontend: a broken string in `ui.py` was hidden by the running dev server, which kept serving the old
   cached module. Restart the server after editing `app/ui.py`.
 - Frontend: Streamlit renders `$5 and $15` in a button label as a LaTeX formula; dollar signs are escaped.
+- Frontend: the first redesign was a poster (huge type, one product per screen, features at the bottom); on the live page the owner found it confusing. A search tool needs controls and results on one screen. Also: I styled Streamlit tabs with BaseWeb selectors that do not exist in 1.66.

@@ -68,88 +68,90 @@ llm_on = bool(
 )
 
 # ----------------------------------------------------------------------------- page, in order
-st.html(ui.nav_html())
-hero_slot = st.empty()
+st.html(ui.bar_html())
+tab_search, tab_rec, tab_how = st.tabs(["Search", "Recommend", "How it ranks"])
 
-with st.container(key="intro"):
-    lead_col, ex_col = st.columns([5, 6])
-    lead_col.html(ui.lead_html())
-    with ex_col:
-        st.html(ui.examples_head_html())
-        with st.container(key="examples"):
-            for i, e in enumerate(EXAMPLES):
-                st.button(
-                    e.query.replace("$", "\\$"), key=f"ex{i}", on_click=show_example, args=(i,)
-                )
-        if not llm_on:
-            st.html(
-                '<p class="note">Language-model parsing is off here, so only price and rating '
-                "phrases are understood.</p>"
+with tab_search:
+    title_slot = st.empty()
+    with st.container(key="ask"):
+        with st.form("ask", border=False):
+            c_in, c_go = st.columns([8, 2])
+            query = c_in.text_input(
+                "Search",
+                key="q",
+                placeholder="black gel pens without clips under $10",
+                label_visibility="collapsed",
             )
-with st.container(key="ask"):
-    with st.form("ask", border=False):
-        c_in, c_go = st.columns([8, 2])
-        query = c_in.text_input(
-            "Search",
-            key="q",
-            placeholder="black gel pens without clips under $10",
-            label_visibility="collapsed",
+            submitted = c_go.form_submit_button("Rank it", width="stretch")
+    with st.container(key="examples", horizontal=True):
+        st.html('<span class="caption try">Try</span>')
+        for i, e in enumerate(EXAMPLES):
+            st.button(e.query.replace("$", "\\$"), key=f"ex{i}", on_click=show_example, args=(i,))
+    if not llm_on:
+        st.html(
+            '<p class="note">Language-model parsing is off here, so only price and rating '
+            "phrases are understood.</p>"
         )
-        submitted = c_go.form_submit_button("Rank it", width="stretch")
 
-if submitted and query.strip():
-    pipe = pipeline_or_stop()
-    st.session_state.current = (cached_search(pipe, query.strip()), "search")
-
-current = st.session_state.get("current")
-if current is None:
-    st.html('<p class="note">No examples are bundled; type a query above.</p>')
-    hero_slot.html(ui.hero_html([]))
-else:
-    resp, source = current
-    hero_slot.html(ui.hero_html([r.image_url for r in resp.results]))
-    st.html(ui.reading_html(resp, example=source == "example"))
-    st.html(ui.results_html(resp))
-    st.html(ui.hood_html(resp))
-
-st.html(ui.how_html())
-
-# ----------------------------------------------------------------------------------- picker
-with st.container(key="taste"):
-    left, right = st.columns(2)
-    with left:
-        st.html(ui.taste_statement_html())
-        st.html('<p class="caption">Your picks</p>')
-        for asin, title in list(st.session_state.liked.items()):
-            if st.button(f"Remove  {title[:56]}".replace("$", "\\$"), key=f"rm_{asin}"):
-                del st.session_state.liked[asin]
-                st.rerun()
-        if not st.session_state.liked:
-            st.html('<p class="note">Nothing yet. Search on the right and add a few.</p>')
-        with st.container(key="recommend"):
-            recommend = st.button(
-                "Recommend for me", disabled=not st.session_state.liked, width="stretch"
-            )
-    with right:
-        st.html('<p class="caption taste-find">Find a product</p>')
-        lookup = st.text_input(
-            "Find a product",
-            key="lookup",
-            placeholder="pilot g2 pens",
-            label_visibility="collapsed",
-        )
-        if lookup:
-            pipe = pipeline_or_stop()
-            for r in pipe.lookup(lookup, 5):
-                label = f"Add  {r.title[:56]}  ·  \\${r.price:,.0f}"
-                if st.button(label, key=f"add_{r.asin}"):
-                    st.session_state.liked[r.asin] = r.title
-                    st.rerun()
-    if recommend:
+    if submitted and query.strip():
         pipe = pipeline_or_stop()
-        st.session_state.rec = pipe.recommend(list(st.session_state.liked))
-    if "rec" in st.session_state:
-        st.html(ui.picker_rows_html(st.session_state.rec.results))
+        st.session_state.current = (cached_search(pipe, query.strip()), "search")
+
+    current = st.session_state.get("current")
+    if current is None:
+        title_slot.html(ui.title_html([]))
+        st.html('<p class="note">No examples are bundled; type a query above.</p>')
+    else:
+        resp, source = current
+        title_slot.html(ui.title_html([r.image_url for r in resp.results]))
+        st.html(ui.results_html(resp, example=source == "example"))
+
+with tab_rec:
+    st.html(
+        ui.screen_head_html(
+            "Tell it what you like",
+            "Add two or three products. A recommender trained on 1.35 million reviews turns them "
+            "into a taste and ranks everything else.",
+        )
+    )
+    with st.container(key="taste"):
+        left, right = st.columns([4, 6])
+        with left:
+            st.html(ui.label_html("Your picks"))
+            for asin, title in list(st.session_state.liked.items()):
+                if st.button(f"Remove  {title[:56]}".replace("$", "\\$"), key=f"rm_{asin}"):
+                    del st.session_state.liked[asin]
+                    st.rerun()
+            if not st.session_state.liked:
+                st.html('<p class="note">Nothing yet. Find a product and add it.</p>')
+            with st.container(key="recommend"):
+                recommend = st.button(
+                    "Recommend for me", disabled=not st.session_state.liked, width="stretch"
+                )
+        with right:
+            st.html(ui.label_html("Find a product"))
+            lookup = st.text_input(
+                "Find a product",
+                key="lookup",
+                placeholder="pilot g2 pens",
+                label_visibility="collapsed",
+            )
+            if lookup:
+                pipe = pipeline_or_stop()
+                for r in pipe.lookup(lookup, 5):
+                    label = f"Add  {r.title[:56]}  ·  \\${r.price:,.0f}"
+                    if st.button(label, key=f"add_{r.asin}"):
+                        st.session_state.liked[r.asin] = r.title
+                        st.rerun()
+        if recommend:
+            pipe = pipeline_or_stop()
+            st.session_state.rec = pipe.recommend(list(st.session_state.liked))
+        if "rec" in st.session_state:
+            st.html(ui.recs_html(st.session_state.rec.results))
+
+with tab_how:
+    st.html(ui.screen_head_html("How it ranks", "Four steps, in order, for every search."))
+    st.html(ui.how_html())
 
 st.html(ui.about_html())
 st.html(ui.footer_html())

@@ -1,4 +1,4 @@
-"""HTML builders for the CartRank page. Pure functions: data in, markup out.
+"""HTML builders for the CartRank screens. Pure functions: data in, markup out.
 
 Every string that comes from the catalog, the model or the visitor goes through `esc`, because the
 markup is rendered with unsafe HTML enabled.
@@ -10,6 +10,7 @@ import html
 import math
 
 REPO = "https://github.com/abhibarnwal707/CartRank"
+CATALOG = "51,814"
 
 
 def esc(s: object) -> str:
@@ -20,19 +21,25 @@ def money(x: float) -> str:
     return f"${x:,.2f}" if x != int(x) else f"${int(x):,}"
 
 
-# --------------------------------------------------------------------------- navigation + hero
-def nav_html() -> str:
+# ------------------------------------------------------------------------------- top bar, titles
+MARK = (
+    '<svg class="mark" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">'
+    '<rect x="2" y="3" width="20" height="4.5" fill="#a1ffcb"/>'
+    '<rect x="2" y="10" width="14" height="4.5" fill="#232323"/>'
+    '<rect x="2" y="17" width="8" height="4.5" fill="#232323"/></svg>'
+)
+
+
+def bar_html() -> str:
     return (
-        '<header class="nav" id="top">'
-        '<a class="wordmark" href="#top">CartRank</a>'
-        '<nav aria-label="Sections">'
-        '<a href="#how">How it ranks</a><a href="#taste">Recommend</a>'
-        f'<a href="{REPO}" target="_blank" rel="noopener">Code</a></nav></header>'
+        '<header class="bar">'
+        f'<a class="brand" href="{REPO}" target="_blank" rel="noopener">{MARK}<span>CartRank</span></a>'
+        f'<a class="code-link" href="{REPO}" target="_blank" rel="noopener">Code</a></header>'
     )
 
 
 def strip_html(images: list[str | None]) -> str:
-    """The ten result photos as a one-line-high strip that sits in the headline where 'ten' goes."""
+    """The ten result photos as a one-line strip that sits in the title where 'ten' goes."""
     tiles = "".join(
         f'<span class="tile"><img src="{esc(u)}" alt="" loading="eager"></span>'
         for u in (images or [])[:10]
@@ -41,29 +48,28 @@ def strip_html(images: list[str | None]) -> str:
     return f'<span class="strip" role="img" aria-label="ten">{tiles}</span>'
 
 
-def hero_html(images: list[str | None]) -> str:
+def title_html(images: list[str | None]) -> str:
     return (
-        '<section class="hero">'
-        '<h1 class="display">'
-        '<span class="line"><span data-line style="--i:0">Ask in a sentence.</span></span>'
-        '<span class="line"><span data-line style="--i:1">Get '
-        f"{strip_html(images)}"
-        '<span class="sr">ten</span> ranked.</span></span></h1></section>'
+        '<section class="title-row">'
+        '<h1 class="title-line">Ask in a sentence. Get '
+        f'{strip_html(images)}<span class="sr">ten</span> ranked.</h1>'
+        f'<p class="sub">CartRank reads what you type, narrows {CATALOG} office products to ten, '
+        "and says why each one made the list.</p></section>"
     )
 
 
-def lead_html() -> str:
+def screen_head_html(title: str, sub: str) -> str:
     return (
-        '<p class="lead" data-load style="--d:420ms">CartRank reads what you type, narrows 51,814 '
-        "office products to ten, and tells you why each one made the list.</p>"
+        f'<section class="title-row"><h1 class="screen-title">{esc(title)}</h1>'
+        f'<p class="sub">{esc(sub)}</p></section>'
     )
 
 
-def examples_head_html() -> str:
-    return '<h2 class="lead">Or start from one of these.</h2>'
+def label_html(text: str) -> str:
+    return f'<p class="label">{esc(text)}</p>'
 
 
-# --------------------------------------------------------------------------------- reading
+# --------------------------------------------------------------------------------- understanding
 def tokens_for(intent) -> list[tuple[str, str]]:
     """(kind, label) for every constraint the parser found; kind is 'need' or 'skip'."""
     out: list[tuple[str, str]] = []
@@ -85,53 +91,23 @@ def tokens_for(intent) -> list[tuple[str, str]]:
     return out
 
 
-def reading_html(resp, example: bool) -> str:
-    """The query as a sentence in heading type, its constraints turned into flat tokens, with the
-    funnel of how the list was narrowed on the other side."""
-    intent = resp.intent
-    text = intent.text or resp.query
-    toks = "".join(f'<span class="tok {k}">{esc(t)}</span> ' for k, t in tokens_for(intent))
-    label = (
-        "An example result, replayed. Type your own above."
-        if example
-        else f"You asked: “{esc(resp.query)}”"
-    )
-    notes = "".join(f'<p class="note">{esc(n)}</p>' for n in resp.notes)
-    return (
-        '<section class="reading band">'
-        '<div class="reading-left">'
-        f'<h2 class="statement">{esc(text)} {toks}</h2>'
-        f'<p class="caption">{label}</p>{notes}</div>'
-        f'<div class="reading-right">{funnel_html(resp)}</div></section>'
-    )
-
-
-# ---------------------------------------------------------------------------------- funnel
 def funnel_stages(resp) -> list[tuple[str, int, str]]:
     """(label, count, kind) from the counts the pipeline recorded for this very query."""
     c = resp.debug.get("candidates", {})
     cat = c.get("catalog_size", 51814)
     if resp.route_used == "similar_to":
         return [
-            (f"{cat:,} products in the catalog", cat, "base"),
-            (
-                f"{c.get('neighbours_pool', 0):,} nearest to the reference item",
-                c.get("neighbours_pool", 0),
-                "mid",
-            ),
-            (f"{c.get('after_filter', 0):,} pass your filters", c.get("after_filter", 0), "mid"),
-            (f"{len(resp.results)} shown", len(resp.results), "end"),
+            ("in the catalog", cat, "base"),
+            ("nearest to the reference item", c.get("neighbours_pool", 0), "mid"),
+            ("pass your filters", c.get("after_filter", 0), "mid"),
+            ("shown", len(resp.results), "end"),
         ]
     return [
-        (f"{cat:,} products in the catalog", cat, "base"),
-        (
-            f"{c.get('fused', 0):,} candidates: keywords and meaning, merged",
-            c.get("fused", 0),
-            "mid",
-        ),
-        (f"{c.get('after_filter', 0):,} pass your filters", c.get("after_filter", 0), "mid"),
-        (f"{c.get('reranked', 0)} re-read by the cross-encoder", c.get("reranked", 0), "mid"),
-        (f"{len(resp.results)} shown", len(resp.results), "end"),
+        ("in the catalog", cat, "base"),
+        ("candidates: keywords and meaning, merged", c.get("fused", 0), "mid"),
+        ("pass your filters", c.get("after_filter", 0), "mid"),
+        ("re-read by the cross-encoder", c.get("reranked", 0), "mid"),
+        ("shown", len(resp.results), "end"),
     ]
 
 
@@ -144,61 +120,10 @@ def funnel_html(resp) -> str:
     for label, n, kind in stages:
         w = max(0.04, math.log10(n + 1) / top)
         rows.append(
-            f'<li class="stage {kind}"><span class="stage-label">{esc(label)}</span>'
+            f'<li class="stage {kind}"><span class="stage-text"><b>{n:,}</b> {esc(label)}</span>'
             f'<span class="stage-bar"><span style="--w:{w:.3f}"></span></span></li>'
         )
-    return (
-        '<div class="funnel" aria-label="How the list was narrowed">'
-        f"<ol>{''.join(rows)}</ol>"
-        '<p class="caption">Bar length is the log of the count. Counts are from this query.</p>'
-        "</div>"
-    )
-
-
-# ---------------------------------------------------------------------------------- results
-def _relative(scores: list[float | None]) -> list[float]:
-    vals = [s for s in scores if s is not None]
-    if len(vals) < 2:
-        return [1.0 for _ in scores]
-    lo, hi = min(vals), max(vals)
-    span = (hi - lo) or 1.0
-    return [0.1 + 0.9 * ((s - lo) / span) if s is not None else 0.1 for s in scores]
-
-
-def row_html(rank: int, r, rel: float, first: bool) -> str:
-    img = f'<img src="{esc(r.image_url)}" alt="" loading="lazy">' if r.image_url else ""
-    store = f'<p class="store">{esc(r.store)}</p>' if r.store else ""
-    return (
-        f'<article class="row{" first" if first else ""}" style="--i:{rank}" '
-        f'data-price="{r.price:.2f}" data-rank="{rank}">'
-        f'<div class="rank" aria-label="Rank {rank}">{rank}</div>'
-        f'<div class="photo">{img}</div>'
-        '<div class="info">'
-        f'<p class="title">{esc(r.title[:120])}</p>'
-        f'<p class="meta">{r.rating:.1f} of 5 · {r.rating_number:,} ratings</p>'
-        f'<p class="why">{esc(r.why)}</p>'
-        f'<div class="score" role="img" aria-label="Score relative to the others in this list">'
-        f'<span style="--w:{rel:.3f}"></span></div></div>'
-        f'<div class="price"><p class="figure">{money(r.price)}</p>{store}</div>'
-        "</article>"
-    )
-
-
-def results_html(resp) -> str:
-    if not resp.results:
-        return '<section class="results band"><p class="note">No products found.</p></section>'
-    rel = _relative([r.score for r in resp.results])
-    rows = "".join(row_html(i, r, rel[i - 1], i == 1) for i, r in enumerate(resp.results, 1))
-    return (
-        f'<section class="results band" aria-label="Ranked results">{rows}'
-        '<p class="caption">Bars compare each result with the others in this list; they are '
-        "not percentages.</p></section>"
-    )
-
-
-def picker_rows_html(results) -> str:
-    rel = _relative([r.score for r in results])
-    return "".join(row_html(i, r, rel[i - 1], i == 1) for i, r in enumerate(results, 1))
+    return f'<ol class="funnel" aria-label="How the list was narrowed">{"".join(rows)}</ol>'
 
 
 def hood_html(resp) -> str:
@@ -231,7 +156,88 @@ def hood_html(resp) -> str:
     return f'<details class="hood"><summary>Under the hood</summary><dl>{rows}</dl></details>'
 
 
-# ---------------------------------------------------------------------------------- how it works
+def rail_html(resp) -> str:
+    """The right rail: what the parser understood, how the list was narrowed, the raw parse."""
+    intent = resp.intent
+    text = intent.text or resp.query
+    toks = "".join(f'<span class="tok {k}">{esc(t)}</span>' for k, t in tokens_for(intent))
+    notes = "".join(f'<p class="note">{esc(n)}</p>' for n in resp.notes)
+    return (
+        '<aside class="rail">'
+        '<section class="card"><h2 class="label">What it understood</h2>'
+        f'<p class="read">{esc(text)}</p><div class="toks">{toks}</div>{notes}</section>'
+        '<section class="card"><h2 class="label">How it narrowed</h2>'
+        f"{funnel_html(resp)}</section>"
+        f"{hood_html(resp)}</aside>"
+    )
+
+
+# ----------------------------------------------------------------------------------------- rows
+def _relative(scores: list[float | None]) -> list[float]:
+    vals = [s for s in scores if s is not None]
+    if len(vals) < 2:
+        return [1.0 for _ in scores]
+    lo, hi = min(vals), max(vals)
+    span = (hi - lo) or 1.0
+    return [0.1 + 0.9 * ((s - lo) / span) if s is not None else 0.1 for s in scores]
+
+
+def row_html(rank: int, r, rel: float, first: bool) -> str:
+    """One ranked product. DOM order follows the grid columns (rank, photo, body, side), which
+    CSS grid auto-placement depends on."""
+    img = f'<img src="{esc(r.image_url)}" alt="" loading="lazy">' if r.image_url else ""
+    store = f"{esc(r.store)} · " if r.store else ""
+    return (
+        f'<article class="row{" first" if first else ""}" '
+        f'data-price="{r.price:.2f}" data-rank="{rank}">'
+        f'<div class="rank" aria-label="Rank {rank}">{rank}</div>'
+        f'<div class="photo">{img}</div>'
+        '<div class="body">'
+        f'<p class="title">{esc(r.title[:120])}</p>'
+        f'<p class="meta">{store}{r.rating:.1f} of 5 · {r.rating_number:,} ratings</p>'
+        f'<p class="why">{esc(r.why)}</p></div>'
+        f'<div class="side"><p class="figure">{money(r.price)}</p>'
+        '<div class="score" role="img" aria-label="Score relative to the others in this list">'
+        f'<span style="--w:{rel:.3f}"></span></div></div>'
+        "</article>"
+    )
+
+
+def rows_html(results) -> str:
+    rel = _relative([r.score for r in results])
+    return "".join(row_html(i, r, rel[i - 1], i == 1) for i, r in enumerate(results, 1))
+
+
+def results_html(resp, example: bool = False) -> str:
+    """The results: the ranked list on the left, the rail that explains it on the right."""
+    if not resp.results:
+        return '<section class="results"><p class="note">No products found. Try fewer constraints.</p></section>'
+    which = (
+        f"Example result for “{esc(resp.query)}”. Type your own above."
+        if example
+        else f"Results for “{esc(resp.query)}”"
+    )
+    return (
+        '<section class="results" aria-label="Ranked results">'
+        '<div class="list"><div class="list-head"><h2 class="label">Ranked results</h2>'
+        f'<p class="caption">{which}</p></div>{rows_html(resp.results)}'
+        '<p class="caption foot">Bars compare each result with the others in this list; they are '
+        f"not percentages.</p></div>{rail_html(resp)}</section>"
+    )
+
+
+def recs_html(results) -> str:
+    if not results:
+        return ""
+    return (
+        '<section class="results one"><div class="list"><div class="list-head">'
+        '<h2 class="label">Recommended for you</h2>'
+        f'<p class="caption">{len(results)} products, nearest to your picks first.</p></div>'
+        f"{rows_html(results)}</div></section>"
+    )
+
+
+# --------------------------------------------------------------------------------- how it ranks
 def _squares(kinds: str) -> str:
     return "".join(f'<i class="sq {k}"></i>' for k in kinds)
 
@@ -270,51 +276,34 @@ def how_html() -> str:
             + "</div>",
         ),
     ]
-    out = []
-    for cls, verb, sentence, art in panels:
-        out.append(
-            f'<section class="panel {cls}"><p class="verb" aria-hidden="true">{verb}</p>'
-            f'<h2 class="sr">{verb}</h2><p class="panel-note">{esc(sentence)}</p>{art}</section>'
-        )
-    return f'<div class="how" id="how">{"".join(out)}</div>'
-
-
-# ------------------------------------------------------------------------- picker, about, footer
-def taste_statement_html() -> str:
-    return (
-        '<h2 class="statement" id="taste">Tell it what you like. It finds the rest.</h2>'
-        '<p class="lead taste-lead">Add two or three products. A recommender trained on 1.35 million '
-        "reviews turns them into a taste and ranks everything else.</p>"
+    out = "".join(
+        f'<section class="panel {cls}">{art}<div class="panel-text"><h2 class="verb">{verb}</h2>'
+        f'<p class="panel-note">{esc(sentence)}</p></div></section>'
+        for cls, verb, sentence, art in panels
     )
+    return f'<div class="how-grid">{out}</div>'
 
 
+# ---------------------------------------------------------------------------------- about, footer
 def about_html() -> str:
     return (
-        '<section class="about band" id="about">'
-        '<div class="about-text"><h2 class="statement">Built to show its working.</h2>'
-        '<p class="big">CartRank is a portfolio project. It ranks 51,814 '
-        "office-product listings and shows its working: what it understood, what it dropped, and why "
-        "each result is here.</p>"
-        '<p class="note">Titles, prices and photos come from Amazon listings. Parsing runs on free '
-        "language-model plans, so when a daily limit is reached it falls back to a simpler parser and "
-        "says so.</p></div>"
+        '<section class="about"><h2 class="label">About</h2>'
+        '<div class="about-grid"><p class="big">CartRank is a portfolio project. It ranks '
+        f"{CATALOG} office-product listings and shows its working: what it understood, what it "
+        "dropped, and why each result is here.</p>"
         '<ul class="facts">'
         "<li><b>Data</b>Amazon Reviews 2023, Office Products; Amazon ESCI shopping queries</li>"
         "<li><b>Models</b>bge-small fine-tuned encoder, MiniLM cross-encoder, a two-tower recommender</li>"
-        f'<li><b>Code</b><a href="{REPO}" target="_blank" rel="noopener">github.com/abhibarnwal707/CartRank</a></li>'
-        "</ul>"
-        "</section>"
+        "<li><b>Limits</b>Titles, prices and photos come from Amazon listings. Parsing runs on free "
+        "language-model plans, so when a daily limit is reached it falls back to a simpler parser and "
+        "says so.</li></ul></div></section>"
     )
 
 
 def footer_html() -> str:
     return (
-        '<div class="close" role="contentinfo">'
-        '<div class="close-top"><h2 class="statement">Ask it something awkward.</h2>'
-        '<a class="button" href="#top">Rank it</a>'
-        f'<ul class="close-links"><li><a href="{REPO}" target="_blank" rel="noopener">GitHub</a></li>'
-        f'<li><a href="{REPO}#readme" target="_blank" rel="noopener">Readme</a></li></ul></div>'
-        '<p class="credits">Product photos belong to their sellers and are shown from Amazon '
-        "listings. Dataset: Amazon Reviews 2023 (McAuley Lab). Queries: Amazon ESCI.</p>"
-        '<p class="giant" aria-hidden="true">CartRank</p></div>'
+        '<div class="foot-row" role="contentinfo"><p class="caption">Product photos belong to their '
+        "sellers and are shown from Amazon listings. Dataset: Amazon Reviews 2023 (McAuley Lab). "
+        "Queries: Amazon ESCI.</p>"
+        f'<a class="code-link" href="{REPO}" target="_blank" rel="noopener">Code on GitHub</a></div>'
     )

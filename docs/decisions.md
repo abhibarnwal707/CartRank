@@ -57,3 +57,12 @@ Decisions and why:
 - No video: no honest clip of the subject exists; motion comes from the product photographs themselves.
 - Google Fonts is loaded by CSS import with a system sans fallback; not yet verified on Streamlit Cloud.
 - streamlit is pinned to 1.66.1 in `app/requirements.txt` because the CSS targets its test ids.
+
+## Frontend layout revision (2026-10-24)
+
+Owner feedback on the live poster-style page: features were all at the bottom and the products were far too
+large. Switched to the taste-skill's app-screen rules (achromatic ledger style, no-sidebar shell): tabs
+(Search / Recommend / How it ranks) at the top, search box and example chips directly under a 32px title,
+compact 80px-photo result rows beside a rail ("What it understood", "How it narrowed", "Under the hood").
+Kept: Hanken Grotesk, mint accent, replayed examples, escaping. Dropped: poster-scale type, full-bleed rank 1.
+Streamlit 1.66 tabs are react-aria (`[role=tablist]`, `[data-testid=stTab]`), not BaseWeb.
