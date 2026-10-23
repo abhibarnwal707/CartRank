@@ -9,7 +9,11 @@ to wake it; the first load downloads the models). Parsing uses Groq's free tier,
 token cap; when it is used up the app falls back to OpenRouter free models and then to regex-only
 parsing, and says so on screen.
 
-> Demo GIF: *pending* (to be recorded from the live app).
+![CartRank demo: a sentence is parsed into price, rating and exclusion filters, the ten results light up on the catalog wall, the ranked list previews each product, and the pipeline and measured numbers follow](docs/assets/cartrank-demo.gif)
+
+*Recorded from the live app: the query "red stapler under $20, 4 stars and up, not electric" is parsed by
+the language model into three filters; 51,814 products narrow to 265 candidates, 158 that pass, 50
+re-read by the cross-encoder, and ten shown.*
 
 ## What it does
 
