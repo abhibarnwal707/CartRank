@@ -4,16 +4,25 @@ import json
 
 from cartrank.data.paths import RESULTS
 
-# Ladder order; Phase 2 adds the fine-tuned and rerank rows by appending here.
-# Ladder order: (label, {mode: key in results/search_dev.json "ladder"}).
-# Fine-tune rows (dense_ft, hybrid_ft, hybrid_ft_ce) are added once the Kaggle model is back.
+# Main ladder (playbook): (label, {mode: key in results/search_dev.json "ladder"}).
+# In rerank mode the cross-encoder orders every judged candidate whatever the first stage is,
+# so its row is shared by the base and fine-tuned pipelines.
 CE_K = 50  # working point chosen on dev: NDCG vs CPU latency, see the rerank tuning table
 ROWS = [
     ("BM25", {"rerank": "bm25", "full": "bm25"}),
     ("Dense, bge-small off-the-shelf", {"rerank": "dense_base", "full": "dense_base"}),
-    ("Hybrid RRF (BM25 + dense)", {"rerank": "hybrid_base", "full": "hybrid_base"}),
+    ("Dense, bge-small fine-tuned on ESCI", {"rerank": "dense_ft", "full": "dense_ft"}),
+    ("Hybrid RRF (BM25 + fine-tuned dense)", {"rerank": "hybrid_ft", "full": "hybrid_ft"}),
     (
-        f"Hybrid + cross-encoder rerank (full-corpus: top-{CE_K} of hybrid)",
+        f"Hybrid-FT + cross-encoder rerank (full-corpus: top-{CE_K} of hybrid)",
+        {"rerank": "hybrid_base_ce", "full": f"hybrid_ft_ce_k{CE_K}"},
+    ),
+]
+# Off-the-shelf hybrid kept for reference (Phase 1 result and its rerank).
+REF_ROWS = [
+    ("Hybrid RRF (BM25 + off-the-shelf dense)", {"rerank": "hybrid_base", "full": "hybrid_base"}),
+    (
+        f"Hybrid-base + cross-encoder rerank (full-corpus: top-{CE_K})",
         {"rerank": "hybrid_base_ce", "full": f"hybrid_base_ce_k{CE_K}"},
     ),
 ]
@@ -33,9 +42,9 @@ def _table(headers: list[str], rows: list[list[str]]) -> str:
     return "\n".join(lines)
 
 
-def _ladder(data: dict, mode: str) -> str:
+def _ladder(data: dict, mode: str, spec=None) -> str:
     rows, prev = [], None
-    for label, keys in ROWS:
+    for label, keys in spec or ROWS:
         m = data["ladder"].get(f"{keys[mode]}|{mode}")
         if m is None:
             continue
@@ -64,10 +73,35 @@ def write_report() -> None:
             out.append(
                 "\nRecall@100 is trivially 1.0 here: each query has about 20 judged products, so "
                 "all of them fit in the top 100. Hybrid RRF parameters were tuned on full-corpus "
-                "NDCG only, which is why hybrid does not beat dense in this mode."
+                "NDCG only, so hybrid can trail the best single retriever in this mode. The "
+                "cross-encoder row is the same for any first stage here: it orders all judged "
+                "candidates itself."
             )
         if mode == "full":
             out.append(f"\n{CAVEAT}")
+        out.append("")
+
+    out.append("## Reference: off-the-shelf hybrid (Phase 1) and its rerank\n")
+    for mode in MODE_TITLES:
+        out.append(f"{mode} mode:\n")
+        out.append(_ladder(data, mode, REF_ROWS))
+        out.append("")
+
+    if "hybrid_best_ft" in data:
+        b = data["hybrid_best_ft"]
+        out.append(
+            f"## Hybrid tuning, fine-tuned encoder (dev, full-corpus NDCG@10)\n\n"
+            f"Best: k={b['k']}, depth={b['depth']} (NDCG@10 {b['ndcg@10']:.4f}).\n"
+        )
+        out.append(
+            _table(
+                ["k", "depth", "NDCG@10", "Recall@100"],
+                [
+                    [str(r["k"]), str(r["depth"]), f"{r['ndcg@10']:.4f}", f"{r['recall@100']:.4f}"]
+                    for r in data["hybrid_tuning_ft"]
+                ],
+            )
+        )
         out.append("")
 
     if "hybrid_best" in data:

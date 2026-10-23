@@ -11,3 +11,8 @@ Running log of things that went wrong, feeding the README.
 - Phase 2: running the CPU cross-encoder in the same process as the faiss index deadlocked on macOS (two
   OpenMP runtimes); importing faiss after torch segfaulted instead. Fixed by splitting candidate
   generation (faiss, imported first) and cross-encoder scoring into separate processes.
+- Phase 2: the fine-tuned encoder improves retrieval on its own (dense full-corpus NDCG@10 0.3361 -> 0.3542) but
+  after the cross-encoder rerank the final gain over the off-the-shelf pipeline is only 0.4052 -> 0.4070 (top-50),
+  which is within the range I would expect from noise. The cross-encoder does most of the work.
+- Phase 2: the keyword heuristic for tagging error-analysis queries (brand in query) fired on 23 of 30 sample
+  queries, so it carried no signal; the reasons were labelled by hand instead.

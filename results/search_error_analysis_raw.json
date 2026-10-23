@@ -1,0 +1,1670 @@
+{
+ "n_dev_queries": 2089,
+ "n_losing": 468,
+ "pct_losing": 0.22403063666826234,
+ "samples": [
+  {
+   "query_id": 80798,
+   "query": "plain canvas tote bag for kids",
+   "tags": [
+    "brand_in_query"
+   ],
+   "ndcg_bm25": 0.2863,
+   "ndcg_final": 0.162,
+   "unjudged_top10_bm25": 6,
+   "unjudged_top10_final": 5,
+   "bm25_top5": [
+    {
+     "label": "unjudged",
+     "title": "12 DIY Blank Small White Canvas Tote Bags - Bulk"
+    },
+    {
+     "label": "E",
+     "title": "Cotton Tote Bags 6 Pack Canvas Tote Bags Plain Reusable Canvas Grocery Bag Blank Shopping "
+    },
+    {
+     "label": "unjudged",
+     "title": "Reusable Tote Bags, Cotton Canvas Cloth for Grocery, Shopping (3 Designs, 15x16.5 inches)"
+    },
+    {
+     "label": "unjudged",
+     "title": "Cotton Canvas Tote Bags DIY Crafts Blank Plain Natural Canvas Bag,Great Wedding Gift Canva"
+    },
+    {
+     "label": "unjudged",
+     "title": "ArtCreativity Canvas Tote Bags - Pack of 6 - Heavy Fabric Cloth Bags with Handles, Canvas "
+    }
+   ],
+   "final_top5": [
+    {
+     "label": "unjudged",
+     "title": "12 DIY Blank Small White Canvas Tote Bags - Bulk"
+    },
+    {
+     "label": "unjudged",
+     "title": "Lily Queen Natural Canvas Tote Bags DIY for Crafting and Decorating Reusable Grocery Washa"
+    },
+    {
+     "label": "S",
+     "title": "I Love Reading Natural Cotton Canvas 12 Oz Reusable Hand Made Tote Bag | Library Tote for "
+    },
+    {
+     "label": "S",
+     "title": "Unicorn Gifts Unicorn Tote Bag for Kids Girls Large Cotton Canvas Tote Bag for School Libr"
+    },
+    {
+     "label": "S",
+     "title": "Canvas Tote Bag Zipper with Pockets Gift for Book Lover Women Kids School Work Travel Shop"
+    }
+   ]
+  },
+  {
+   "query_id": 89729,
+   "query": "saints football merchandise",
+   "tags": [
+    "brand_in_query"
+   ],
+   "ndcg_bm25": 0.2686,
+   "ndcg_final": 0.11,
+   "unjudged_top10_bm25": 6,
+   "unjudged_top10_final": 9,
+   "bm25_top5": [
+    {
+     "label": "unjudged",
+     "title": "Tiger on Saturday Saint on Sunday Louisiana Football Apparel T-Shirt"
+    },
+    {
+     "label": "unjudged",
+     "title": "Rawlings NFL Signature Series Full Regulation-Size Football, New Orleans Saints"
+    },
+    {
+     "label": "E",
+     "title": "NFL Game Time Full Regulation-Size Football, New Orleans Saints"
+    },
+    {
+     "label": "unjudged",
+     "title": "Saint Seiya Pegasus Seiya (Revival Ver.), Bandai Saint Cloth Myth"
+    },
+    {
+     "label": "E",
+     "title": "Rawlings NFL Downfield Youth Size Football with 5X HD Grip, New Orleans Saints"
+    }
+   ],
+   "final_top5": [
+    {
+     "label": "unjudged",
+     "title": "Tiger on Saturday Saint on Sunday Louisiana Football Apparel T-Shirt"
+    },
+    {
+     "label": "unjudged",
+     "title": "Rawlings NFL Signature Series Full Regulation-Size Football, New Orleans Saints"
+    },
+    {
+     "label": "E",
+     "title": "NFL Game Time Full Regulation-Size Football, New Orleans Saints"
+    },
+    {
+     "label": "unjudged",
+     "title": "OTS NFL New Orleans Saints Men's Sportsman Touch Glove, Team Color, Men's"
+    },
+    {
+     "label": "unjudged",
+     "title": "OTS NFL New Orleans Saints Men's Grant Lace Up Pullover Hoodie, Logo, Medium"
+    }
+   ]
+  },
+  {
+   "query_id": 69233,
+   "query": "mindspace office desk organizer",
+   "tags": [
+    "brand_in_query"
+   ],
+   "ndcg_bm25": 0.9337,
+   "ndcg_final": 0.8701,
+   "unjudged_top10_bm25": 1,
+   "unjudged_top10_final": 2,
+   "bm25_top5": [
+    {
+     "label": "E",
+     "title": "Mindspace Office Supplies Desk Organizer + 3 Tray Letter Organizer | The Mesh Collection, "
+    },
+    {
+     "label": "E",
+     "title": "Mindspace Office Supplies Desk Organizer + 3 Tray Letter Organizer | The Mesh Collection, "
+    },
+    {
+     "label": "E",
+     "title": "Mindspace Office Desk Organizer with 8 Compartments + Drawer | Desk Caddy Pen Holder For O"
+    },
+    {
+     "label": "E",
+     "title": "Mindspace Office Desk Organizer with 6 Compartments + Inclined File Rack | The Mesh Collec"
+    },
+    {
+     "label": "E",
+     "title": "Mindspace Office Desk Organizer with 6 Compartments + Inclined File Rack | The Mesh Collec"
+    }
+   ],
+   "final_top5": [
+    {
+     "label": "E",
+     "title": "Mindspace Office Desk Organizer with 6 Compartments + Inclined File Rack | The Mesh Collec"
+    },
+    {
+     "label": "E",
+     "title": "Mindspace Office Desk Organizer with 6 Compartments + Inclined File Rack | The Mesh Collec"
+    },
+    {
+     "label": "E",
+     "title": "Mindspace Office Desk Organizer with 8 Compartments + Drawer | Desk Caddy Pen Holder For O"
+    },
+    {
+     "label": "E",
+     "title": "Mindspace Office Desk Organizer with 6 Compartments + 3 Tray Letter Organizer | The Mesh C"
+    },
+    {
+     "label": "E",
+     "title": "Mindspace Office Desk Organizer with 6 Compartments + 3 Tray Letter Organizer | The Mesh C"
+    }
+   ]
+  },
+  {
+   "query_id": 61422,
+   "query": "leica m monochrome",
+   "tags": [
+    "brand_in_query"
+   ],
+   "ndcg_bm25": 0.9988,
+   "ndcg_final": 0.961,
+   "unjudged_top10_bm25": 1,
+   "unjudged_top10_final": 1,
+   "bm25_top5": [
+    {
+     "label": "E",
+     "title": "Leica M Monochrom Digital Camera Body (Silver)"
+    },
+    {
+     "label": "E",
+     "title": "Leica M Monochrom Drifter Lenny Kravitz Limited Edition Camera Bundle"
+    },
+    {
+     "label": "E",
+     "title": "Leica M10 Monochrom Digital Rangefinder Camera Body 20050"
+    },
+    {
+     "label": "E",
+     "title": "Leica M Monochrom (Typ 246) Digital Rangefinder Camera Body, 24MP, Black& White Image Sens"
+    },
+    {
+     "label": "C",
+     "title": "Leica Elmarit-M 28mm f/2.8 ASPH Lens"
+    }
+   ],
+   "final_top5": [
+    {
+     "label": "E",
+     "title": "Leica M Monochrom (Typ 246) Digital Rangefinder Camera Body, 24MP, Black& White Image Sens"
+    },
+    {
+     "label": "E",
+     "title": "Leica M Monochrom Digital Camera Body (Silver)"
+    },
+    {
+     "label": "E",
+     "title": "Leica M Monochrom Drifter Lenny Kravitz Limited Edition Camera Bundle"
+    },
+    {
+     "label": "unjudged",
+     "title": "Leica Monovid 8 x 20 Monocular with Leather Case (Black)"
+    },
+    {
+     "label": "C",
+     "title": "Leica 50mm f/1.4 Summilux-M Aspherical Manual Focus Lens (11891)"
+    }
+   ]
+  },
+  {
+   "query_id": 87933,
+   "query": "roadtripper",
+   "tags": [
+    "short(<=2 tokens)"
+   ],
+   "ndcg_bm25": 0.9888,
+   "ndcg_final": 0.9683,
+   "unjudged_top10_bm25": 2,
+   "unjudged_top10_final": 2,
+   "bm25_top5": [
+    {
+     "label": "E",
+     "title": "Roadtrippers Route 66: Chicago to Santa Monica (Great American Road Trips)"
+    },
+    {
+     "label": "E",
+     "title": "Baby Einstein Roadtripper Ride-On Car and Push Toddler Toy with Real Car Noises, Ages 12 m"
+    },
+    {
+     "label": "E",
+     "title": "Bracketron Universal RoadTripper Mount & Charge Set (BT2-927-2)"
+    },
+    {
+     "label": "E",
+     "title": "Bracketron BT56802 BK ROADTRIPPER CAR BT FM Transmitter"
+    },
+    {
+     "label": "E",
+     "title": "Bracketron Roadtripper Car Audio Bluetooth Transmitter (BT5-548-2)"
+    }
+   ],
+   "final_top5": [
+    {
+     "label": "E",
+     "title": "Roadtrippers Route 66: Chicago to Santa Monica (Great American Road Trips)"
+    },
+    {
+     "label": "E",
+     "title": "Bracketron Universal RoadTripper Mount & Charge Set (BT2-927-2)"
+    },
+    {
+     "label": "E",
+     "title": "Baby Einstein Roadtripper Ride-On Car and Push Toddler Toy with Real Car Noises, Ages 12 m"
+    },
+    {
+     "label": "I",
+     "title": "Bracketron Roadtripper SYNC Car Audio Bluetooth FM Transmitter White - BT5-696-2"
+    },
+    {
+     "label": "E",
+     "title": "Bracketron Roadtripper Car Audio Bluetooth Transmitter (BT5-548-2)"
+    }
+   ]
+  },
+  {
+   "query_id": 30856,
+   "query": "curtain rods without drilling holes",
+   "tags": [
+    "negation_or_exclusion",
+    "brand_in_query"
+   ],
+   "ndcg_bm25": 0.5428,
+   "ndcg_final": 0.3467,
+   "unjudged_top10_bm25": 5,
+   "unjudged_top10_final": 5,
+   "bm25_top5": [
+    {
+     "label": "E",
+     "title": "Umbra 244923-038-REM Chroma Tension Rod \u2013 Adjustable Tension Curtain Rod for Curtains and "
+    },
+    {
+     "label": "unjudged",
+     "title": "Umbra 244925-410-REM Chroma Tension Rod \u2013 Adjustable Tension Curtain Rod for Curtains and "
+    },
+    {
+     "label": "unjudged",
+     "title": "ZOCONE Tension Curtain Rod, 51-128 Inches Adjustable Closet Tension Rod Rust-free No Drill"
+    },
+    {
+     "label": "E",
+     "title": "ZOCONE Tension Curtain Rod, 51-168 Inches Adjustable Closet Tension Rod Rust-free No Drill"
+    },
+    {
+     "label": "E",
+     "title": "8 Pack No Drill Curtain Rod Brackets, Adhesive Curtain Rod Holder, No Nail Free Easy Hang "
+    }
+   ],
+   "final_top5": [
+    {
+     "label": "C",
+     "title": "IdeaWorks Instant Holders-Curtain Rod Brackets No Drilling-Perfect for Hanging on Any Wall"
+    },
+    {
+     "label": "unjudged",
+     "title": "Umbra 244925-410-REM Chroma Tension Rod \u2013 Adjustable Tension Curtain Rod for Curtains and "
+    },
+    {
+     "label": "E",
+     "title": "Umbra 244923-038-REM Chroma Tension Rod \u2013 Adjustable Tension Curtain Rod for Curtains and "
+    },
+    {
+     "label": "E",
+     "title": "ZOCONE Tension Curtain Rod, 51-168 Inches Adjustable Closet Tension Rod Rust-free No Drill"
+    },
+    {
+     "label": "unjudged",
+     "title": "ZOCONE Tension Curtain Rod, 51-128 Inches Adjustable Closet Tension Rod Rust-free No Drill"
+    }
+   ]
+  },
+  {
+   "query_id": 110044,
+   "query": "water turtle",
+   "tags": [
+    "short(<=2 tokens)"
+   ],
+   "ndcg_bm25": 0.449,
+   "ndcg_final": 0.4144,
+   "unjudged_top10_bm25": 7,
+   "unjudged_top10_final": 8,
+   "bm25_top5": [
+    {
+     "label": "E",
+     "title": "API TURTLE WATER CONDITIONER Water Conditioner 8-Ounce Bottle (440D)"
+    },
+    {
+     "label": "unjudged",
+     "title": "Safety Turtle New 2.0 Child Immersion Pool/Water Alarm Kit"
+    },
+    {
+     "label": "E",
+     "title": "Wardley Turtle Food Sticks Clear Water Odor Reducing with Probiotics, 3.7 oz, Fortified Aq"
+    },
+    {
+     "label": "unjudged",
+     "title": "Safety Turtle New 2.0 Child Immersion Pool/Water Alarm Kit - 2 Wristbands"
+    },
+    {
+     "label": "unjudged",
+     "title": "LEADO 32oz 1Liter Motivational Tracking Water Bottle w/Time Marker - You Should Turtley Dr"
+    }
+   ],
+   "final_top5": [
+    {
+     "label": "E",
+     "title": "API TURTLE WATER CONDITIONER Water Conditioner 8-Ounce Bottle (440D)"
+    },
+    {
+     "label": "unjudged",
+     "title": "Safety Turtle New 2.0 Child Immersion Pool/Water Alarm Kit"
+    },
+    {
+     "label": "unjudged",
+     "title": "gebra Inflatable Tummy Time Water Mat Sea Turtle Shape Infants & Toddlers Play Mat Toy, Fu"
+    },
+    {
+     "label": "unjudged",
+     "title": "MitoVilla Antique Sea Turtle Shower Curtain, Watercolor Underwater Wildlife Animal Turtle "
+    },
+    {
+     "label": "E",
+     "title": "Wardley Turtle Food Sticks Clear Water Odor Reducing with Probiotics, 3.7 oz, Fortified Aq"
+    }
+   ]
+  },
+  {
+   "query_id": 54843,
+   "query": "ir air compressor",
+   "tags": [
+    "brand_in_query"
+   ],
+   "ndcg_bm25": 0.359,
+   "ndcg_final": 0.307,
+   "unjudged_top10_bm25": 8,
+   "unjudged_top10_final": 6,
+   "bm25_top5": [
+    {
+     "label": "E",
+     "title": "Ingersoll Rand Two-Stage Type 30 Air Compressor Pump - 10 HP, Model Number 2545V"
+    },
+    {
+     "label": "E",
+     "title": "Ingersoll-Rand Garage Mate - 2 HP, 5.5 CFM, Model# P1.5IU-A9"
+    },
+    {
+     "label": "unjudged",
+     "title": "AIR LIFT 25592 Load Controller II On Board Air Compressor System"
+    },
+    {
+     "label": "unjudged",
+     "title": "LDEXIN Aluminum Alloy Air Compressor Exhaust Tube Replacement Copper Tone,15 mm/0.6\" Hex N"
+    },
+    {
+     "label": "unjudged",
+     "title": "PORTER-CABLE Air Compressor, 6-Gallon, Pancake, Oil-Free (C2002)"
+    }
+   ],
+   "final_top5": [
+    {
+     "label": "E",
+     "title": "Ingersoll Rand Two-Stage Type 30 Air Compressor Pump - 10 HP, Model Number 2545V"
+    },
+    {
+     "label": "unjudged",
+     "title": "DEWALT Air Compressor for Trim, 200-PSI Max, Quiet Operation (DWFP55130)"
+    },
+    {
+     "label": "unjudged",
+     "title": "Air Lift 72000 Wireless Air Leveling Compressor"
+    },
+    {
+     "label": "unjudged",
+     "title": "Stealth Ultra Quiet Air Compressor, Only 60 Decibel 2 Gallon Peak 3/4 HP Max 125 PSI Porta"
+    },
+    {
+     "label": "unjudged",
+     "title": "Stark Portable Quiet Air Compressor 10-Gallon Tank 3.5HP Air Compressortra Quiet Compresso"
+    }
+   ]
+  },
+  {
+   "query_id": 101178,
+   "query": "ted nasmith",
+   "tags": [
+    "short(<=2 tokens)",
+    "brand_in_query"
+   ],
+   "ndcg_bm25": 0.5857,
+   "ndcg_final": 0.5307,
+   "unjudged_top10_bm25": 5,
+   "unjudged_top10_final": 5,
+   "bm25_top5": [
+    {
+     "label": "E",
+     "title": "The Silmarillion Poster Collection: Six Paintings by Ted Nasmith"
+    },
+    {
+     "label": "E",
+     "title": "LOTR Framed Fine Art Card GREEN HILL MORNING TED NASMITH"
+    },
+    {
+     "label": "E",
+     "title": "SILMARILLION Framed Fine Art Card THE BLUE WIZARDS JOURNEYING EAST TED NASMITH"
+    },
+    {
+     "label": "I",
+     "title": "SILMARILLION Framed Fine Art Card TUOR REACHES THE HIDDEN CITY OF GONDOLIN TED NASMITH"
+    },
+    {
+     "label": "I",
+     "title": "LOTR SILMARILLION Frameable Fine Art Poster THE LAMP OF THE VALAR 1998 TED NASMITH"
+    }
+   ],
+   "final_top5": [
+    {
+     "label": "E",
+     "title": "The Silmarillion Poster Collection: Six Paintings by Ted Nasmith"
+    },
+    {
+     "label": "I",
+     "title": "SILMARILLION Framed Fine Art Card TUOR REACHES THE HIDDEN CITY OF GONDOLIN TED NASMITH"
+    },
+    {
+     "label": "E",
+     "title": "LOTR Framed Fine Art Card GREEN HILL MORNING TED NASMITH"
+    },
+    {
+     "label": "E",
+     "title": "SILMARILLION Framed Fine Art Card THE BLUE WIZARDS JOURNEYING EAST TED NASMITH"
+    },
+    {
+     "label": "I",
+     "title": "LOTR SILMARILLION Frameable Fine Art Poster THE LAMP OF THE VALAR 1998 TED NASMITH"
+    }
+   ]
+  },
+  {
+   "query_id": 41212,
+   "query": "flesh lightsex toy male sucking",
+   "tags": [
+    "brand_in_query"
+   ],
+   "ndcg_bm25": 0.5807,
+   "ndcg_final": 0.5265,
+   "unjudged_top10_bm25": 7,
+   "unjudged_top10_final": 7,
+   "bm25_top5": [
+    {
+     "label": "E",
+     "title": "Male Masturbator Pocket Pussey Men's Realistic Masturabation Feel Tight Tunnel Sleeve Stro"
+    },
+    {
+     "label": "E",
+     "title": "Male Masturbatorss Pussyfoot Warmer Pleasure Handheld Blow Job Masturbation Toys Smart Man"
+    },
+    {
+     "label": "E",
+     "title": "Mens Pleasure Toys Pocket Pusseycats for Men Sixy Toys for Man Masturabation Toy Male Mast"
+    },
+    {
+     "label": "unjudged",
+     "title": "Automatic Piston Telescopic Rotate Vibration Groaning Patterns Full-Automatic Toy Multiple"
+    },
+    {
+     "label": "unjudged",
+     "title": "Male Electric Massager with 9 Powerful Modes Suction Vibration Massage Tool, Electric Lick"
+    }
+   ],
+   "final_top5": [
+    {
+     "label": "E",
+     "title": "Male Masturbator Pocket Pussey Men's Realistic Masturabation Feel Tight Tunnel Sleeve Stro"
+    },
+    {
+     "label": "E",
+     "title": "Male Masturbatorss Pussyfoot Warmer Pleasure Handheld Blow Job Masturbation Toys Smart Man"
+    },
+    {
+     "label": "unjudged",
+     "title": "Fleshlight | Pink Lady Original | Male Sex Toy"
+    },
+    {
+     "label": "unjudged",
+     "title": "Clear Male Sex Toy | Fleshlight Ice | Crystal Lady Male Masturbator"
+    },
+    {
+     "label": "unjudged",
+     "title": "ZEMALIA 3 in 1 Male Masturbator, Pocket Pussy with Realistic Mouth Textured Vagina and Tig"
+    }
+   ]
+  },
+  {
+   "query_id": 73817,
+   "query": "ninjago bricktober",
+   "tags": [
+    "short(<=2 tokens)"
+   ],
+   "ndcg_bm25": 0.5633,
+   "ndcg_final": 0.2667,
+   "unjudged_top10_bm25": 2,
+   "unjudged_top10_final": 7,
+   "bm25_top5": [
+    {
+     "label": "E",
+     "title": "LEGO 2018 Bricktober Ninjago Minifigure Set 3/4"
+    },
+    {
+     "label": "S",
+     "title": "LEGO Exclusive Set #40180 Bricktober Theater"
+    },
+    {
+     "label": "S",
+     "title": "5Star-TD Lego Bricktober 2013 Exclusive Set #5002148 Minifigure Collection Vol"
+    },
+    {
+     "label": "E",
+     "title": "LEGO 2017 Bricktober The LEGO Batman Movie Set 2 (5004939) 4-Pack"
+    },
+    {
+     "label": "S",
+     "title": "Lego Bricktober Vintage MiniFigure Collection"
+    }
+   ],
+   "final_top5": [
+    {
+     "label": "E",
+     "title": "LEGO 2018 Bricktober Ninjago Minifigure Set 3/4"
+    },
+    {
+     "label": "unjudged",
+     "title": "LEGO Ninjago Movie Master Falls 70608 Building Kit (312 Piece)"
+    },
+    {
+     "label": "unjudged",
+     "title": "LEGO Ninjago Temple of Airjitzu 70751"
+    },
+    {
+     "label": "unjudged",
+     "title": "LEGO Ninjago Movie Temple Ultimate Ultimate Weapon 70617 Building Kit (1403 Piece)"
+    },
+    {
+     "label": "S",
+     "title": "Lego NINJAGO cave base ninja-based X 70596"
+    }
+   ]
+  },
+  {
+   "query_id": 25990,
+   "query": "christmas pillow covers",
+   "tags": [
+    "brand_in_query"
+   ],
+   "ndcg_bm25": 0.6062,
+   "ndcg_final": 0.0,
+   "unjudged_top10_bm25": 3,
+   "unjudged_top10_final": 10,
+   "bm25_top5": [
+    {
+     "label": "unjudged",
+     "title": "Christmas Pillow Covers 18x18 Set of 4, Christmas Decorative Pillow Covers, Red Buffalo Pa"
+    },
+    {
+     "label": "E",
+     "title": "AENEY Buffalo Plaid Christmas Pillow Covers 18x18 Set of 4 Christmas Pillows Xmas Winter H"
+    },
+    {
+     "label": "unjudged",
+     "title": "Ouddy Set of 4 Farmhouse Buffalo Check Plaid Pillow Covers, Christmas Pillow Covers 20x20 "
+    },
+    {
+     "label": "E",
+     "title": "AENEY Christmas Decorations Pillow Covers 18x18 Set of 4 Watercolor Wreath Bird Merry Chri"
+    },
+    {
+     "label": "E",
+     "title": "AENEY Christmas Decorations Pillow Covers 18x18 Set of 4 Merry Bright Buffalo Plaid Christ"
+    }
+   ],
+   "final_top5": [
+    {
+     "label": "unjudged",
+     "title": "Christmas Pillow Covers 18x18 Set of 4, Black and Gold Plush Decorative Throw Pillow Cover"
+    },
+    {
+     "label": "unjudged",
+     "title": "Christmas Pillow Covers 18x18 Set of 4, Farmhouse Christmas Decor Winter Holiday Decorativ"
+    },
+    {
+     "label": "unjudged",
+     "title": "Christmas Pillow Covers 18x18 Set of 4, Christmas Decor Winter Holiday Decorative Buffalo "
+    },
+    {
+     "label": "unjudged",
+     "title": "YHmall 4 Pcs Christmas Pillow Covers 18 x 18, Black Red Plaid Decorative Christmas Holiday"
+    },
+    {
+     "label": "unjudged",
+     "title": "YGEOMER Christmas Pillow Covers 18x18 Set of 4 Christmas Decorations Farmhouse Black Backg"
+    }
+   ]
+  },
+  {
+   "query_id": 106014,
+   "query": "tweezer coil",
+   "tags": [
+    "short(<=2 tokens)",
+    "brand_in_query"
+   ],
+   "ndcg_bm25": 0.9422,
+   "ndcg_final": 0.9279,
+   "unjudged_top10_bm25": 5,
+   "unjudged_top10_final": 5,
+   "bm25_top5": [
+    {
+     "label": "E",
+     "title": "Coil Master Elbow Ceramic Tweezers (SS)"
+    },
+    {
+     "label": "E",
+     "title": "Epilady Ep-107 Coil Tweezer"
+    },
+    {
+     "label": "E",
+     "title": "GRIXX Ceramic Tweezers"
+    },
+    {
+     "label": "E",
+     "title": "Authentic InnoVaper Precision Black Ceramic Tweezers - Non-Conductive and Heat Resistant t"
+    },
+    {
+     "label": "S",
+     "title": "uxcell Precision Ceramic Tweezers Non-Conductive Heat Resistant Anti-Static Straight Point"
+    }
+   ],
+   "final_top5": [
+    {
+     "label": "E",
+     "title": "Epilady Ep-107 Coil Tweezer"
+    },
+    {
+     "label": "E",
+     "title": "Coil Master Elbow Ceramic Tweezers (SS)"
+    },
+    {
+     "label": "E",
+     "title": "GRIXX Ceramic Tweezers"
+    },
+    {
+     "label": "S",
+     "title": "uxcell Precision Ceramic Tweezers Non-Conductive Heat Resistant Anti-Static Straight Point"
+    },
+    {
+     "label": "E",
+     "title": "Authentic InnoVaper Precision Black Ceramic Tweezers - Non-Conductive and Heat Resistant t"
+    }
+   ]
+  },
+  {
+   "query_id": 513,
+   "query": "04 ford ranger third brake light without cargo",
+   "tags": [
+    "long(>=8 tokens)",
+    "has_number",
+    "negation_or_exclusion",
+    "brand_in_query"
+   ],
+   "ndcg_bm25": 0.5362,
+   "ndcg_final": 0.3517,
+   "unjudged_top10_bm25": 1,
+   "unjudged_top10_final": 1,
+   "bm25_top5": [
+    {
+     "label": "C",
+     "title": "MOFORKIT 3rd Third Brake Light Seal Gasket Compatible with Ford F250 F350 F450 F550 Super "
+    },
+    {
+     "label": "E",
+     "title": "NPAUTO LED Third 3rd Brake Light Cargo Lamp Replacement for 1993-2011 Ford Ranger, 1999-20"
+    },
+    {
+     "label": "E",
+     "title": "Recon 264116BK LED Third Brake Light Kit 1999-2006 Ford F250HD/F350/F450/F550 Super Duty &"
+    },
+    {
+     "label": "unjudged",
+     "title": "BA-BOLING Clear Lens Led 3rd Third Brake Tail Light Cargo Lamp For 1993-2011 Ford Ranger /"
+    },
+    {
+     "label": "I",
+     "title": "For 99-16 Ford Clear 3RD Third Brake Cargo Tail light Ford F250/93-11 Ranger/Mazda B2500"
+    }
+   ],
+   "final_top5": [
+    {
+     "label": "S",
+     "title": "3rd Third Brake Light for 99-16 Ford F250 F350 Super Duty/01-05 Explorer/Ranger/Mazda B se"
+    },
+    {
+     "label": "E",
+     "title": "Youxmoto LED 3rd Brake Light High Mount Brake Light Cargo Light For 99-16 Ford F250 F350 F"
+    },
+    {
+     "label": "E",
+     "title": "Sanzitop Third Brake Light High Mount Stop Light Fit for 1999-2016 Ford Super Duty, 93-11 "
+    },
+    {
+     "label": "C",
+     "title": "RUXIFEY 3rd Third Brake Light Gasket Seal Compatible with Ford F250 F350 F450 F550 Super D"
+    },
+    {
+     "label": "unjudged",
+     "title": "Youxmoto LED 3rd Brake Light Cargo Light High Mount Brake Light Fit for 04-08 Ford F150, 0"
+    }
+   ]
+  },
+  {
+   "query_id": 92762,
+   "query": "shoes uppers",
+   "tags": [
+    "short(<=2 tokens)",
+    "brand_in_query"
+   ],
+   "ndcg_bm25": 0.1458,
+   "ndcg_final": 0.0,
+   "unjudged_top10_bm25": 9,
+   "unjudged_top10_final": 10,
+   "bm25_top5": [
+    {
+     "label": "unjudged",
+     "title": "chass\u00e9 Zone Shoe 9Y"
+    },
+    {
+     "label": "unjudged",
+     "title": "COSIDRAM Men Casual Shoes Sneakers Loafers Comfort Walking Shoes Fashion Driving Shoes Lux"
+    },
+    {
+     "label": "E",
+     "title": "Linodes (Tent Leather Upper Jazz Shoe Slip-on for Women and Men's Dance Shoes Brown 8M"
+    },
+    {
+     "label": "unjudged",
+     "title": "Linodes (Tent Leather Upper Jazz Shoe Slip-on for Women and Men's Dance Shoes Black 8M"
+    },
+    {
+     "label": "unjudged",
+     "title": "Linodes (Tent Leather Upper Jazz Shoe Slip-on for Women and Men's Dance Shoes Brown 9M"
+    }
+   ],
+   "final_top5": [
+    {
+     "label": "unjudged",
+     "title": "Men Road Bike Cycling Shoes Premium Microtex Shoes with Cleat Men SPD Shoes Black White Me"
+    },
+    {
+     "label": "unjudged",
+     "title": "Men Road Bike Cycling Shoes Premium Microtex Shoes with Cleat Men SPD Shoes Black White Me"
+    },
+    {
+     "label": "unjudged",
+     "title": "Roxy Womens Ivan Fur Casual Shoes - Black - 8"
+    },
+    {
+     "label": "unjudged",
+     "title": "Roxy Young Womens Ivan Casual Shoes - Black - 8.5"
+    },
+    {
+     "label": "unjudged",
+     "title": "Sports Basketball Wear Resistant Sneaker-RQWEIN High Upper Basketball Shoes Sneakers Men B"
+    }
+   ]
+  },
+  {
+   "query_id": 60020,
+   "query": "large chess board table",
+   "tags": [],
+   "ndcg_bm25": 0.4064,
+   "ndcg_final": 0.3402,
+   "unjudged_top10_bm25": 6,
+   "unjudged_top10_final": 8,
+   "bm25_top5": [
+    {
+     "label": "unjudged",
+     "title": "Hey! Play! Wood 3 in 1 Chess Backgammon Table by Trademark Games"
+    },
+    {
+     "label": "unjudged",
+     "title": "Hey! Play! Deluxe Chess & Backgammon Table by Trademark Games, Brown/White/Tan, 27x18.125x"
+    },
+    {
+     "label": "E",
+     "title": "Radicaln Handmade Black and White Full Marble Chess Board Game Set - Staunton Marble Tourn"
+    },
+    {
+     "label": "E",
+     "title": "As Seen On TV Collector's Edition 2020 Battle for The White House Chess Set Board Game by "
+    },
+    {
+     "label": "unjudged",
+     "title": "Radicaln Handmade Black and Coral Full Marble Chess Board Game Set - Staunton Marble Tourn"
+    }
+   ],
+   "final_top5": [
+    {
+     "label": "E",
+     "title": "Brunswick Chess Board with Inlaid Sapele Wood, Extra Large 19 x 19 Inch, Chessboard Only"
+    },
+    {
+     "label": "unjudged",
+     "title": "Hey! Play! Deluxe Chess & Backgammon Table by Trademark Games, Brown/White/Tan, 27x18.125x"
+    },
+    {
+     "label": "unjudged",
+     "title": "Hey! Play! Wood 3 in 1 Chess Backgammon Table by Trademark Games"
+    },
+    {
+     "label": "unjudged",
+     "title": "3 Man Chess"
+    },
+    {
+     "label": "unjudged",
+     "title": "Hathaway Fortress Chess, Checkers & Backgammon Pedestal Game Table & Chairs Set - Mahogany"
+    }
+   ]
+  },
+  {
+   "query_id": 945,
+   "query": "1-1/4 lavatory drain without overflow",
+   "tags": [
+    "has_number",
+    "negation_or_exclusion",
+    "brand_in_query"
+   ],
+   "ndcg_bm25": 0.3187,
+   "ndcg_final": 0.0954,
+   "unjudged_top10_bm25": 6,
+   "unjudged_top10_final": 7,
+   "bm25_top5": [
+    {
+     "label": "unjudged",
+     "title": "Yodel Bathroom Sink Drain Stopper Pop up Drain Without Overflow for Vessel Sink Lavatory V"
+    },
+    {
+     "label": "E",
+     "title": "LASCO RV254 Lavatory Drain Without Ports for Sinks with Built-in Overflow, Plastic"
+    },
+    {
+     "label": "unjudged",
+     "title": "Yodel Bathroom Sink Drain Stopper Pop up Drain Without Overflow for Vessel Sink Lavatory V"
+    },
+    {
+     "label": "E",
+     "title": "Yodel Bathroom Sink Drain Stopper Pop up Drain Without Overflow for Vessel Sink Lavatory V"
+    },
+    {
+     "label": "unjudged",
+     "title": "Copper Push Button Bathroom Sink Drain Stop & Pop Lavatory Stopper Without Overflow Bathro"
+    }
+   ],
+   "final_top5": [
+    {
+     "label": "S",
+     "title": "Bathroom Pop up Sink Drain Without Overflow, Fits 1-3/4\" Lavatory Vessel Sink Brushed Nick"
+    },
+    {
+     "label": "unjudged",
+     "title": "Bathroom Pop up Sink Drain Without Overflow, Fits 1-3/4\" Lavatory Vessel Sink, Oil Rubbed "
+    },
+    {
+     "label": "unjudged",
+     "title": "Bathroom Sink Drain without Overflow Vessel Sink Lavatory Vanity Pop Up Drain Stopper, Bru"
+    },
+    {
+     "label": "unjudged",
+     "title": "Bathroom Sink Drain without Overflow with Strainer Basket Detachable Vessel Sink Lavatory "
+    },
+    {
+     "label": "unjudged",
+     "title": "DANCO Universally Designed Lavatory Pop-Up Assembly with Overflow, Chrome, 1-1/4-Inch O.D"
+    }
+   ]
+  },
+  {
+   "query_id": 61381,
+   "query": "lego street signs",
+   "tags": [
+    "brand_in_query"
+   ],
+   "ndcg_bm25": 0.5051,
+   "ndcg_final": 0.494,
+   "unjudged_top10_bm25": 4,
+   "unjudged_top10_final": 3,
+   "bm25_top5": [
+    {
+     "label": "S",
+     "title": "Building Toys City/Town/Village/Street Traffic Light"
+    },
+    {
+     "label": "E",
+     "title": "LEGO City Street Sweeper 60249 Construction Toy, Cool Building Toy for Kids (89 Pieces)"
+    },
+    {
+     "label": "E",
+     "title": "LEGO Street Accessories polybag (xtra) 40312"
+    },
+    {
+     "label": "E",
+     "title": "LEGO Signs and Decals Accessories (Xtra) 17 Total Pieces with 5 Decal Sheets"
+    },
+    {
+     "label": "S",
+     "title": "Building Toys City/Town/Village/Street Signs Set 15"
+    }
+   ],
+   "final_top5": [
+    {
+     "label": "S",
+     "title": "Building Toys City/Town/Village/Street Traffic Light"
+    },
+    {
+     "label": "E",
+     "title": "LEGO Street Accessories polybag (xtra) 40312"
+    },
+    {
+     "label": "E",
+     "title": "LEGO Signs and Decals Accessories (Xtra) 17 Total Pieces with 5 Decal Sheets"
+    },
+    {
+     "label": "S",
+     "title": "Building Toys City/Town/Village/Street Signs Set 15"
+    },
+    {
+     "label": "unjudged",
+     "title": "LEGO Ideas 123 Sesame Street 21324 Building Kit; Awesome Build-and-Display Model for Adult"
+    }
+   ]
+  },
+  {
+   "query_id": 83551,
+   "query": "proclick",
+   "tags": [
+    "short(<=2 tokens)"
+   ],
+   "ndcg_bm25": 1.0,
+   "ndcg_final": 0.901,
+   "unjudged_top10_bm25": 0,
+   "unjudged_top10_final": 0,
+   "bm25_top5": [
+    {
+     "label": "E",
+     "title": "Swingline GBC Binding Spines / Spirals / Coils, 5/8\" Diameter, 110 Sheet Capacity, ProClic"
+    },
+    {
+     "label": "E",
+     "title": "Swingline GBC Binding Spines / Spirals / Coils, 1/2\" Diameter, 85 Sheet Capacity, ProClick"
+    },
+    {
+     "label": "E",
+     "title": "Swingline GBC Binding Spines / Spirals / Coils, 1/2\" Diameter, 40 Sheet Capacity, ProClick"
+    },
+    {
+     "label": "E",
+     "title": "Swingline GBC Binding Spines/Spirals/Coils, 1/2\" Diameter, 40 Sheet Capacity, ProClick, Bl"
+    },
+    {
+     "label": "E",
+     "title": "Swingline GBC Binding Spines / Spirals / Coils, 5/16\" Diameter, 45 Sheet Capacity, ProClic"
+    }
+   ],
+   "final_top5": [
+    {
+     "label": "E",
+     "title": "GBC ProClick Plastic 5/16-Inch Binding Spines, 45 Sheets, 100/Box (2514700)"
+    },
+    {
+     "label": "E",
+     "title": "Swingline GBC Binding Spines / Spirals / Coils, 1/2\" Diameter, 85 Sheet Capacity, ProClick"
+    },
+    {
+     "label": "S",
+     "title": "GBC ProClick The Do-It-Yourself Presentation Kit, Includes 5/16\" Diameter Spines, Paper, C"
+    },
+    {
+     "label": "E",
+     "title": "Swingline GBC Binding Spines / Spirals / Coils, 5/8\" Diameter, 110 Sheet Capacity, ProClic"
+    },
+    {
+     "label": "E",
+     "title": "Swingline GBC Binding Spines / Spirals / Coils, 5/16\" Diameter, 45 Sheet Capacity, ProClic"
+    }
+   ]
+  },
+  {
+   "query_id": 26832,
+   "query": "cleveland indians onsie",
+   "tags": [],
+   "ndcg_bm25": 0.7017,
+   "ndcg_final": 0.6532,
+   "unjudged_top10_bm25": 3,
+   "unjudged_top10_final": 2,
+   "bm25_top5": [
+    {
+     "label": "E",
+     "title": "Outerstuff MLB Infant & Toddler's Baseball Classic 2-Piece Set, Cleveland Indians Large (7"
+    },
+    {
+     "label": "E",
+     "title": "Outerstuff MLB Cleveland Indians Newborn Swing Away Cross Tank & Bottoms Set (0-3 Months)"
+    },
+    {
+     "label": "S",
+     "title": "MLB Newborn Infants Everyday Fan 3 Piece Bodysuit Creeper Set (24 Months, Cleveland Indian"
+    },
+    {
+     "label": "E",
+     "title": "Outerstuff MLB Newborn Infants Cool Base Home Alternate Romper Jersey (24Months, Cleveland"
+    },
+    {
+     "label": "E",
+     "title": "Outerstuff MLB Baseball Infant Inside The Park Full-Zip Hoodie, Cleveland Indians 18 Month"
+    }
+   ],
+   "final_top5": [
+    {
+     "label": "E",
+     "title": "Cleveland Indians Baby Bottle"
+    },
+    {
+     "label": "E",
+     "title": "MLB Infants Toddler Blank Cool Base Alternate Road Team Jersey (Cleveland Indians Alternat"
+    },
+    {
+     "label": "unjudged",
+     "title": "MLB Cleveland Indians Juke MVP Adjustable Hat, One Size, Navy"
+    },
+    {
+     "label": "S",
+     "title": "MLB Newborn Infants Everyday Fan 3 Piece Bodysuit Creeper Set (24 Months, Cleveland Indian"
+    },
+    {
+     "label": "unjudged",
+     "title": "New Era Cleveland Indians MLB Authentic Collection 59Fifty Cap Navy/Red Size Fitted 7 1/4"
+    }
+   ]
+  },
+  {
+   "query_id": 16612,
+   "query": "black lace tank for women",
+   "tags": [
+    "brand_in_query"
+   ],
+   "ndcg_bm25": 0.5232,
+   "ndcg_final": 0.4759,
+   "unjudged_top10_bm25": 6,
+   "unjudged_top10_final": 6,
+   "bm25_top5": [
+    {
+     "label": "E",
+     "title": "Arainlo Women Tank Tops Sexy Summer V Neck Lace Tank Tops for Women Dressy Sleeveless Loos"
+    },
+    {
+     "label": "E",
+     "title": "Sidefeel Women Crochet Lace Tank Top Sleeveless Loose Fitting Tunic Medium Black"
+    },
+    {
+     "label": "unjudged",
+     "title": "Arainlo Summer Tank Top for Women Ladies Sexy V Neck Lace Cami Spaghetti Strap Backless So"
+    },
+    {
+     "label": "E",
+     "title": "RT1004 Ladies Adjustable Spaghetti Strap Lace Trim Long Tunic Cami Tank Top Black M"
+    },
+    {
+     "label": "unjudged",
+     "title": "RT1004 Ladies Adjustable Spaghetti Strap Lace Trim Long Tunic Cami Tank Top Black S"
+    }
+   ],
+   "final_top5": [
+    {
+     "label": "E",
+     "title": "Arainlo Women Tank Tops Sexy Summer V Neck Lace Tank Tops for Women Dressy Sleeveless Loos"
+    },
+    {
+     "label": "E",
+     "title": "Sidefeel Women Crochet Lace Tank Top Sleeveless Loose Fitting Tunic Medium Black"
+    },
+    {
+     "label": "E",
+     "title": "RT1004 Ladies Adjustable Spaghetti Strap Lace Trim Long Tunic Cami Tank Top Black M"
+    },
+    {
+     "label": "unjudged",
+     "title": "RT1004 Ladies Adjustable Spaghetti Strap Lace Trim Long Tunic Cami Tank Top Black S"
+    },
+    {
+     "label": "unjudged",
+     "title": "Arainlo Summer Tank Top for Women Ladies Sexy V Neck Lace Cami Spaghetti Strap Backless So"
+    }
+   ]
+  },
+  {
+   "query_id": 69679,
+   "query": "mint green rugs for girls rooms",
+   "tags": [
+    "brand_in_query"
+   ],
+   "ndcg_bm25": 0.7384,
+   "ndcg_final": 0.0699,
+   "unjudged_top10_bm25": 9,
+   "unjudged_top10_final": 8,
+   "bm25_top5": [
+    {
+     "label": "E",
+     "title": "Super Area Rugs Soft Faux Sheepskin Fur Fluffy Area Rug, Mint Green, 4' x 6'"
+    },
+    {
+     "label": "unjudged",
+     "title": "junovo Round Fluffy Soft Area Rugs for Kids Girls Room Princess Castle Plush Shaggy Carpet"
+    },
+    {
+     "label": "unjudged",
+     "title": "AMZTM Birthday Mermaid T Shirt - Kids Girl T-Shirt Gift Elastic Crew Neck 100% Cotton Mint"
+    },
+    {
+     "label": "unjudged",
+     "title": "Blush Area Rug for Girls Bedroom,Fluffy Area Rug 4'X6' for Living Room,Furry Carpet for Ki"
+    },
+    {
+     "label": "unjudged",
+     "title": "Soft Area Rug for Bedroom, 5'X7' Blush Rug for Living Room, Fluffy Carpet for Kids Room, S"
+    }
+   ],
+   "final_top5": [
+    {
+     "label": "unjudged",
+     "title": "junovo Round Fluffy Soft Area Rugs for Kids Girls Room Princess Castle Plush Shaggy Carpet"
+    },
+    {
+     "label": "S",
+     "title": "YJ.GWL Soft Shaggy Area Rugs for Bedroom Fluffy Living Room Rugs Nursery Girls Carpets Kid"
+    },
+    {
+     "label": "unjudged",
+     "title": "PAGISOFE Navy Fluffy Shag Area Rugs for Bedroom, 5'x7', Soft Fuzzy Shaggy Rugs for Living "
+    },
+    {
+     "label": "unjudged",
+     "title": "Pink Round Rug for Girls Bedroom,Fluffy Circle Rug 4'X4' for Kids Room,Furry Carpet for Te"
+    },
+    {
+     "label": "unjudged",
+     "title": "Softlife Fluffy Bedroom Area Rugs 5 x 8 Feet Mordern Collection Rug Indoor Shaggy Carpet f"
+    }
+   ]
+  },
+  {
+   "query_id": 4405,
+   "query": "4mm 6mm 8mm tungsten wedding ring imitated",
+   "tags": [
+    "has_number",
+    "brand_in_query"
+   ],
+   "ndcg_bm25": 0.4303,
+   "ndcg_final": 0.3104,
+   "unjudged_top10_bm25": 7,
+   "unjudged_top10_final": 7,
+   "bm25_top5": [
+    {
+     "label": "E",
+     "title": "THREE KEYS JEWELRY Tungsten Carbide Mens 8mm Hunting Viking Meteorite Wedding Band Ring wi"
+    },
+    {
+     "label": "unjudged",
+     "title": "Crownal 8mm 6mm 4mm Black Tungsten Wedding Couple Bands Rings Men Women Matte Brushed Fini"
+    },
+    {
+     "label": "unjudged",
+     "title": "Crownal 8mm 6mm 4mm Black Tungsten Wedding Couple Bands Rings Men Women Matte Brushed Fini"
+    },
+    {
+     "label": "unjudged",
+     "title": "Crownal 8mm 6mm 4mm Black Tungsten Wedding Couple Bands Rings Men Women Matte Brushed Fini"
+    },
+    {
+     "label": "unjudged",
+     "title": "THREE KEYS JEWELRY 6mm Silver Tungsten Wedding Ring with Koa Wood Zebra Wood Two Arrows In"
+    }
+   ],
+   "final_top5": [
+    {
+     "label": "unjudged",
+     "title": "THREE KEYS JEWELRY Tungsten Carbide Mens Womens 6mm Hunting Viking Meteorite Wedding Band "
+    },
+    {
+     "label": "unjudged",
+     "title": "iTungsten 8mm Gunmetal Tungsten Carbide Rings for Men Women Wedding Bands Beveled Edges Ma"
+    },
+    {
+     "label": "E",
+     "title": "iTungsten 8mm Gunmetal Tungsten Carbide Rings for Men Women Wedding Bands Beveled Edges Ma"
+    },
+    {
+     "label": "unjudged",
+     "title": "Crownal 8mm 6mm 4mm Black Tungsten Wedding Couple Bands Rings Men Women Matte Brushed Fini"
+    },
+    {
+     "label": "unjudged",
+     "title": "iTungsten 6mm White Tungsten Rings for Men Women Wedding Bands Domed Polished Shiny Comfor"
+    }
+   ]
+  },
+  {
+   "query_id": 67469,
+   "query": "mens black under armour socks",
+   "tags": [
+    "negation_or_exclusion",
+    "brand_in_query"
+   ],
+   "ndcg_bm25": 0.7105,
+   "ndcg_final": 0.6531,
+   "unjudged_top10_bm25": 2,
+   "unjudged_top10_final": 3,
+   "bm25_top5": [
+    {
+     "label": "unjudged",
+     "title": "Under Armour Resistor 3.0 No Show Sock - 6-Pack - Men's Black/Graphite, 10.0-13.0"
+    },
+    {
+     "label": "E",
+     "title": "Under Armour Mens Charged Cotton 2.0 No Show Socks - (2 Pack (12 Pair) Medium, Black)"
+    },
+    {
+     "label": "E",
+     "title": "Under Armour Resistor 3.0 Lo Cut Sock - 6-Pack Black/Graphite, L"
+    },
+    {
+     "label": "E",
+     "title": "Under Armour Adult Resistor 3.0 Crew Socks, Black/White (6-Pairs), Medium"
+    },
+    {
+     "label": "E",
+     "title": "Under Armour Resistor 3.0 Crew Athletic Socks (12 Pack), Black/Graphite, Large"
+    }
+   ],
+   "final_top5": [
+    {
+     "label": "E",
+     "title": "Under Armour Men's Essential Lite Low Cut Socks, 6-Pairs , Black , Large"
+    },
+    {
+     "label": "E",
+     "title": "Under Armour Mens Charged Cotton 2.0 No Show Socks - (2 Pack (12 Pair) Medium, Black)"
+    },
+    {
+     "label": "I",
+     "title": "Under Armour Men's Essential Lite No Show Socks, 6 Pairs , Black , Large"
+    },
+    {
+     "label": "unjudged",
+     "title": "Under Armour Adult Cotton Crew Socks, 6-Pairs , Black/Gray , Medium"
+    },
+    {
+     "label": "E",
+     "title": "Under Armour Adult Cotton Low Cut Socks, 6-Pairs , Black/Gray , Medium"
+    }
+   ]
+  },
+  {
+   "query_id": 66540,
+   "query": "maxi skirt bikini cover",
+   "tags": [
+    "brand_in_query"
+   ],
+   "ndcg_bm25": 0.4595,
+   "ndcg_final": 0.3228,
+   "unjudged_top10_bm25": 6,
+   "unjudged_top10_final": 5,
+   "bm25_top5": [
+    {
+     "label": "E",
+     "title": "Women's Sexy Hollow Out Lace Crochet Beach Skirt Perspective Bikini Cover Bohemian Maxi Sp"
+    },
+    {
+     "label": "unjudged",
+     "title": "OmicGot Women's Cover Up Swimsuit Beach Wrap Maxi Skirt Swimwear Bikini with Black Long S-"
+    },
+    {
+     "label": "unjudged",
+     "title": "Women Sexy Tassels Hollow Out 2 Piece Outfits See Through Off Shoulder Crop Top and Split "
+    },
+    {
+     "label": "E",
+     "title": "Women Sexy Tassels Hollow Out 2 Piece Outfits See Through Off Shoulder Crop Top and Split "
+    },
+    {
+     "label": "unjudged",
+     "title": "Hanna Nikole Plus Size Womens Sarong Sheer Swim Cover Skirt Beach Wrap Skirt Green 24-26W"
+    }
+   ],
+   "final_top5": [
+    {
+     "label": "unjudged",
+     "title": "OmicGot Women's Cover Up Swimsuit Beach Wrap Maxi Skirt Swimwear Bikini with Black Long S-"
+    },
+    {
+     "label": "S",
+     "title": "Women's Summer Mesh Hollow Out Beachwear Sexy V Neck High Split Maxi Skirt Bikini Cover up"
+    },
+    {
+     "label": "unjudged",
+     "title": "Kisscynest Women's Straps Cut Out Mesh Maxi Skirt Coverup Three Pieces Swimsuit XL Army Gr"
+    },
+    {
+     "label": "E",
+     "title": "Women's Sexy Hollow Out Lace Crochet Beach Skirt Perspective Bikini Cover Bohemian Maxi Sp"
+    },
+    {
+     "label": "unjudged",
+     "title": "Cover Ups for Swimwear Women's Tie Side Boho Split Long Black Beach Dress Chiffon Sheer Ma"
+    }
+   ]
+  },
+  {
+   "query_id": 92108,
+   "query": "sexy ruffle off shoulder holiday beach mini short dress",
+   "tags": [
+    "long(>=8 tokens)",
+    "brand_in_query"
+   ],
+   "ndcg_bm25": 0.3218,
+   "ndcg_final": 0.1394,
+   "unjudged_top10_bm25": 9,
+   "unjudged_top10_final": 8,
+   "bm25_top5": [
+    {
+     "label": "E",
+     "title": "Soesdemo Women's Casual Off The Shoulder Sleeveless Tiered Ruffle Pleated Party Cocktail D"
+    },
+    {
+     "label": "unjudged",
+     "title": "Floerns Women's Off The Shoulder Ruffle Split Hem Beach Maxi Dress Royal Blue L"
+    },
+    {
+     "label": "unjudged",
+     "title": "ZANZEA Women's Sexy Off Shoulder Chiffon Lace Ruffle Sleeve Blouse Mini Dress Summer Beach"
+    },
+    {
+     "label": "unjudged",
+     "title": "ZANZEA Women's Sexy Off Shoulder Chiffon Lace Ruffle Sleeve Blouse Mini Dress Summer Beach"
+    },
+    {
+     "label": "unjudged",
+     "title": "ZANZEA Women's Sexy Off Shoulder Chiffon Lace Ruffle Sleeve Blouse Mini Dress Summer Beach"
+    }
+   ],
+   "final_top5": [
+    {
+     "label": "S",
+     "title": "Womens Flower Print Ruffle Round Neck Holiday Off Shoulder Swing A-Line Boho Spaghettic St"
+    },
+    {
+     "label": "unjudged",
+     "title": "Shakumy Women Boho Cold Shoulder Ruffle Mini Dress Retro Summer Beach Casual Tunic Strappy"
+    },
+    {
+     "label": "unjudged",
+     "title": "ZANZEA Women's Sexy Off Shoulder Chiffon Lace Ruffle Sleeve Blouse Mini Dress Summer Beach"
+    },
+    {
+     "label": "unjudged",
+     "title": "ZANZEA Women's Sexy Off Shoulder Chiffon Lace Ruffle Sleeve Blouse Mini Dress Summer Beach"
+    },
+    {
+     "label": "unjudged",
+     "title": "ZANZEA Women's Sexy Off Shoulder Chiffon Lace Ruffle Sleeve Blouse Mini Dress Summer Beach"
+    }
+   ]
+  },
+  {
+   "query_id": 115,
+   "query": "&a pedicure spa parts, pop-up drain plug without strainer",
+   "tags": [
+    "long(>=8 tokens)",
+    "negation_or_exclusion",
+    "brand_in_query"
+   ],
+   "ndcg_bm25": 0.0663,
+   "ndcg_final": 0.0064,
+   "unjudged_top10_bm25": 9,
+   "unjudged_top10_final": 9,
+   "bm25_top5": [
+    {
+     "label": "unjudged",
+     "title": "Rainovo Sink Drain Stopper Bathroom Standard 1.75 Inches, Pop-Up Drain Stainless Steel Wit"
+    },
+    {
+     "label": "unjudged",
+     "title": "Artiwell Bathroom Pop Up Sink Drain Assembly Stopper without Overflow, Bathroom Vessel Sin"
+    },
+    {
+     "label": "unjudged",
+     "title": "KES Bathroom Sink Drain with Strainer Basket Hair Catcher Anti Clog Pop Up Drain Stopper V"
+    },
+    {
+     "label": "unjudged",
+     "title": "KES Bathroom Sink Drain with Strainer Basket Hair Catcher Anti Clog Pop Up Drain Stopper V"
+    },
+    {
+     "label": "unjudged",
+     "title": "KES Bathroom Sink Drain with Strainer Basket Hair Catcher Anti Clog Pop Up Drain Stopper V"
+    }
+   ],
+   "final_top5": [
+    {
+     "label": "unjudged",
+     "title": "ESFORT Bathroom Sink Drain With Strainer Basket\uff0cPop Up Drain Without Overflow, Anti-Cloggi"
+    },
+    {
+     "label": "unjudged",
+     "title": "KES Bathroom Sink Drain with Strainer Basket Hair Catcher Anti Clog Pop Up Drain Stopper V"
+    },
+    {
+     "label": "unjudged",
+     "title": "KES Bathroom Sink Drain with Strainer Basket Hair Catcher Anti Clog Pop Up Drain Stopper V"
+    },
+    {
+     "label": "unjudged",
+     "title": "KES Bathroom Sink Drain with Strainer Basket Hair Catcher Anti Clog Pop Up Drain Stopper V"
+    },
+    {
+     "label": "unjudged",
+     "title": "ESFORT Vessel Sink Pop Up Drain With Detachable Basket Stopper, Anti-Clogging Drain Strain"
+    }
+   ]
+  },
+  {
+   "query_id": 53796,
+   "query": "ipad 7th generation heavy duty case with screen protector",
+   "tags": [
+    "long(>=8 tokens)",
+    "has_number",
+    "brand_in_query"
+   ],
+   "ndcg_bm25": 0.5913,
+   "ndcg_final": 0.5636,
+   "unjudged_top10_bm25": 4,
+   "unjudged_top10_final": 5,
+   "bm25_top5": [
+    {
+     "label": "E",
+     "title": "MENZO New iPad 10.2 2020/2019 case, iPad 8th Generation Case with Built-in Screen Protecto"
+    },
+    {
+     "label": "unjudged",
+     "title": "BMOUO Kids Case for iPad 9th/8th/7th Generation,iPad 10.2 Case - Built-in Screen Protector"
+    },
+    {
+     "label": "E",
+     "title": "TIRIN New iPad 9th Generation Case,iPad 8th Generation Case,iPad 7th Generation Case,iPad "
+    },
+    {
+     "label": "E",
+     "title": "LEDNICEKER iPad 9th/8th/7th Generation Case 2021/2020/2019, iPad 10.2 Kids Case with Scree"
+    },
+    {
+     "label": "E",
+     "title": "LTROP New iPad 8th/7th Generation Case with Built-in Screen Protector, iPad 10.2 Case 2020"
+    }
+   ],
+   "final_top5": [
+    {
+     "label": "E",
+     "title": "MENZO New iPad 10.2 2020/2019 case, iPad 8th Generation Case with Built-in Screen Protecto"
+    },
+    {
+     "label": "E",
+     "title": "LTROP New iPad 8th/7th Generation Case with Built-in Screen Protector, iPad 10.2 Case 2020"
+    },
+    {
+     "label": "E",
+     "title": "LEDNICEKER New iPad 10.2 2019 Case with Built-in Screen Protector, iPad 7th Generation Sho"
+    },
+    {
+     "label": "S",
+     "title": "Neepanda Case for iPad 10.2 inch 2019, [Built-in Screen Protector] Heavy Duty Shockproof P"
+    },
+    {
+     "label": "E",
+     "title": "LEDNICEKER iPad 9th/8th/7th Generation Case 2021/2020/2019, iPad 10.2 Kids Case with Scree"
+    }
+   ]
+  },
+  {
+   "query_id": 1488,
+   "query": "100ct wide ruled paper",
+   "tags": [
+    "has_number"
+   ],
+   "ndcg_bm25": 0.159,
+   "ndcg_final": 0.1563,
+   "unjudged_top10_bm25": 8,
+   "unjudged_top10_final": 8,
+   "bm25_top5": [
+    {
+     "label": "unjudged",
+     "title": "KAISA Filler Paper Loose Leaf Paper, Wide Ruled Paper, 8\"x10-1/2\", 3-Hole Punched Binder P"
+    },
+    {
+     "label": "E",
+     "title": "Mintra Office Filler Paper (Wide Ruled, 600 Sheets (6pks of 100))"
+    },
+    {
+     "label": "S",
+     "title": "Mead Filler Paper, Loose Leaf Paper, Wide Ruled Paper, 150 Sheets, 10-1/2\" x 8\", White (15"
+    },
+    {
+     "label": "unjudged",
+     "title": "Oxford Filler Paper, 8 x 10-1/2 Inch Wide Ruled Paper, 3 Hole Punch, Loose Leaf Notebook P"
+    },
+    {
+     "label": "unjudged",
+     "title": "Mr"
+    }
+   ],
+   "final_top5": [
+    {
+     "label": "unjudged",
+     "title": "Emraw Wide Ruled Filler Paper, Perfect for Normal Everyday Notetaking 8\"x10.5\" x 0.32\" Inc"
+    },
+    {
+     "label": "E",
+     "title": "Mintra Office Filler Paper (Wide Ruled, 600 Sheets (6pks of 100))"
+    },
+    {
+     "label": "unjudged",
+     "title": "Amazon Basics Wide Ruled Composition Notebook, 100 Sheet, Assorted Marble Colors, 4-Pack"
+    },
+    {
+     "label": "unjudged",
+     "title": "Oxford Filler Paper, 8 x 10-1/2 Inch Wide Ruled Paper, 3 Hole Punch, Loose Leaf Notebook P"
+    },
+    {
+     "label": "S",
+     "title": "Five Star Loose Leaf Paper, 3 Hole Punched, Reinforced Filler Paper, Wide Ruled, 10-1/2 x "
+    }
+   ]
+  },
+  {
+   "query_id": 97156,
+   "query": "spy gadgets",
+   "tags": [
+    "short(<=2 tokens)",
+    "brand_in_query"
+   ],
+   "ndcg_bm25": 0.7347,
+   "ndcg_final": 0.6301,
+   "unjudged_top10_bm25": 4,
+   "unjudged_top10_final": 5,
+   "bm25_top5": [
+    {
+     "label": "E",
+     "title": "JA-RU Rearview Spy Glasses (1 Unit) Spy Gear with Rearview Mirror Sunglasses Spy Gadgets f"
+    },
+    {
+     "label": "E",
+     "title": "Spy Gadgets"
+    },
+    {
+     "label": "unjudged",
+     "title": "Spy Master Briefcase Black Spy kit - Secret agent mission handbook with top spy gear and g"
+    },
+    {
+     "label": "E",
+     "title": "SpyX / Micro Gear Set - 4 Real Spy Toys Kit + Adjustable Belt for Spy Kids Role Play"
+    },
+    {
+     "label": "unjudged",
+     "title": "Spy Glasses for Kids in Bulk - Pack of 3 Spy Sunglasses with Rear View So You Can See Behi"
+    }
+   ],
+   "final_top5": [
+    {
+     "label": "E",
+     "title": "Spy Gadgets"
+    },
+    {
+     "label": "E",
+     "title": "SpyX / Micro Gear Set - 4 Real Spy Toys Kit + Adjustable Belt for Spy Kids Role Play"
+    },
+    {
+     "label": "unjudged",
+     "title": "SpyX / Lazer Trap Alarm \u2013 Safe Laser Alarm Toy for Spy Kids to Protect Stuffs"
+    },
+    {
+     "label": "unjudged",
+     "title": "SpyX / Light Hand \u2013 LED Light Up Glove Toy for Spy Kids"
+    },
+    {
+     "label": "unjudged",
+     "title": "Spy Camera 1080P Hidden Cameras WiFi - Small HD Nanny Cam with Night Vision and Motion Det"
+    }
+   ]
+  }
+ ]
+}

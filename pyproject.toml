@@ -11,6 +11,8 @@ dependencies = [
     "pandas",
     "pyarrow",
     "pydantic>=2",
+    "scipy",
+    "scikit-learn",
     "pystemmer>=3.1.0",
     "sentence-transformers>=6.2.0",
 ]

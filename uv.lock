@@ -62,6 +62,8 @@ dependencies = [
     { name = "pyarrow" },
     { name = "pydantic" },
     { name = "pystemmer" },
+    { name = "scikit-learn" },
+    { name = "scipy" },
     { name = "sentence-transformers" },
 ]
 
@@ -80,6 +82,8 @@ requires-dist = [
     { name = "pyarrow" },
     { name = "pydantic", specifier = ">=2" },
     { name = "pystemmer", specifier = ">=3.1.0" },
+    { name = "scikit-learn" },
+    { name = "scipy" },
     { name = "sentence-transformers", specifier = ">=6.2.0" },
 ]
 

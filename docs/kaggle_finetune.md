@@ -1,13 +1,13 @@
 # Kaggle fine-tune: bge-small on ESCI
 
-Notebook: `notebooks/kaggle/finetune_bge_esci.ipynb`. It fine-tunes `BAAI/bge-small-en-v1.5` as a
+Notebook: `notebooks/kaggle/finetune-bge-esci.ipynb`. It fine-tunes `BAAI/bge-small-en-v1.5` as a
 bi-encoder with `MultipleNegativesRankingLoss` on ESCI (query, Exact product) pairs.
 
 ## Run it
 
 1. Kaggle, **Create > New Notebook > File > Import Notebook**, upload the `.ipynb`.
 2. Right sidebar **Session options**:
-   - **Accelerator: GPU T4 x2** (or P100). The notebook uses one GPU, fp16.
+   - **Accelerator: GPU T4 x2** (or P100). With two GPUs the trainer uses DataParallel (per-device batch 128, so effective batch 256; the first run did this), fp16.
    - **Internet: On** (needs a phone-verified Kaggle account). The notebook downloads ESCI
      (about 1.2 GB) from GitHub and the model from Hugging Face; both are public, so no token is
      needed and no secrets should be added.
