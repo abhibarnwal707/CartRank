@@ -4,7 +4,6 @@ import sys
 import time
 from pathlib import Path
 
-import faiss
 import numpy as np
 
 from cartrank.data.paths import ROOT
@@ -59,7 +58,10 @@ def embed_corpus(tag: str, model: str, variant: str, ids: list[str] | None = Non
     print(f"embedded {len(texts)} texts in {time.time() - t0:.0f}s -> {vecs.shape}")
 
 
-def flat_ip_index(vecs: np.ndarray) -> faiss.IndexFlatIP:
+def flat_ip_index(vecs: np.ndarray):
+    # faiss is imported lazily: loading it next to CPU torch can deadlock on macOS (two libomp).
+    import faiss
+
     index = faiss.IndexFlatIP(vecs.shape[1])
     index.add(vecs)
     return index

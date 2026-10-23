@@ -9,6 +9,7 @@ Dev split: 2,089 queries (10% of train query_ids, split by query). Test split no
 | BM25 | 0.7011 | - | 1.0000 | 0.7545 |
 | Dense, bge-small off-the-shelf | 0.7261 | +0.0249 | 1.0000 | 0.7954 |
 | Hybrid RRF (BM25 + dense) | 0.7215 | -0.0046 | 1.0000 | 0.7862 |
+| Hybrid + cross-encoder rerank (full-corpus: top-50 of hybrid) | 0.7352 | +0.0137 | 1.0000 | 0.8044 |
 
 Recall@100 is trivially 1.0 here: each query has about 20 judged products, so all of them fit in the top 100. Hybrid RRF parameters were tuned on full-corpus NDCG only, which is why hybrid does not beat dense in this mode.
 
@@ -19,6 +20,7 @@ Recall@100 is trivially 1.0 here: each query has about 20 judged products, so al
 | BM25 | 0.3172 | - | 0.5750 | 0.4680 |
 | Dense, bge-small off-the-shelf | 0.3361 | +0.0190 | 0.6152 | 0.5049 |
 | Hybrid RRF (BM25 + dense) | 0.3620 | +0.0259 | 0.6482 | 0.5268 |
+| Hybrid + cross-encoder rerank (full-corpus: top-50 of hybrid) | 0.4052 | +0.0432 | 0.6482 | 0.5807 |
 
 Unjudged products count as non-relevant, so full-corpus scores underestimate true quality and are not comparable to rerank-mode scores.
 
@@ -40,6 +42,18 @@ Best: k=10, depth=200 (NDCG@10 0.3620).
 | 100 | 50 | 0.3538 | 0.6165 |
 | 100 | 100 | 0.3539 | 0.6437 |
 | 100 | 200 | 0.3540 | 0.6479 |
+
+## Cross-encoder rerank (full-corpus, hybrid first stage)
+
+Model `cross-encoder/ms-marco-MiniLM-L-6-v2` (22.7M params), input = query + product text truncated to 256 tokens, scored on CPU. In rerank mode the cross-encoder orders every judged candidate, so k does not apply. Latency is the cross-encoder stage alone, 50 dev queries, local MacBook Air CPU.
+
+| k | NDCG@10 | Δ vs hybrid | Recall@100 | MRR@10 | p50 ms | p95 ms |
+|---|---|---|---|---|---|---|
+| 20 | 0.3984 | +0.0364 | 0.6482 | 0.5766 | 105 | 131 |
+| 50 | 0.4052 | +0.0432 | 0.6482 | 0.5807 | 279 | 360 |
+| 100 | 0.4066 | +0.0446 | 0.6482 | 0.5804 | 496 | 645 |
+
+Working point k=50: most of the gain of k=100 at about half its latency (chosen on dev, not test).
 
 ## Latency and index size
 

@@ -5,10 +5,17 @@ import json
 from cartrank.data.paths import RESULTS
 
 # Ladder order; Phase 2 adds the fine-tuned and rerank rows by appending here.
+# Ladder order: (label, {mode: key in results/search_dev.json "ladder"}).
+# Fine-tune rows (dense_ft, hybrid_ft, hybrid_ft_ce) are added once the Kaggle model is back.
+CE_K = 50  # working point chosen on dev: NDCG vs CPU latency, see the rerank tuning table
 ROWS = [
-    ("bm25", "BM25"),
-    ("dense_base", "Dense, bge-small off-the-shelf"),
-    ("hybrid_base", "Hybrid RRF (BM25 + dense)"),
+    ("BM25", {"rerank": "bm25", "full": "bm25"}),
+    ("Dense, bge-small off-the-shelf", {"rerank": "dense_base", "full": "dense_base"}),
+    ("Hybrid RRF (BM25 + dense)", {"rerank": "hybrid_base", "full": "hybrid_base"}),
+    (
+        f"Hybrid + cross-encoder rerank (full-corpus: top-{CE_K} of hybrid)",
+        {"rerank": "hybrid_base_ce", "full": f"hybrid_base_ce_k{CE_K}"},
+    ),
 ]
 MODE_TITLES = {
     "rerank": "Rerank mode (standard ESCI Task 1): rank each query's judged products only",
@@ -28,8 +35,8 @@ def _table(headers: list[str], rows: list[list[str]]) -> str:
 
 def _ladder(data: dict, mode: str) -> str:
     rows, prev = [], None
-    for key, label in ROWS:
-        m = data["ladder"].get(f"{key}|{mode}")
+    for label, keys in ROWS:
+        m = data["ladder"].get(f"{keys[mode]}|{mode}")
         if m is None:
             continue
         delta = "-" if prev is None else f"{m['ndcg@10'] - prev:+.4f}"
@@ -79,6 +86,39 @@ def write_report() -> None:
             )
         )
         out.append("")
+
+    if "rerank_tuning_base" in data:
+        lat = data["rerank_latency_ms_base"]
+        mdl = data["rerank_model"]
+        out.append(
+            f"## Cross-encoder rerank (full-corpus, hybrid first stage)\n\n"
+            f"Model `{mdl['name']}` ({mdl['params'] / 1e6:.1f}M params), input = query + product "
+            f"text truncated to {mdl['max_length']} tokens, scored on CPU. In rerank mode the "
+            "cross-encoder orders every judged candidate, so k does not apply. Latency is the "
+            "cross-encoder stage alone, 50 dev queries, local MacBook Air CPU.\n"
+        )
+        base = data["ladder"]["hybrid_base|full"]["ndcg@10"]
+        out.append(
+            _table(
+                ["k", "NDCG@10", "Δ vs hybrid", "Recall@100", "MRR@10", "p50 ms", "p95 ms"],
+                [
+                    [
+                        str(r["k"]),
+                        f"{r['ndcg@10']:.4f}",
+                        f"{r['ndcg@10'] - base:+.4f}",
+                        f"{r['recall@100']:.4f}",
+                        f"{r['mrr@10']:.4f}",
+                        f"{lat[f'k={r["k"]}']['p50_ms']:.0f}",
+                        f"{lat[f'k={r["k"]}']['p95_ms']:.0f}",
+                    ]
+                    for r in data["rerank_tuning_base"]
+                ],
+            )
+        )
+        out.append(
+            f"\nWorking point k={CE_K}: most of the gain of k=100 at about half its latency "
+            "(chosen on dev, not test).\n"
+        )
 
     if "latency_ms" in data:
         lat, idx = data["latency_ms"], data["index"]

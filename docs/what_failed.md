@@ -8,3 +8,6 @@ Running log of things that went wrong, feeding the README.
   (0.7215) is slightly below dense alone (0.7261). Tuning target and evaluation mode disagree; reported as is.
 - Phase 1: text-variant ablation (title vs +brand/color vs +bullets vs +description) moved NDCG@10 by at
   most 0.007 for BM25 and 0.003 for dense, so product text is not a lever at this scale.
+- Phase 2: running the CPU cross-encoder in the same process as the faiss index deadlocked on macOS (two
+  OpenMP runtimes); importing faiss after torch segfaulted instead. Fixed by splitting candidate
+  generation (faiss, imported first) and cross-encoder scoring into separate processes.
