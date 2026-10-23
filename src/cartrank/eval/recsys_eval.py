@@ -30,10 +30,13 @@ def metrics_from_ranks(r: np.ndarray, k: int = K) -> dict[str, float]:
     }
 
 
-def evaluate(model, data: RecData, split: str = "dev", batch: int = 512) -> dict:
+def evaluate(
+    model, data: RecData, split: str = "dev", batch: int = 512, users: np.ndarray | None = None
+) -> dict:
+    """`users` restricts evaluation to a subset (used for fast per-epoch model selection)."""
     target = data.target(split)
     history = data.history(split)
-    users = np.flatnonzero(target >= 0)
+    users = np.flatnonzero(target >= 0) if users is None else users
     all_r = np.empty(len(users), dtype=np.int64)
     for start in range(0, len(users), batch):
         u = users[start : start + batch]

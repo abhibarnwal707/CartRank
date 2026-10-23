@@ -11,6 +11,8 @@ import pandas as pd
 
 from cartrank.data.catalog import CATALOG_PATH
 from cartrank.data.paths import RESULTS, ROOT
+from cartrank.eval.constraints_eval import satisfies_all
+from cartrank.query.schema import QueryIntent
 from cartrank.search.bm25 import Bm25Index
 from cartrank.search.dense import BGE_QUERY_PREFIX, encode_queries, load_encoder
 from cartrank.search.hybrid import rrf
@@ -40,6 +42,19 @@ class CatalogSearch:
             np.save(vec_path, self.vecs)
         self.k, self.depth = hybrid_k, hybrid_depth
         self.ce = None
+        self._items = {
+            r.parent_asin: {
+                "title": r.title,
+                "features": list(r.features),
+                "price": float(r.price),
+                "average_rating": float(r.average_rating),
+                "store": r.store,
+            }
+            for r in self.cat.itertuples()
+        }
+
+    def item(self, asin: str) -> dict:
+        return self._items[asin]
 
     def dense(self, query: str, n: int) -> list[str]:
         q = encode_queries(self.enc, [query], prefix=BGE_QUERY_PREFIX)[0]
@@ -63,6 +78,23 @@ class CatalogSearch:
         scores = self.ce.predict([(query, self.text[p]) for p in head], batch_size=64)
         sc = {(0, p): float(s) for p, s in zip(head, scores, strict=True)}
         return rerank(0, cands, sc, ce_k)
+
+
+def search_intent(
+    cs: CatalogSearch, intent: QueryIntent, raw_query: str, ce_k: int = 50, pool: int = 300
+) -> list[str]:
+    """Parsed search: hybrid retrieval on the parsed text, hard filters from the intent, then a
+    cross-encoder rerank of the surviving top candidates."""
+    q = intent.text or raw_query
+    kept = [a for a in cs.hybrid(q)[:pool] if satisfies_all(cs.item(a), intent)]
+    head = kept[:ce_k]
+    if not head:
+        return []
+    if cs.ce is None:
+        cs.ce = load_cross_encoder()
+    scores = cs.ce.predict([(q, cs.text[p]) for p in head], batch_size=64)
+    sc = {(0, p): float(x) for p, x in zip(head, scores, strict=True)}
+    return rerank(0, kept, sc, ce_k)
 
 
 def hybrid_setting(tag: str) -> tuple[int, int]:

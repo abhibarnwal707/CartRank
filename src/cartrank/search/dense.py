@@ -20,11 +20,11 @@ def vectors_path(tag: str, variant: str) -> Path:
     return ARTIFACTS / f"{tag}_{variant}.npy"
 
 
-def load_encoder(model: str = BASE_MODEL):
+def load_encoder(model: str = BASE_MODEL, device: str | None = None):
     import torch
     from sentence_transformers import SentenceTransformer
 
-    device = "mps" if torch.backends.mps.is_available() else "cpu"
+    device = device or ("mps" if torch.backends.mps.is_available() else "cpu")
     enc = SentenceTransformer(model, device=device)
     enc.max_seq_length = MAX_SEQ_LENGTH
     return enc

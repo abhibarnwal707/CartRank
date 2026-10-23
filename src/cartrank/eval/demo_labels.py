@@ -200,10 +200,27 @@ def score() -> None:
         raise SystemExit("labels must be 0 or 1")
     lab = {(int(q), a): int(v) for q, a, v in zip(df.query_id, df.asin, df.label, strict=True)}
     runs = json.loads(RUNS.read_text())
-    per = {"bm25": [], "final": []}
+    qtype = {}
+    for line in QUERIES.read_text().splitlines():
+        q = json.loads(line)
+        qtype[q["id"]] = q["type"]
+    rows = []
     for qid, r in runs["queries"].items():
-        for system in per:
-            per[system].append(np.mean([lab[(int(qid), a)] for a in r[system]]))
+        rows.append(
+            {
+                "type": qtype[int(qid)],
+                "bm25": np.mean([lab[(int(qid), a)] for a in r["bm25"]]),
+                "final": np.mean([lab[(int(qid), a)] for a in r["final"]]),
+            }
+        )
+    d = pd.DataFrame(rows)
+    d["diff"] = d.final - d.bm25
+    rng = np.random.default_rng(0)
+    boot = [rng.choice(d["diff"].to_numpy(), len(d)).mean() for _ in range(10_000)]
+    lo, hi = np.percentile(boot, [2.5, 97.5])
+    by_type = d.groupby("type").agg(
+        n=("diff", "size"), bm25=("bm25", "mean"), final=("final", "mean")
+    )
     meta = runs["meta"]
     out = (
         "# Demo catalog transfer check (Office_Products, 50 queries)\n\n"
@@ -213,9 +230,19 @@ def score() -> None:
         f"Final system: hybrid (BM25 + `{meta['tag']}` dense, RRF k={meta['hybrid_k']}, "
         f"depth={meta['hybrid_depth']}) + cross-encoder rerank of the top 50.\n\n"
         "| System | Precision@10 | Δ vs BM25 |\n|---|---|---|\n"
-        f"| BM25 | {np.mean(per['bm25']):.3f} | - |\n"
-        f"| Final | {np.mean(per['final']):.3f} | {np.mean(per['final']) - np.mean(per['bm25']):+.3f} |\n\n"
-        f"Queries: {len(per['bm25'])}; labelled products: {len(df)}. Binary labels (1 relevant, 0 not).\n"
+        f"| BM25 | {d.bm25.mean():.3f} | - |\n"
+        f"| Final | {d.final.mean():.3f} | {d['diff'].mean():+.3f} |\n\n"
+        f"Paired bootstrap over the 50 queries (10,000 resamples, seed 0): the mean difference "
+        f"has a 95% interval of [{lo:+.3f}, {hi:+.3f}]. Per query, the final system is better on "
+        f"{int((d['diff'] > 0).sum())}, tied on {int((d['diff'] == 0).sum())} and worse on "
+        f"{int((d['diff'] < 0).sum())}.\n\n"
+        "## By query type\n\n"
+        "| Type | Queries | BM25 P@10 | Final P@10 |\n|---|---|---|---|\n"
+        + "".join(
+            f"| {t} | {int(r.n)} | {r.bm25:.3f} | {r.final:.3f} |\n" for t, r in by_type.iterrows()
+        )
+        + f"\nQueries: {len(d)}; labelled products: {len(df)}. Binary labels (1 relevant, 0 not). "
+        "Per-type groups have 4 to 15 queries, so treat them as indicative only.\n"
     )
     (RESULTS / "demo_transfer.md").write_text(out)
     print(out)

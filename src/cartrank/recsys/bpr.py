@@ -47,7 +47,10 @@ def fit(
     device: str = "cpu",
     on_epoch=None,
 ) -> BPR:
-    """`on_epoch(epoch, model, mean_loss)` is called after each epoch (e.g. dev evaluation)."""
+    """`on_epoch(epoch, model, mean_loss)` runs after each epoch (e.g. dev evaluation).
+
+    Returning True from it stops training early.
+    """
     coo = train.tocoo()
     users_all, items_all = coo.row.astype(np.int64), coo.col.astype(np.int64)
     model = BPR(train.shape[0], train.shape[1], dim, seed).to(device)
@@ -77,6 +80,6 @@ def fit(
             (loss + penalty).backward()
             opt.step()
             losses.append(loss.item())
-        if on_epoch is not None:
-            on_epoch(epoch, model, float(np.mean(losses)))
+        if on_epoch is not None and on_epoch(epoch, model, float(np.mean(losses))) is True:
+            break
     return model
