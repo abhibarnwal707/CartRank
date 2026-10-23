@@ -66,6 +66,31 @@ def resolve() -> Paths:
     raise FileNotFoundError("no artifacts found: build them or set CARTRANK_ARTIFACT_DIR")
 
 
+def hub_help(token: str | None = None, repo: str | None = None) -> str:
+    """Plain-language reason a Hub download failed. Streamlit Cloud redacts exception text, so the
+    app shows this instead. Never includes the token itself."""
+    token = token if token is not None else os.environ.get("HF_TOKEN")
+    repo = repo or HF_ARTIFACT_REPO
+    if not token:
+        return (
+            "HF_TOKEN is not set. In the app's Settings > Secrets add a line "
+            'HF_TOKEN = "hf_..." (the key name must match exactly), then reboot the app.'
+        )
+    try:
+        from huggingface_hub import HfApi
+
+        name = HfApi(token=token).whoami().get("name")
+    except Exception as e:  # noqa: BLE001 - any failure here means the token is unusable
+        return (
+            f"HF_TOKEN is set (length {len(token)}) but Hugging Face rejected it "
+            f"({type(e).__name__}). Create a fresh token and paste it again with no extra spaces."
+        )
+    return (
+        f"HF_TOKEN is valid and belongs to '{name}', but '{repo}' is not readable with it. A "
+        "fine-grained token must be granted Read access to that repo (or use a classic Read token)."
+    )
+
+
 def build_bundle(out: Path = BUNDLE) -> None:
     p = local_paths()
     if out.exists():

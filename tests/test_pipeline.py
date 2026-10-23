@@ -117,3 +117,30 @@ def test_recommend_route_without_history_falls_back_to_search(pipe):
     pipe.client = FakeClient({"route": "recommend", "text": "desk organizer"})
     resp = pipe.search("recommend something for my desk")
     assert resp.route_used == "search" and any("sidebar" in n for n in resp.notes)
+
+
+def test_hub_help_messages_never_leak_token(monkeypatch):
+    from cartrank.serve import artifacts
+
+    assert "HF_TOKEN is not set" in artifacts.hub_help(token="")
+
+    class BadApi:
+        def __init__(self, token=None):
+            pass
+
+        def whoami(self):
+            raise RuntimeError("401")
+
+    import huggingface_hub
+
+    monkeypatch.setattr(huggingface_hub, "HfApi", BadApi)
+    msg = artifacts.hub_help(token="hf_SECRET123")
+    assert "rejected" in msg and "SECRET" not in msg
+
+    class GoodApi(BadApi):
+        def whoami(self):
+            return {"name": "someone"}
+
+    monkeypatch.setattr(huggingface_hub, "HfApi", GoodApi)
+    msg = artifacts.hub_help(token="hf_SECRET123", repo="u/r")
+    assert "'someone'" in msg and "'u/r'" in msg and "SECRET" not in msg

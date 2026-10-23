@@ -74,6 +74,12 @@ def show(resp, show_ref=True):
         st.dataframe({k: [round(v, 1)] for k, v in resp.timings_ms.items()}, hide_index=True)
         st.markdown("**Candidates per stage**")
         st.json(resp.debug.get("candidates", {}))
+        from cartrank.serve.sysinfo import info
+
+        st.markdown("**Server**")
+        st.json(
+            {**info(), "startup_seconds (one-time, this container)": getattr(pipe, "startup", None)}
+        )
         parser_info = resp.debug.get("parser", {})
         if parser_info.get("usage"):
             u = parser_info["usage"]
@@ -85,7 +91,17 @@ def show(resp, show_ref=True):
             st.caption(f"LLM not used ({parser_info['error']})")
 
 
-pipe = get_pipeline()
+try:
+    pipe = get_pipeline()
+except Exception as e:  # Streamlit Cloud redacts exception text, so explain on screen
+    from cartrank.serve.artifacts import hub_help
+
+    hub_error = type(e).__name__ in ("RepositoryNotFoundError", "HfHubHTTPError", "GatedRepoError")
+    st.error(
+        "CartRank could not load its model files "
+        f"({type(e).__name__}). " + (hub_help() if hub_error else "See the app logs for details.")
+    )
+    st.stop()
 st.title("🛒 CartRank")
 st.caption(
     "Hybrid BM25 + fine-tuned dense retrieval, cross-encoder reranking, a two-tower recommender "
@@ -114,6 +130,25 @@ with st.sidebar:
             st.rerun()
     if st.button("Recommend for me", type="primary", disabled=not st.session_state.liked):
         st.session_state.rec = pipe.recommend(list(st.session_state.liked))
+
+# ----------------------------------------------------------------------------- benchmark
+if st.query_params.get("bench") == "1":
+    import json
+
+    from cartrank.serve.bench import run_benchmark
+    from cartrank.serve.pipeline import Pipeline
+
+    with st.sidebar.expander("Maintainer: benchmark (LLM off, no API tokens)"):
+        if st.button("Run 50-query benchmark"):
+            qfile = Path(__file__).resolve().parents[1] / "evals" / "queries" / "demo_queries.jsonl"
+            queries = [json.loads(line)["query"] for line in qfile.read_text().splitlines()]
+            offline = Pipeline(pipe.cs, pipe.tt, None, ce_batch=pipe.ce_batch)
+            with st.spinner("Running 50 queries..."):
+                result = run_benchmark(offline, queries)
+            result["startup_seconds"] = getattr(pipe, "startup", None)
+            st.session_state.bench_result = result
+        if "bench_result" in st.session_state:
+            st.code(json.dumps(st.session_state.bench_result, indent=1), language="json")
 
 # ----------------------------------------------------------------------------- main
 query = st.text_input(
