@@ -91,11 +91,20 @@ satisfy every constraint rose from 27.6% (plain search) to 92.4% (parser + hard 
 the 21 are held-out queries (13.3% to 75.0%), and the keyword-based constraints are judged by rules
 the filter also uses, so read it as a mechanism check. Details: `results/query_layer.md`.
 
-### Serving (measured on a laptop; Streamlit Cloud figures pending)
+### Serving: memory
 
-Retrieval + rerank pipeline on CPU, LLM off, 50 queries: p50 216 ms, p95 256 ms, 1.42 GB resident
-memory after the run (budget 2.0 GB). The cross-encoder batch size mattered: batch 64 grew memory to
-2.4 GB. The end-to-end LLM-on latency is pending (see Limitations). Details: `results/latency.md`.
+The app must fit a free tier, so memory is the tracked resource (budget 2.0 GB; Streamlit's docs list
+about 2.7 GB as the ceiling). Latency is deliberately not reported: the demo runs on free tiers
+(Streamlit Community Cloud, Groq and OpenRouter free plans), so timings there say little about the
+system.
+
+| Where | Resident memory | Source |
+|---|---|---|
+| Laptop, after loading everything and running 50 queries | 1,334 MB | `results/serving_footprint.md` |
+| **Streamlit Community Cloud**, after 50 queries | 1,421 MB | `results/deployed_memory.md` |
+
+The cross-encoder batch size mattered: at batch 64 the pipeline's memory grew to 2,406 MB over 50
+queries; at batch 4 it stays at 1,421 MB with identical rankings (`results/ce_batch_memory.md`).
 
 ## Datasets and licences
 
@@ -122,7 +131,7 @@ Kept honest in `docs/what_failed.md`. Highlights: fine-tuning the encoder barely
 pipeline; the two-tower text signal did not help cold items; BPR needed longer training and still
 lost to ItemKNN; `.gitignore` swallowed the `cartrank.data` package so CI and the first deploy broke;
 a cross-encoder batch size of 64 pushed memory past the budget; Groq's daily token cap was exhausted
-by evaluation runs and invalidated one latency measurement.
+by evaluation runs, which left the live demo without LLM parsing for hours.
 
 ## Limitations
 
@@ -135,7 +144,6 @@ by evaluation runs and invalidated one latency measurement.
   parses per day at the measured prompt size).
 - "Similar to" results come from co-interaction, so accessories (for example staples for a stapler)
   can appear.
-- Cloud cold-start and per-query latency are pending a measurement on the deployed app.
 
 ## How to run
 

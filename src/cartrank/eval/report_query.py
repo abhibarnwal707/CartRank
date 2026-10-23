@@ -46,8 +46,6 @@ def write_report() -> None:
     c_tok = sum(r["summary"]["completion_tokens_mean"] * r["summary"]["llm_success"] for r in runs)
     p_mean, c_mean = p_tok / n_tok, c_tok / n_tok
     cost = (p_mean * PRICE_IN_PER_M + c_mean * PRICE_OUT_PER_M) / 1e6
-    lat = h2["summary"]["latency_s"]
-    glat = g2["summary"]["latency_s"]
     chain = d["parser_gold_v1_chain"]["summary"]
     c = d["constraints"]
     cs_rows = []
@@ -150,7 +148,7 @@ def write_report() -> None:
         "the same rules, so for those two the figure checks the mechanism, not relevance. "
         "Satisfying a constraint does not prove a result is relevant; no relevance labels exist for "
         "the filtered lists. Filtering can return fewer than 10 results.\n",
-        "## Cost and latency\n",
+        "## Cost\n",
         f"Prompt v2 uses {p_mean:.0f} prompt and {c_mean:.0f} completion tokens per query on "
         f"average ({n_tok} successful calls). At Groq's list price for `openai/gpt-oss-20b` "
         f"(${PRICE_IN_PER_M:.3f} input / ${PRICE_OUT_PER_M:.2f} output per 1M tokens, read from "
@@ -158,24 +156,13 @@ def write_report() -> None:
         f"(${cost * 1000:.3f} per 1,000). The free tier costs nothing but is limited; the "
         "rate-limits page listed 30 requests/min, 8K tokens/min, 1K requests/day and 200K "
         "tokens/day for this model, but its text did not say which plan that table describes.\n",
-        _t(
-            ["Run", "Parser p50 s", "Parser p95 s"],
-            [
-                ["Held-out, prompt v2", f"{lat['p50']:.2f}", f"{lat['p95']:.2f}"],
-                ["Dev, prompt v2", f"{glat['p50']:.2f}", f"{glat['p95']:.2f}"],
-            ],
-        ),
-        "\nLatency is the whole `parse()` call (regex + one Groq request) from this laptop, one "
-        "query at a time.\n",
         "## Fallback chain\n",
         f"Run with the full chain (Groq, then OpenRouter) at about one request per second on the "
         f"dev set with prompt v1: {chain['providers']}. Groq rejected those 17 requests (the status "
-        f"code was not recorded; most likely the free-tier rate limit). Parser p95 for that run was "
-        f"{chain['latency_s']['p95']:.1f} s; in separate single-call tests the OpenRouter free model "
-        "`recursive/flint-v1.0` took about 4 to 5 s. Both are above the app's 3 s budget, so a busy "
-        "Groq free tier would break the latency target even though the app keeps working. "
-        "OpenRouter free models were also unreliable on 2026-10-24: Gemma returned HTTP 429 on every "
-        "attempt, and `nemotron-3-super-120b` returned an upstream 404.\n",
+        "code was not recorded; most likely the free-tier rate limit), so the chain kept the parser "
+        "working at the cost of switching to a free OpenRouter model. OpenRouter free models were "
+        "also unreliable on 2026-10-24: Gemma returned HTTP 429 on every attempt, and "
+        "`nemotron-3-super-120b` returned an upstream 404.\n",
         "## Limitations\n",
         "- The gold sets are small (100 dev, 50 held-out) and were written by Claude (the assistant), "
         "not by the project owner; the owner has not reviewed them yet.\n"

@@ -1,0 +1,30 @@
+{
+ "what": "Resident memory of the serving pipeline (LLM off, local CPU, 50 demo queries) by cross-encoder batch size. Memory only; extracted from the measurement runs before the latency reporting was dropped.",
+ "rows": [
+  {
+   "ce_batch": 2,
+   "rss_after_load_mb": 1130,
+   "rss_after_50_queries_mb": 1373
+  },
+  {
+   "ce_batch": 4,
+   "rss_after_load_mb": 1130,
+   "rss_after_50_queries_mb": 1421
+  },
+  {
+   "ce_batch": 8,
+   "rss_after_load_mb": 1131,
+   "rss_after_50_queries_mb": 1560
+  },
+  {
+   "ce_batch": 16,
+   "rss_after_load_mb": 1116,
+   "rss_after_50_queries_mb": 1743
+  },
+  {
+   "ce_batch": 64,
+   "rss_after_load_mb": 1128,
+   "rss_after_50_queries_mb": 2406
+  }
+ ]
+}

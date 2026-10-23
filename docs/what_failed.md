@@ -18,19 +18,15 @@ Running log of things that went wrong, feeding the README.
   queries, so it carried no signal; the reasons were labelled by hand instead.
 - Phase 6: with the cross-encoder at batch size 64, the app pipeline's resident memory grew from 1.1 GB
   after load to 2.4 GB after 50 queries, over the 2.0 GB budget. Batch size 4 gives 1.4 GB with identical
-  rankings and slightly lower latency. Found by measuring, not by reading code.
-- Phase 6: I ran `python -m cartrank.eval.latency --help` to see its usage; the script had no argument
-  parser, treated `--help` as a mode and started a real 50-query run alongside the latency measurements,
-  contaminating them. I stopped everything, re-ran cleanly, and added mode validation.
+  rankings. Found by measuring, not by reading code.
 - Phase 6: Groq's free tier also has a daily token cap (200,000 tokens/day for gpt-oss-20b, refilling
   at about 2.3 tokens/s). At about 730 tokens per parse that is roughly 270 parses per day, shared by
-  the live demo and every evaluation run. I used it up with evaluation and latency runs, so the second
-  LLM-on latency run got LLM answers on only 8 of 50 queries and is marked invalid in
-  results/latency.md. Lesson: budget API tokens before running paid-by-quota experiments, and keep the
-  demo's share (cache repeated queries; fall back to OpenRouter, then regex-only).
-- Phase 6: the first LLM-on latency run had parse p95 of 18 s (max 37 s). httpx timeouts apply per read,
-  and OpenRouter keeps the connection alive while a slow free model works, so a "5 s" timeout was not a
-  total deadline. Fixed with a wall-clock deadline per call (tested).
+  the live demo and every evaluation run. Evaluation runs used it up, so parsing silently fell back to
+  regex-only for hours. Lesson: budget API tokens before running quota-limited experiments, and keep
+  the demo's share (cache repeated queries; fall back to OpenRouter, then regex-only).
+- Phase 6: httpx timeouts apply per read, and OpenRouter keeps the connection alive while a slow free
+  model works, so a "5 s" timeout was not a total limit and one call could run for tens of seconds.
+  Fixed with a wall-clock deadline per call (tested).
 - Phase 6: `.gitignore` had a bare `data/` rule meant for the top-level dataset folder, which also matched
   `src/cartrank/data/`. The whole `cartrank.data` package (paths, splits, catalog, loaders) was never
   committed, so GitHub Actions failed (ruff could not classify `cartrank.data` imports) and the Streamlit

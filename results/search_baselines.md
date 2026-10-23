@@ -91,27 +91,19 @@ Best: k=10, depth=200 (NDCG@10 0.3620).
 
 ## Cross-encoder rerank (full-corpus, hybrid first stage)
 
-Model `cross-encoder/ms-marco-MiniLM-L-6-v2` (22.7M params), input = query + product text truncated to 256 tokens, scored on CPU. In rerank mode the cross-encoder orders every judged candidate, so k does not apply. Latency is the cross-encoder stage alone, 50 dev queries, local MacBook Air CPU.
+Model `cross-encoder/ms-marco-MiniLM-L-6-v2` (22.7M params), input = query + product text truncated to 256 tokens, scored on CPU. In rerank mode the cross-encoder orders every judged candidate, so k does not apply.
 
-| k | NDCG@10 | Δ vs hybrid | Recall@100 | MRR@10 | p50 ms | p95 ms |
-|---|---|---|---|---|---|---|
-| 20 | 0.3984 | +0.0364 | 0.6482 | 0.5766 | 105 | 131 |
-| 50 | 0.4052 | +0.0432 | 0.6482 | 0.5807 | 279 | 360 |
-| 100 | 0.4066 | +0.0446 | 0.6482 | 0.5804 | 496 | 645 |
+| k | NDCG@10 | Δ vs hybrid | Recall@100 | MRR@10 |
+|---|---|---|---|---|
+| 20 | 0.3984 | +0.0364 | 0.6482 | 0.5766 |
+| 50 | 0.4052 | +0.0432 | 0.6482 | 0.5807 |
+| 100 | 0.4066 | +0.0446 | 0.6482 | 0.5804 |
 
-Working point k=50: most of the gain of k=100 at about half its latency (chosen on dev, not test).
+Working point k=50 (chosen on dev, not test): k=100 adds only +0.0014 NDCG@10 over k=50.
 
-## Latency and index size
+## Index size
 
-Latency is one full-corpus query at a time on the local MacBook Air (query encoding on MPS for dense), 200 dev queries, top-100, 482,105 products.
-
-| System | p50 ms | p95 ms |
-|---|---|---|
-| bm25 | 1.4 | 2.7 |
-| dense_base | 12.8 | 19.2 |
-| hybrid_base | 14.9 | 19.4 |
-
-BM25 index: build 12 s, 175 MB on disk. Dense vectors: 384-dim float32, 741 MB (FAISS flat inner product).
+482,105 products. BM25 index: build 12 s, 175 MB on disk. Dense vectors: 384-dim float32, 741 MB (FAISS flat inner product).
 
 ## Ablation: product text (BM25)
 

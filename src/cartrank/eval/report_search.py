@@ -7,7 +7,7 @@ from cartrank.data.paths import RESULTS
 # Main ladder (playbook): (label, {mode: key in results/search_dev.json "ladder"}).
 # In rerank mode the cross-encoder orders every judged candidate whatever the first stage is,
 # so its row is shared by the base and fine-tuned pipelines.
-CE_K = 50  # working point chosen on dev: NDCG vs CPU latency, see the rerank tuning table
+CE_K = 50  # working point chosen on dev, see the rerank tuning table
 ROWS = [
     ("BM25", {"rerank": "bm25", "full": "bm25"}),
     ("Dense, bge-small off-the-shelf", {"rerank": "dense_base", "full": "dense_base"}),
@@ -163,19 +163,17 @@ def write_report() -> None:
         out.append("")
 
     if "rerank_tuning_base" in data:
-        lat = data["rerank_latency_ms_base"]
         mdl = data["rerank_model"]
         out.append(
             f"## Cross-encoder rerank (full-corpus, hybrid first stage)\n\n"
             f"Model `{mdl['name']}` ({mdl['params'] / 1e6:.1f}M params), input = query + product "
             f"text truncated to {mdl['max_length']} tokens, scored on CPU. In rerank mode the "
-            "cross-encoder orders every judged candidate, so k does not apply. Latency is the "
-            "cross-encoder stage alone, 50 dev queries, local MacBook Air CPU.\n"
+            "cross-encoder orders every judged candidate, so k does not apply.\n"
         )
         base = data["ladder"]["hybrid_base|full"]["ndcg@10"]
         out.append(
             _table(
-                ["k", "NDCG@10", "Δ vs hybrid", "Recall@100", "MRR@10", "p50 ms", "p95 ms"],
+                ["k", "NDCG@10", "Δ vs hybrid", "Recall@100", "MRR@10"],
                 [
                     [
                         str(r["k"]),
@@ -183,35 +181,25 @@ def write_report() -> None:
                         f"{r['ndcg@10'] - base:+.4f}",
                         f"{r['recall@100']:.4f}",
                         f"{r['mrr@10']:.4f}",
-                        f"{lat[f'k={r["k"]}']['p50_ms']:.0f}",
-                        f"{lat[f'k={r["k"]}']['p95_ms']:.0f}",
                     ]
                     for r in data["rerank_tuning_base"]
                 ],
             )
         )
+        by_k = {r["k"]: r["ndcg@10"] for r in data["rerank_tuning_base"]}
         out.append(
-            f"\nWorking point k={CE_K}: most of the gain of k=100 at about half its latency "
-            "(chosen on dev, not test).\n"
+            f"\nWorking point k={CE_K} (chosen on dev, not test): k=100 adds only "
+            f"{by_k[100] - by_k[CE_K]:+.4f} NDCG@10 over k={CE_K}.\n"
         )
 
-    if "latency_ms" in data:
-        lat, idx = data["latency_ms"], data["index"]
+    if "index" in data:
+        idx = data["index"]
         out.append(
-            "## Latency and index size\n\nLatency is one full-corpus query at a time on the "
-            "local MacBook Air (query encoding on MPS for dense), 200 dev queries, top-100, "
-            f"{idx['corpus_size']:,} products.\n"
-        )
-        out.append(
-            _table(
-                ["System", "p50 ms", "p95 ms"],
-                [[k, f"{v['p50_ms']:.1f}", f"{v['p95_ms']:.1f}"] for k, v in lat.items()],
-            )
-        )
-        out.append(
-            f"\nBM25 index: build {idx['bm25_build_seconds']:.0f} s, {idx['bm25_index_mb']:.0f} MB "
-            f"on disk. Dense vectors: {idx['dense_dim']}-dim float32, "
-            f"{idx['dense_vectors_mb']:.0f} MB (FAISS flat inner product).\n"
+            f"## Index size\n\n{idx['corpus_size']:,} products. BM25 index: build "
+            f"{idx['bm25_build_seconds']:.0f} s, {idx['bm25_index_mb']:.0f} MB on disk. "
+            "Dense vectors: "
+            f"{idx['dense_dim']}-dim float32, {idx['dense_vectors_mb']:.0f} MB (FAISS flat inner "
+            "product).\n"
         )
 
     if "ablation_text_bm25" in data:

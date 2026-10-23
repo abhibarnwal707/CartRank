@@ -10,7 +10,12 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 # Streamlit Cloud secrets -> environment (a local .env is read by cartrank.config)
 try:
-    for _k in ("GROQ_API_KEY", "OPENROUTER_API_KEY", "HF_TOKEN", "CARTRANK_ARTIFACT_DIR"):
+    for _k in (
+        "GROQ_API_KEY",
+        "OPENROUTER_API_KEY",
+        "HF_TOKEN",
+        "CARTRANK_ARTIFACT_DIR",
+    ):
         if _k in st.secrets:
             os.environ.setdefault(_k, st.secrets[_k])
 except Exception:  # no secrets file locally
@@ -77,9 +82,7 @@ def show(resp, show_ref=True):
         from cartrank.serve.sysinfo import info
 
         st.markdown("**Server**")
-        st.json(
-            {**info(), "startup_seconds (one-time, this container)": getattr(pipe, "startup", None)}
-        )
+        st.json(info())
         parser_info = resp.debug.get("parser", {})
         if parser_info.get("usage"):
             u = parser_info["usage"]
@@ -130,25 +133,6 @@ with st.sidebar:
             st.rerun()
     if st.button("Recommend for me", type="primary", disabled=not st.session_state.liked):
         st.session_state.rec = pipe.recommend(list(st.session_state.liked))
-
-# ----------------------------------------------------------------------------- benchmark
-if st.query_params.get("bench") == "1":
-    import json
-
-    from cartrank.serve.bench import run_benchmark
-    from cartrank.serve.pipeline import Pipeline
-
-    with st.sidebar.expander("Maintainer: benchmark (LLM off, no API tokens)"):
-        if st.button("Run 50-query benchmark"):
-            qfile = Path(__file__).resolve().parents[1] / "evals" / "queries" / "demo_queries.jsonl"
-            queries = [json.loads(line)["query"] for line in qfile.read_text().splitlines()]
-            offline = Pipeline(pipe.cs, pipe.tt, None, ce_batch=pipe.ce_batch)
-            with st.spinner("Running 50 queries..."):
-                result = run_benchmark(offline, queries)
-            result["startup_seconds"] = getattr(pipe, "startup", None)
-            st.session_state.bench_result = result
-        if "bench_result" in st.session_state:
-            st.code(json.dumps(st.session_state.bench_result, indent=1), language="json")
 
 # ----------------------------------------------------------------------------- main
 query = st.text_input(

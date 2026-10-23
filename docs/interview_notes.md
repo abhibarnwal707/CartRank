@@ -56,15 +56,21 @@ until then the figures below are dev numbers and say so. Fill the `pending` cell
   but was written after reading v1's errors on the dev set, which is why the held-out set matters.
   Operationally, Groq's free tier (1,000 requests and 200K tokens per day) is the bottleneck.
 
-## 4. Serving: latency and memory
+## 4. Serving: memory on a free tier
 
-- **Numbers (laptop, LLM off, 50 queries):** p50 216 ms, p95 256 ms, 1.42 GB after the run. Deployed
-  figures: *pending*. End-to-end LLM-on latency: *pending* (the one run was invalid, see below).
-- **Measures:** the retrieval, filter and cross-encoder pipeline on CPU.
-- **Does not measure:** network, browser or Streamlit overhead, concurrency, or the LLM call.
-- **Biggest failure mode:** memory. The cross-encoder at batch 64 grew resident memory to 2.4 GB; batch 4
-  gives 1.4 GB with identical rankings. Latency with the LLM was ruined in one run because evaluation
-  runs had exhausted Groq's daily token cap, and that run is marked invalid rather than reported.
+- **Numbers:** resident memory after loading everything and running 50 queries is 1,334 MB on a laptop
+  (`results/serving_footprint.md`) and 1,421 MB on Streamlit Community Cloud (`results/deployed_memory.md`);
+  budget 2,000 MB, platform ceiling about 2.7 GB.
+- **Measures:** the process's memory with all models and indexes loaded, with the LLM off.
+- **Does not measure:** concurrent users (memory per session), or anything about speed. Latency is
+  deliberately not reported: the demo runs on free tiers (Streamlit, Groq, OpenRouter), where timings are
+  not meaningful.
+- **Biggest failure mode:** the cross-encoder batch size. At batch 64 memory grew to 2,406 MB over 50
+  queries; batch 4 holds it at 1,421 MB with identical rankings (`results/ce_batch_memory.md`). Found by
+  measuring, not by reading code.
+- **Operational limit worth mentioning:** Groq's free tier allows about 200K tokens per day, roughly 270
+  query parses at the measured prompt size, so the app caches repeated queries and falls back to a free
+  OpenRouter model and then to regex-only parsing.
 
 ## Questions to be ready for
 

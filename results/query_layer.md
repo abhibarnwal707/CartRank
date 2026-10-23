@@ -55,20 +55,13 @@ Queries with at least two stated constraints (price, rating, brand, each must-ha
 
 Caveats: 21 queries is a small sample, and only 6 are from the held-out set. must-have/exclude are judged by keyword rules over title and features, and the filter uses the same rules, so for those two the figure checks the mechanism, not relevance. Satisfying a constraint does not prove a result is relevant; no relevance labels exist for the filtered lists. Filtering can return fewer than 10 results.
 
-## Cost and latency
+## Cost
 
 Prompt v2 uses 647 prompt and 94 completion tokens per query on average (147 successful calls). At Groq's list price for `openai/gpt-oss-20b` ($0.075 input / $0.30 output per 1M tokens, read from console.groq.com/docs/models on 2026-10-24) that is about **$0.000077 per query** ($0.077 per 1,000). The free tier costs nothing but is limited; the rate-limits page listed 30 requests/min, 8K tokens/min, 1K requests/day and 200K tokens/day for this model, but its text did not say which plan that table describes.
 
-| Run | Parser p50 s | Parser p95 s |
-|---|---|---|
-| Held-out, prompt v2 | 0.78 | 1.32 |
-| Dev, prompt v2 | 0.69 | 1.42 |
-
-Latency is the whole `parse()` call (regex + one Groq request) from this laptop, one query at a time.
-
 ## Fallback chain
 
-Run with the full chain (Groq, then OpenRouter) at about one request per second on the dev set with prompt v1: {'groq:openai/gpt-oss-20b': 83, 'openrouter:recursive/flint-v1.0:free': 17}. Groq rejected those 17 requests (the status code was not recorded; most likely the free-tier rate limit). Parser p95 for that run was 7.3 s; in separate single-call tests the OpenRouter free model `recursive/flint-v1.0` took about 4 to 5 s. Both are above the app's 3 s budget, so a busy Groq free tier would break the latency target even though the app keeps working. OpenRouter free models were also unreliable on 2026-10-24: Gemma returned HTTP 429 on every attempt, and `nemotron-3-super-120b` returned an upstream 404.
+Run with the full chain (Groq, then OpenRouter) at about one request per second on the dev set with prompt v1: {'groq:openai/gpt-oss-20b': 83, 'openrouter:recursive/flint-v1.0:free': 17}. Groq rejected those 17 requests (the status code was not recorded; most likely the free-tier rate limit), so the chain kept the parser working at the cost of switching to a free OpenRouter model. OpenRouter free models were also unreliable on 2026-10-24: Gemma returned HTTP 429 on every attempt, and `nemotron-3-super-120b` returned an upstream 404.
 
 ## Limitations
 

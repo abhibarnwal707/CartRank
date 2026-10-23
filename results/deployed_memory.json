@@ -1,0 +1,7 @@
+{
+ "provenance": "Read from the output of the app's in-app benchmark run on Streamlit Community Cloud on 2026-10-24 (50 demo queries, LLM off), pasted by the owner. Only memory and host fields are kept; latency is deliberately not reported for the free-tier deployment.",
+ "server": {"platform": "Linux x86_64", "python": "3.14.9", "cpu_count_visible": 16},
+ "rss_mb": {"before_queries": 1343, "after_50_queries": 1421},
+ "budget_mb": 2000,
+ "platform_limit_mb_per_streamlit_docs": 2700
+}

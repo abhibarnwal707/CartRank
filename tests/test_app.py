@@ -47,13 +47,3 @@ def test_picker_adds_item_and_recommends(app):
     [b for b in app.button if b.label == "Recommend for me"][0].click().run()
     assert not app.exception
     assert any("Recommended for you" in s.value for s in app.subheader)
-
-
-def test_benchmark_button_runs_and_reports(app):
-    app.query_params["bench"] = "1"
-    app.run()
-    assert not app.exception
-    [b for b in app.button if b.label == "Run 50-query benchmark"][0].click().run()
-    assert not app.exception
-    code = " ".join(c.value for c in app.code)
-    assert '"n_queries": 50' in code and '"p95"' in code and '"startup_seconds"' in code
