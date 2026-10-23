@@ -119,3 +119,58 @@ def test_fallback_chain_order_and_errors():
     assert usage["provider"] == "b" and usage["fallbacks_used"] == 1
     with pytest.raises(LLMError, match="a: HTTP 429; b: HTTP 429"):
         FallbackClient([Fake("a", True), Fake("b", True)]).complete("s", "u")
+
+
+class _FakeResp:
+    def __init__(self, status, chunks, delay=0.0):
+        self.status_code, self._chunks, self._delay = status, chunks, delay
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *a):
+        return False
+
+    def iter_bytes(self):
+        import time
+
+        for c in self._chunks:
+            time.sleep(self._delay)
+            yield c
+
+
+def _client(timeout=0.3):
+    from cartrank.query.llm_clients import ChatClient
+
+    return ChatClient("t", "http://x", "m", "T_KEY", timeout=timeout)
+
+
+def test_chat_client_success_and_status_errors(monkeypatch):
+    from cartrank.query import llm_clients as L
+
+    monkeypatch.setenv("T_KEY", "k")
+    body = json.dumps({"choices": [{"message": {"content": "{}"}}], "usage": {"prompt_tokens": 3}})
+    monkeypatch.setattr(L.httpx, "stream", lambda *a, **k: _FakeResp(200, [body.encode()]))
+    text, usage = _client().complete("s", "u")
+    assert text == "{}" and usage["prompt_tokens"] == 3 and usage["provider"] == "t"
+    monkeypatch.setattr(L.httpx, "stream", lambda *a, **k: _FakeResp(429, [b"{}"]))
+    with pytest.raises(L.LLMError, match="HTTP 429"):
+        _client().complete("s", "u")
+
+
+def test_chat_client_enforces_total_deadline_despite_keepalive_bytes(monkeypatch):
+    from cartrank.query import llm_clients as L
+
+    monkeypatch.setenv("T_KEY", "k")
+    # keep-alive bytes arrive every 50 ms, so a per-read timeout never fires; the deadline must
+    monkeypatch.setattr(L.httpx, "stream", lambda *a, **k: _FakeResp(200, [b" "] * 100, delay=0.05))
+    with pytest.raises(L.LLMError, match="deadline"):
+        _client(timeout=0.3).complete("s", "u")
+
+
+def test_chat_client_missing_key(monkeypatch):
+    from cartrank.query import llm_clients as L
+
+    monkeypatch.delenv("T_KEY", raising=False)
+    with pytest.raises(L.LLMError, match="not set"):
+        _client().complete("s", "u")

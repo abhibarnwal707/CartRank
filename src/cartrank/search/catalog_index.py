@@ -22,13 +22,22 @@ CATALOG_ARTIFACTS = ROOT / "artifacts" / "catalog"
 
 
 class CatalogSearch:
-    def __init__(self, tag: str, model_path: str, hybrid_k: int, hybrid_depth: int):
-        self.cat = pd.read_parquet(CATALOG_PATH)
+    def __init__(
+        self,
+        tag: str,
+        model_path: str,
+        hybrid_k: int,
+        hybrid_depth: int,
+        catalog_path=CATALOG_PATH,
+        vecs_path=None,
+        device: str | None = None,
+    ):
+        self.cat = pd.read_parquet(catalog_path)
         self.ids = self.cat.parent_asin.tolist()
         self.text = dict(zip(self.ids, self.cat.text, strict=True))
         self.bm25 = Bm25Index(self.ids, self.cat.text.tolist())
-        self.enc = load_encoder(model_path)
-        vec_path = CATALOG_ARTIFACTS / f"{tag}_vecs.npy"
+        self.enc = load_encoder(model_path, device=device)
+        vec_path = vecs_path or CATALOG_ARTIFACTS / f"{tag}_vecs.npy"
         if vec_path.exists():
             self.vecs = np.load(vec_path)
         else:
@@ -45,16 +54,24 @@ class CatalogSearch:
         self._items = {
             r.parent_asin: {
                 "title": r.title,
-                "features": list(r.features),
+                "features": [r.features_text] if hasattr(r, "features_text") else list(r.features),
                 "price": float(r.price),
                 "average_rating": float(r.average_rating),
                 "store": r.store,
             }
             for r in self.cat.itertuples()
         }
+        self._meta = {
+            r.parent_asin: {"rating_number": r.rating_number, "image_url": r.image_url}
+            for r in self.cat.itertuples()
+        }
 
     def item(self, asin: str) -> dict:
         return self._items[asin]
+
+    def meta(self, asin: str) -> dict:
+        """Card-only fields (kept out of the filter dict)."""
+        return self._meta[asin]
 
     def dense(self, query: str, n: int) -> list[str]:
         q = encode_queries(self.enc, [query], prefix=BGE_QUERY_PREFIX)[0]

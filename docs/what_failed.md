@@ -16,3 +16,9 @@ Running log of things that went wrong, feeding the README.
   which is within the range I would expect from noise. The cross-encoder does most of the work.
 - Phase 2: the keyword heuristic for tagging error-analysis queries (brand in query) fired on 23 of 30 sample
   queries, so it carried no signal; the reasons were labelled by hand instead.
+- Phase 6: with the cross-encoder at batch size 64, the app pipeline's resident memory grew from 1.1 GB
+  after load to 2.4 GB after 50 queries, over the 2.0 GB budget. Batch size 4 gives 1.4 GB with identical
+  rankings and slightly lower latency. Found by measuring, not by reading code.
+- Phase 6: I ran `python -m cartrank.eval.latency --help` to see its usage; the script had no argument
+  parser, treated `--help` as a mode and started a real 50-query run alongside the latency measurements,
+  contaminating them. I stopped everything, re-ran cleanly, and added mode validation.

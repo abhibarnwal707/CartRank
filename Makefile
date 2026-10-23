@@ -1,4 +1,4 @@
-.PHONY: setup test lint fmt
+.PHONY: setup test lint fmt demo bundle
 
 setup:
 	uv sync
@@ -22,3 +22,10 @@ data:
 
 profile:
 	uv run python -m cartrank.data.profile
+
+demo:
+	uv run streamlit run app/streamlit_app.py
+
+# Assemble artifacts/bundle (what would be uploaded to the Hugging Face Hub after owner approval)
+bundle:
+	uv run python -m cartrank.serve.artifacts

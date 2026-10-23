@@ -1,0 +1,14 @@
+# Runtime dependencies for the Streamlit app only. Streamlit Community Cloud prefers a dependency
+# file next to the entrypoint over the repo root, so this one is used instead of the root uv.lock,
+# which pins CUDA builds of PyTorch (not needed on a CPU host).
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch
+sentence-transformers
+bm25s
+pystemmer
+numpy
+pandas
+pyarrow
+pydantic>=2
+httpx
+huggingface_hub

@@ -16,6 +16,7 @@ dependencies = [
     "pystemmer>=3.1.0",
     "sentence-transformers>=6.2.0",
     "httpx>=0.28.1",
+    "streamlit>=1.66.1",
 ]
 
 [dependency-groups]
@@ -46,6 +47,9 @@ select = ["E", "F", "I", "UP", "B"]
 "src/cartrank/recsys/package_kaggle.py" = ["E501"]
 "src/cartrank/query/parser.py" = ["E501"]  # prompt text
 "src/cartrank/eval/report_query.py" = ["E501"]
+"src/cartrank/eval/latency.py" = ["E501"]
+"src/cartrank/eval/report_latency.py" = ["E501"]
+"src/cartrank/eval/run_phase7.py" = ["E501"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

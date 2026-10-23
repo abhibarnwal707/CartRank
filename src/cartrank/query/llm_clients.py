@@ -4,6 +4,7 @@ Every failure (network, timeout, rate limit, bad HTTP status, malformed body) is
 `LLMError`, so callers can fall back to the regex-only parse.
 """
 
+import json
 import os
 import time
 
@@ -42,20 +43,29 @@ class ChatClient:
             **self.extra,
         }
         t0 = time.perf_counter()
+        deadline = time.monotonic() + self.timeout  # total wall clock; httpx timeouts are per read
         try:
-            r = httpx.post(
+            with httpx.stream(
+                "POST",
                 self.url,
                 json=payload,
                 timeout=self.timeout,
                 headers={"Authorization": f"Bearer {key}"},
-            )
+            ) as r:
+                self.last_status = r.status_code
+                chunks = []
+                for chunk in r.iter_bytes():
+                    if time.monotonic() > deadline:
+                        raise LLMError(f"{self.name}: deadline exceeded")
+                    chunks.append(chunk)
         except httpx.HTTPError as e:
             raise LLMError(f"{self.name}: {type(e).__name__}") from e
-        self.last_status = r.status_code
+        if time.monotonic() > deadline:
+            raise LLMError(f"{self.name}: deadline exceeded")
         if r.status_code != 200:
             raise LLMError(f"{self.name}: HTTP {r.status_code}")
         try:
-            body = r.json()
+            body = json.loads(b"".join(chunks))
             text = body["choices"][0]["message"]["content"]
             usage = body.get("usage") or {}
         except (ValueError, KeyError, IndexError, TypeError) as e:
@@ -72,7 +82,7 @@ class ChatClient:
         return text, usage
 
 
-def groq(model: str = config.GROQ_MODEL) -> ChatClient:
+def groq(model: str = config.GROQ_MODEL, timeout: float = config.LLM_TIMEOUT_S) -> ChatClient:
     # gpt-oss are reasoning models: low effort keeps latency and tokens small for a parse task.
     return ChatClient(
         "groq",
@@ -80,12 +90,17 @@ def groq(model: str = config.GROQ_MODEL) -> ChatClient:
         model,
         "GROQ_API_KEY",
         extra={"reasoning_effort": "low"},
+        timeout=timeout,
     )
 
 
-def openrouter(model: str) -> ChatClient:
+def openrouter(model: str, timeout: float = config.LLM_TIMEOUT_S) -> ChatClient:
     return ChatClient(
-        "openrouter", "https://openrouter.ai/api/v1/chat/completions", model, "OPENROUTER_API_KEY"
+        "openrouter",
+        "https://openrouter.ai/api/v1/chat/completions",
+        model,
+        "OPENROUTER_API_KEY",
+        timeout=timeout,
     )
 
 
@@ -108,7 +123,13 @@ class FallbackClient:
         raise LLMError("; ".join(self.errors))
 
 
-def default_client() -> FallbackClient:
+def default_client(timeout: float = config.LLM_TIMEOUT_S, n_fallbacks: int | None = None):
+    """Groq first, then OpenRouter free models. Returns None when no key is configured."""
     config.load_env()
-    chain = [groq()] + [openrouter(m) for m in config.OPENROUTER_FALLBACK_MODELS]
-    return FallbackClient(chain)
+    chain = []
+    if os.environ.get("GROQ_API_KEY"):
+        chain.append(groq(timeout=timeout))
+    if os.environ.get("OPENROUTER_API_KEY"):
+        models = config.OPENROUTER_FALLBACK_MODELS[:n_fallbacks]
+        chain += [openrouter(m, timeout=timeout) for m in models]
+    return FallbackClient(chain) if chain else None
