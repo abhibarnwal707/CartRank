@@ -1,4 +1,4 @@
-"""HTML builders for the CartRank screens. Pure functions: data in, markup out.
+"""HTML builders for the CartRank board. Pure functions: data in, markup out.
 
 Every string that comes from the catalog, the model or the visitor goes through `esc`, because the
 markup is rendered with unsafe HTML enabled.
@@ -12,6 +12,7 @@ import re
 
 REPO = "https://github.com/abhibarnwal707/CartRank"
 CATALOG = "51,814"
+IMG = "app/static/img"  # served by Streamlit static file serving (.streamlit/config.toml)
 
 
 def esc(s: object) -> str:
@@ -22,55 +23,75 @@ def money(x: float) -> str:
     return f"${x:,.2f}" if x != int(x) else f"${int(x):,}"
 
 
-# ------------------------------------------------------------------------------- top bar, titles
-MARK = (
-    '<svg class="mark" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">'
-    '<rect x="2" y="3" width="20" height="4.5" fill="#a1ffcb"/>'
-    '<rect x="2" y="10" width="14" height="4.5" fill="#232323"/>'
-    '<rect x="2" y="17" width="8" height="4.5" fill="#232323"/></svg>'
-)
+def _img(url: str | None, cls: str = "", lazy: bool = True) -> str:
+    if not url:
+        return ""
+    load = ' loading="lazy"' if lazy else ""
+    c = f' class="{cls}"' if cls else ""
+    return f'<img{c} src="{esc(url)}" alt=""{load}>'
+
+
+# ------------------------------------------------------------------------------------- top bar
+# Three bars, longest to shortest: a ranked list as a mark. Spans, because st.html strips SVG.
+MARK = '<span class="mark" aria-hidden="true"><i class="m1"></i><i class="m2"></i><i class="m3"></i></span>'
 
 
 def bar_html() -> str:
     return (
-        '<header class="bar">'
-        f'<a class="brand" href="{REPO}" target="_blank" rel="noopener">{MARK}<span>CartRank</span></a>'
-        f'<a class="code-link" href="{REPO}" target="_blank" rel="noopener">Code</a></header>'
+        '<header class="bar" id="top">'
+        f'<a class="brand" href="#top">{MARK}<span>CartRank</span></a>'
+        '<nav aria-label="Sections"><a href="#results">Results</a><a href="#picker">Recommend</a>'
+        '<a href="#how">How it ranks</a><a href="#numbers">Numbers</a></nav>'
+        f'<a class="btn ink" href="{REPO}" target="_blank" rel="noopener">Code</a></header>'
     )
 
 
-def strip_html(images: list[str | None]) -> str:
-    """The ten result photos as a one-line strip that sits in the title where 'ten' goes."""
-    tiles = "".join(
-        f'<span class="tile"><img src="{esc(u)}" alt="" loading="eager"></span>'
-        for u in (images or [])[:10]
-        if u
-    )
-    return f'<span class="strip" role="img" aria-label="ten">{tiles}</span>'
+# ---------------------------------------------------------------------------------------- wall
+# Where the ten picks sit on the wall (row, column), rank order; columns 1-3 show on a phone,
+# column 0 is cropped by the bleed and the panel covers the middle of rows 3-5 on a desktop.
+PICK_AT = [(1, 1), (0, 3), (2, 1), (0, 5), (0, 8), (1, 11), (0, 10), (2, 10), (3, 1), (4, 11)]
+PHOTO_AT = {(0, 0): "pencil-burst", (3, 11): "stapler", (1, 9): "scissors", (4, 0): "name-tags"}
+FILLS = ["pale", "paper", "ground", "pale", "blue", "paper", "ground", "red", "pale", "ink"]
 
 
-def title_html(images: list[str | None]) -> str:
-    return (
-        '<section class="title-row">'
-        '<h1 class="title-line"><span class="l">Ask in a sentence.</span>'
-        f'<span class="l">Get {strip_html(images)}<span class="sr">ten</span> ranked.</span></h1>'
-        '<p class="sub">Describe what you need. Get ten products, ranked, with the reason for each.</p>'
-        "</section>"
-    )
+def wall_html(
+    picks: list[str | None], catalog: list[str | None], rows: int = 6, per_row: int = 15
+) -> str:
+    """The catalog as a wall of specimens. The ten picks sit on white with their rank; the rest of
+    the catalog stays faint on coloured tiles; four found photographs set the scene."""
+    pick_at = {pos: (i + 1, url) for i, (pos, url) in enumerate(zip(PICK_AT, picks, strict=False))}
+    chosen = set(picks)
+    pool = [u for u in catalog if u and u not in chosen] or [u for u in picks if u]
+    k = 0
+    out = []
+    for r in range(rows):
+        tiles = []
+        for c in range(per_row):
+            if (r, c) in pick_at:
+                rank, url = pick_at[(r, c)]
+                tiles.append(
+                    f'<span class="t pick">{_img(url, lazy=False)}<b class="rk">{rank}</b></span>'
+                )
+            elif (r, c) in PHOTO_AT:
+                tiles.append(
+                    f'<span class="t photo">{_img(f"{IMG}/{PHOTO_AT[(r, c)]}.jpg")}</span>'
+                )
+            else:
+                fill = FILLS[(r * 7 + c * 3) % len(FILLS)]
+                inner = ""
+                if fill in ("pale", "paper", "ground") and pool:
+                    inner = _img(pool[k % len(pool)])
+                    k += 1
+                tiles.append(f'<span class="t {fill}">{inner}</span>')
+        out.append(f'<div class="wrow{" odd" if r % 2 else ""}">{"".join(tiles)}</div>')
+    return f'<div class="wall" aria-hidden="true">{"".join(out)}</div>'
 
 
-def screen_head_html(title: str, sub: str) -> str:
-    return (
-        f'<section class="title-row"><h1 class="screen-title">{esc(title)}</h1>'
-        f'<p class="sub">{esc(sub)}</p></section>'
-    )
+def title_html() -> str:
+    return '<h1 class="h1"><span>Ask in a sentence.</span> <span>Get ten, ranked.</span></h1>'
 
 
-def label_html(text: str) -> str:
-    return f'<p class="label">{esc(text)}</p>'
-
-
-# --------------------------------------------------------------------------------- understanding
+# ------------------------------------------------------------------------------- understanding
 def tokens_for(intent) -> list[tuple[str, str]]:
     """(kind, label) for every constraint the parser found; kind is 'need' or 'skip'."""
     out: list[tuple[str, str]] = []
@@ -90,6 +111,10 @@ def tokens_for(intent) -> list[tuple[str, str]]:
     for e in intent.exclude:
         out.append(("skip", f"no {e}"))
     return out
+
+
+def toks_html(intent) -> str:
+    return "".join(f'<span class="tok {k}">{esc(t)}</span>' for k, t in tokens_for(intent))
 
 
 def funnel_stages(resp) -> list[tuple[str, int, str]]:
@@ -128,7 +153,7 @@ def funnel_html(resp) -> str:
 
 
 def hood_html(resp) -> str:
-    """The parse, the timings and the model that parsed it, as plain text in a disclosure."""
+    """The parse, the timings and the model that parsed it."""
     i = resp.intent
     parsed = [("route", resp.route_used), ("search text", i.text)]
     if i.price_min is not None:
@@ -154,23 +179,10 @@ def hood_html(resp) -> str:
             f"<dt>parsed by</dt><dd>{esc(u.get('provider'))} / {esc(u.get('model'))}, "
             f"{esc(u.get('prompt_tokens'))} + {esc(u.get('completion_tokens'))} tokens</dd>"
         )
-    return f'<details class="hood"><summary>Under the hood</summary><dl>{rows}</dl></details>'
+    return f'<dl class="hood">{rows}</dl>'
 
 
-def insight_html(resp) -> str:
-    """What the parser understood (constraints as tokens) beside how the list narrowed."""
-    intent = resp.intent
-    text = intent.text or resp.query
-    toks = "".join(f'<span class="tok {k}">{esc(t)}</span>' for k, t in tokens_for(intent))
-    notes = "".join(f'<p class="note">{esc(n)}</p>' for n in resp.notes)
-    return (
-        '<section class="insight"><div class="understood"><p class="label">Understood</p>'
-        f'<p class="read">{esc(text)}</p><div class="toks">{toks}</div>{notes}</div>'
-        f"{funnel_html(resp)}</section>"
-    )
-
-
-# ----------------------------------------------------------------------------------------- cards
+# ------------------------------------------------------------------------- index with preview
 def _relative(scores: list[float | None]) -> list[float]:
     vals = [s for s in scores if s is not None]
     if len(vals) < 2:
@@ -189,126 +201,236 @@ def _short(part: str) -> str:
 
 
 def chips_html(why: str) -> str:
-    """The why-line as at most two short chips: the constraint checks, not the keyword echo."""
-    parts = [p.strip() for p in why.split(";") if p.strip() and not p.strip().startswith("matches")]
-    if not parts:
-        parts = [why.strip()] if why.strip() else []
-    return "".join(f'<span class="chip">{esc(_short(p))}</span>' for p in parts[:2])
+    """The why-line as short chips: the constraint checks first, the keyword echo only if alone."""
+    parts = [p.strip() for p in why.split(";") if p.strip()]
+    checks = [p for p in parts if not p.startswith("matches")]
+    return "".join(f'<span class="chip">{esc(_short(p))}</span>' for p in (checks or parts)[:3])
 
 
-def card_html(rank: int, r, rel: float, first: bool) -> str:
-    """One ranked product as a card: a large photo with its rank, then price, title and two chips."""
-    img = f'<img src="{esc(r.image_url)}" alt="" loading="lazy">' if r.image_url else ""
+def row_html(rank: int, r, rel: float) -> str:
+    """One ranked row. Its preview sits in the shared frame and shows while the row is pointed at
+    (the first row's shows by default)."""
     store = f"{esc(r.store)} · " if r.store else ""
     return (
-        f'<article class="pcard{" first" if first else ""}" data-price="{r.price:.2f}" '
-        f'data-rank="{rank}" title="{esc(r.why)}">'
-        f'<div class="photo">{img}<span class="badge" aria-label="Rank {rank}">{rank}</span></div>'
-        '<div class="pinfo"><div class="pline"><p class="price">'
-        f'{money(r.price)}</p><div class="score" role="img" '
-        'aria-label="Score relative to the others in this list">'
-        f'<span style="--w:{rel:.3f}"></span></div></div>'
-        f'<p class="title">{esc(r.title[:100])}</p>'
-        f'<p class="meta">{store}{r.rating:.1f} of 5 · {r.rating_number:,}</p>'
-        f'<div class="chips">{chips_html(r.why)}</div></div></article>'
+        f'<li class="irow" tabindex="0" data-price="{r.price:.2f}" data-rank="{rank}">'
+        f'<span class="ir">{rank}</span>{_img(r.image_url, "thumb")}'
+        f'<span class="it">{esc(r.title[:110])}</span><span class="ip">{money(r.price)}</span>'
+        '<div class="pv">'
+        f'<div class="pv-ph">{_img(r.image_url)}<b class="rk">{rank}</b></div>'
+        '<div class="pv-meta">'
+        f'<p class="pv-price">{money(r.price)}</p>'
+        f'<p class="pv-title">{esc(r.title[:140])}</p>'
+        f'<p class="meta">{store}{r.rating:.1f} of 5 · {r.rating_number:,} ratings</p>'
+        f'<div class="chips">{chips_html(r.why)}</div>'
+        '<div class="score" role="img" aria-label="Score relative to the others in this list">'
+        f'<span style="--w:{rel:.3f}"></span></div></div></div></li>'
     )
 
 
-def cards_html(results) -> str:
+def index_html(
+    results, heading: str, line: str = "", toks: str = "", anchor: str = "results"
+) -> str:
+    """Rows of text are the way through the results; the pointed row's product fills one frame."""
+    if not results:
+        return (
+            f'<section class="tile index-tile" id="{anchor}"><h2 class="h2">{esc(heading)}</h2>'
+            '<p class="note">Nothing matched every rule. Try fewer constraints.</p></section>'
+        )
     rel = _relative([r.score for r in results])
-    return "".join(card_html(i, r, rel[i - 1], i == 1) for i, r in enumerate(results, 1))
+    rows = "".join(row_html(i, r, rel[i - 1]) for i, r in enumerate(results, 1))
+    toks = f'<div class="toks">{toks}</div>' if toks else ""
+    return (
+        f'<section class="tile index-tile" id="{anchor}" aria-label="{esc(heading)}">'
+        f'<div class="index-head"><h2 class="h2">{esc(heading)}</h2>'
+        f'<p class="q">{line}</p>{toks}</div>'
+        f'<div class="index"><ol class="rows">{rows}</ol><div class="frame"></div></div></section>'
+    )
 
 
 def results_html(resp, example: bool = False) -> str:
-    """Understood + narrowing band, then the ten cards, then the raw parse in a disclosure."""
-    if not resp.results:
-        return '<section class="results"><p class="note">No products found. Try fewer constraints.</p></section>'
-    which = (
-        f"Example for “{esc(resp.query)}”. Type your own above."
-        if example
-        else f"Results for “{esc(resp.query)}”"
-    )
-    return (
-        f'<section class="results" aria-label="Ranked results">{insight_html(resp)}'
-        f'<p class="caption which">{which}</p>'
-        f'<div class="grid">{cards_html(resp.results)}</div>{hood_html(resp)}</section>'
-    )
+    line = f"Example: “{esc(resp.query)}”" if example else f"“{esc(resp.query)}”"
+    notes = "".join(f' <span class="note-inline">{esc(n)}</span>' for n in resp.notes)
+    return index_html(resp.results, "Your ten", line + notes, toks_html(resp.intent))
 
 
 def recs_html(results) -> str:
-    if not results:
-        return ""
+    return index_html(results, "In your taste", "Nearest to your picks first.", anchor="recs")
+
+
+# -------------------------------------------------------------------------------------- picker
+def picker_intro_html() -> str:
     return (
-        '<section class="results"><p class="caption which">Recommended for you, nearest to your '
-        f'picks first.</p><div class="grid">{cards_html(results)}</div></section>'
+        '<div class="tile blue picker-intro" id="picker">'
+        f'<div class="cover">{_img(f"{IMG}/stapler.jpg")}</div>'
+        '<h2 class="h2">Tell it what you like.</h2>'
+        '<p class="lead">Pick up to three. It finds more.</p></div>'
+    )
+
+
+def mini_html(title: str, image_url: str | None, price: float | None = None) -> str:
+    p = f'<p class="mini-price">{money(price)}</p>' if price is not None else ""
+    return (
+        f'<div class="mini"><div class="mini-ph">{_img(image_url)}</div>{p}'
+        f'<p class="mini-title">{esc(title[:60])}</p></div>'
     )
 
 
 def slot_html(n: int) -> str:
-    """An empty pick slot: a blank photo square that a chosen product will fill."""
-    return f'<div class="mini slot"><div class="photo"><span class="badge">{n}</span></div></div>'
-
-
-def mini_html(title: str, image_url: str | None, price: float | None = None) -> str:
-    """A small product tile for the picker: photo, short title, optional price."""
-    img = f'<img src="{esc(image_url)}" alt="" loading="lazy">' if image_url else ""
-    p = f'<p class="price">{money(price)}</p>' if price is not None else ""
-    return (
-        f'<div class="mini"><div class="photo">{img}</div>{p}'
-        f'<p class="title">{esc(title[:60])}</p></div>'
-    )
+    return f'<div class="mini slot"><div class="mini-ph"><b class="rk">{n}</b></div></div>'
 
 
 # --------------------------------------------------------------------------------- how it ranks
-def _squares(kinds: str) -> str:
-    return "".join(f'<i class="sq {k}"></i>' for k in kinds)
+HOW = [
+    (
+        "pale",
+        "handwriting",
+        "First it reads.",
+        "A small language model (gpt-oss-20b on Groq, with a fallback) turns your sentence into a "
+        "query: search words, price range, minimum rating, brand, words to require or exclude. With "
+        "no model reachable, rules still catch prices and ratings.",
+    ),
+    (
+        "blue",
+        "pencil-tins",
+        "Then it gathers.",
+        "BM25 keyword search and a bge-small encoder fine-tuned on Amazon's ESCI shopping labels "
+        "each return their best 200. Reciprocal-rank fusion merges the two lists.",
+    ),
+    (
+        "ink",
+        "video:pencil-sharpener",
+        "Then it cuts.",
+        "Price, rating and brand are hard filters: a product that breaks one is removed, not just "
+        "ranked lower. Excluded words remove any listing that mentions them.",
+    ),
+    (
+        "red",
+        "pencil-row",
+        "Then it orders.",
+        "A MiniLM cross-encoder reads your query next to each of the best 50, scores every pair, "
+        "and the scores set the final order. Each result gets a short reason.",
+    ),
+]
 
 
-def how_html() -> str:
-    panels = [
-        (
-            "field-surface",
-            "Read",
-            "Your sentence becomes filters: price, rating, brand, what to skip.",
-            '<div class="art art-read"><span class="w">black gel pens</span>'
-            '<span class="tok skip">no clips</span><span class="tok need">up to $10</span></div>',
-        ),
-        (
-            "field-accent",
-            "Retrieve",
-            "Keywords and a fine-tuned model each pull their best 200. Merged into one list.",
-            f'<div class="art art-merge"><div>{_squares("aabab")}</div><div>{_squares("bbaab")}</div>'
-            f'<div class="out">{_squares("abababab")}</div></div>',
-        ),
-        (
-            "field-ink",
-            "Filter",
-            "Hard filters drop anything that breaks your rules.",
-            f'<div class="art art-filter"><div>{_squares("kxkkxkxk")}</div>'
-            f"<div>{_squares('kkxkkkxk')}</div><div>{_squares('xkkxkkkk')}</div></div>",
-        ),
-        (
-            "field-surface",
-            "Rerank",
-            "A cross-encoder reads the best 50 against your query and orders them.",
-            '<div class="art art-rank">'
-            + "".join(f'<span style="--w:{w}"></span>' for w in (1.0, 0.82, 0.66, 0.5, 0.36))
-            + "</div>",
-        ),
-    ]
-    out = "".join(
-        f'<section class="panel {cls}">{art}<div class="panel-text"><h2 class="verb">{verb}</h2>'
-        f'<p class="panel-note">{esc(sentence)}</p></div></section>'
-        for cls, verb, sentence, art in panels
-    )
-    return f'<div class="how-grid">{out}</div>'
-
-
-# ---------------------------------------------------------------------------------------- footer
-def footer_html() -> str:
+def field_html(i: int, resp) -> str:
+    """One of the four fields: a found photograph, the same query card one step further along, and
+    the step's clause along the bottom."""
+    fill, photo, clause, _ = HOW[i]
+    c = resp.debug.get("candidates", {}) if resp else {}
+    if i == 0:
+        card = f'<p class="card-q">{esc(resp.query) if resp else "black gel pens under $10"}</p>'
+    elif i == 1:
+        card = (
+            '<p class="card-n"><b>200</b> + <b>200</b></p>'
+            f'<p class="card-sub">{c.get("fused", 300):,} after merging</p>'
+        )
+    elif i == 2:
+        toks = toks_html(resp.intent) if resp else ""
+        card = (
+            f'<div class="toks">{toks}</div>'
+            f'<p class="card-sub">{c.get("after_filter", 0):,} pass</p>'
+        )
+    else:
+        thumbs = "".join(
+            f'<span class="ct">{_img(r.image_url)}<b class="rk">{n}</b></span>'
+            for n, r in enumerate((resp.results if resp else [])[:3], 1)
+        )
+        card = f'<div class="card-top">{thumbs}</div>'
+    head = '<h2 class="h2 how-h" id="how">How it ranks</h2>' if i == 0 else ""
+    if photo.startswith("video:"):
+        v = f"app/static/video/{photo[6:]}"
+        media = (
+            f'<video src="{v}.webm" poster="{v}-poster.jpg" autoplay muted loop playsinline '
+            'preload="metadata" aria-label="A pencil being sharpened"></video>'
+        )
+    else:
+        media = _img(f"{IMG}/{photo}.jpg")
     return (
-        '<div class="foot-row" role="contentinfo"><p class="caption">A portfolio project. '
-        f"{CATALOG} Amazon office products, Amazon Reviews 2023 and ESCI. Photos belong to their "
-        "sellers.</p>"
-        f'<a class="code-link" href="{REPO}" target="_blank" rel="noopener">Code on GitHub</a></div>'
+        f'<div class="field {fill}">{head}<div class="field-ph">{media}</div>'
+        f'<div class="card">{card}</div><p class="clause">{clause}</p></div>'
+    )
+
+
+def how_more(i: int) -> str:
+    return HOW[i][3]
+
+
+# -------------------------------------------------------------------------------------- numbers
+STATS = [
+    (
+        "red",
+        "+28%",
+        "ranking quality over keyword search",
+        "NDCG@10 on the Amazon ESCI dev set, full catalog: keyword search (BM25) 0.317, CartRank's "
+        "hybrid retrieval plus cross-encoder 0.407. Test-set numbers are pending.",
+    ),
+    (
+        "ink",
+        "92%",
+        "of result slots meet every stated rule",
+        "On 21 queries with two or more constraints: 27.6% of top-10 slots met them all with plain "
+        "search, 92.4% with the parser and hard filters. A small sample; read it as indicative.",
+    ),
+    (
+        "blue",
+        "51,814",
+        "office products, each with a price",
+        "Amazon Reviews 2023, Office Products: every listing with a price. The recommender learned "
+        "from 1.35 million reviews in the training split.",
+    ),
+]
+
+
+# Before and after, as measured (results/search_baselines.md, results/query_layer.md).
+STAT_BARS = {
+    0: [("Keyword search", 0.3172, "0.317"), ("CartRank", 0.4070, "0.407")],
+    1: [("Plain search", 0.276, "27.6%"), ("CartRank", 0.924, "92.4%")],
+}
+
+
+def stat_html(i: int) -> str:
+    fill, fig, cap, _ = STATS[i]
+    bars = STAT_BARS.get(i)
+    chart = ""
+    if bars:
+        top = max(v for _, v, _ in bars)
+        chart = (
+            '<div class="sbars">'
+            + "".join(
+                f'<div class="sbar{" now" if n else ""}"><span class="sb-l">{esc(label)}</span>'
+                f'<span class="sb-t"><span style="--w:{v / top:.3f}"></span></span>'
+                f'<span class="sb-v">{esc(text)}</span></div>'
+                for n, (label, v, text) in enumerate(bars)
+            )
+            + "</div>"
+        )
+    return f'<div class="stat {fill}"><p class="fig">{fig}</p>{chart}<p class="cap">{cap}</p></div>'
+
+
+def numbers_head_html() -> str:
+    return '<h2 class="h2 num-h" id="numbers">The numbers</h2>'
+
+
+def stat_more(i: int) -> str:
+    return STATS[i][3]
+
+
+# --------------------------------------------------------------------------------------- footer
+def footer_html() -> str:
+    fills = ["red", "blue", "ink", "pale", "red", "blue", "ink", "pale"]
+    heights = [100, 78, 64, 88, 100, 70, 84, 94]
+    blocks = "".join(
+        f'<span class="blk {f}" style="--h:{h}%">{esc(ch)}</span>'
+        for ch, f, h in zip("CartRank", fills, heights, strict=True)
+    )
+    return (
+        '<div class="close" role="contentinfo">'
+        f'<div class="blocks" aria-label="CartRank">{blocks}</div>'
+        '<div class="close-row"><p class="small">A portfolio project. Amazon Reviews 2023 and '
+        "Amazon ESCI. Product photos belong to their sellers; scene photos are CC0 from the "
+        "WordPress Photo Directory; pencil-sharpener clip by Aerra Carnicom, CC BY-SA 4.0, via "
+        "Wikimedia Commons.</p>"
+        f'<a class="btn ink" href="{REPO}" target="_blank" rel="noopener">Code on GitHub</a></div>'
+        "</div>"
     )

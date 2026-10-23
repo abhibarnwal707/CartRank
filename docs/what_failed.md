@@ -43,3 +43,14 @@ Running log of things that went wrong, feeding the README.
   cached module. Restart the server after editing `app/ui.py`.
 - Frontend: Streamlit renders `$5 and $15` in a button label as a LaTeX formula; dollar signs are escaped.
 - Frontend: the first redesign was a poster (huge type, one product per screen, features at the bottom); on the live page the owner found it confusing. A search tool needs controls and results on one screen. Also: I styled Streamlit tabs with BaseWeb selectors that do not exist in 1.66.
+- Frontend: `st.html` strips `<svg>`; the logo mark became three styled spans. `<video>` survives.
+- Frontend: an entrance animation that ends in `transform: none` with fill-mode `both` still made each row
+  the containing block for its absolutely positioned preview, so previews sat on top of the list. Rows now
+  fade (opacity only).
+- Frontend: `st.popover` bodies computed `max-height: 0` because the app container is auto-height (needed
+  for document scrolling). Fixed with an explicit max-height. Popovers render outside `stApp`, so fonts
+  must be set on `stPopoverBody` too.
+- Frontend: a `nowrap !important` meant for the search row also matched the example-chip row and beat its
+  own `wrap`. Scope Streamlit overrides to the exact block (`.st-key-dock [data-testid="stForm"] ...`).
+- Frontend: the inspector reads `.taste-skill/direction.json`; after a new draw, the old sheet must be moved
+  or it reports the old typeface as "not dealt".

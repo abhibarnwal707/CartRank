@@ -108,13 +108,20 @@ queries; at batch 4 it stays at 1,421 MB with identical rankings (`results/ce_ba
 
 ## Design
 
-A working screen, not a poster. Three tabs sit at the top (Search, Recommend, How it ranks). On Search, the
-box, four example chips and the first results share one screen. Results are compact rows (rank, photo,
-title, why-line, price, a relative-score bar) beside a rail that shows what the parser understood
-(constraints as tokens: mint = need, ink = skip) and how the list narrowed from 51,814 products to ten,
-drawn from that query's own counts. Hanken Grotesk, white, near-black and one mint, square corners. The
-first screen replays a precomputed example so it opens instantly and spends no language-model tokens;
-models load on the first real search.
+One board of flat tiles (the taste-skill direction "the well-kept board"), in a palette taken from the
+owner's reference: ground grey, ink, red, steel blue, pale blue; Switzer type.
+
+- **The catalog as a wall.** The hero is a brickwork wall of real catalog photos. The ten results of the
+  current search light up on white with their rank; the search box is the ink panel docked on the wall.
+- **Index with preview.** The ten results are compact rows; pointing at one shows its photo, price and
+  reason chips in one frame (CSS only; on a phone each row shows its own thumbnail).
+- **Less text, more buttons.** The narrowing (51,814 -> 10), the parsed query, each pipeline step and each
+  headline number open from small buttons as popovers.
+- **How it ranks** is four colour fields (reads, gathers, cuts, orders), each with a found photograph or
+  clip and the query card one step further along. **The numbers** are stepped tiles with the measured
+  before/after bars (NDCG@10 0.317 -> 0.407 on ESCI dev; constraint slots 27.6% -> 92.4%).
+- Scene photos are CC0 (WordPress Photo Directory) and one CC BY-SA clip; see THIRD_PARTY_NOTICES.md.
+  The first screen replays a precomputed example, so models load on the first real search.
 
 ## Datasets and licences
 

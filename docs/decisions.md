@@ -66,3 +66,16 @@ large. Switched to the taste-skill's app-screen rules (achromatic ledger style, 
 compact 80px-photo result rows beside a rail ("What it understood", "How it narrowed", "Under the hood").
 Kept: Hanken Grotesk, mint accent, replayed examples, escaping. Dropped: poster-scale type, full-bleed rank 1.
 Streamlit 1.66 tabs are react-aria (`[role=tablist]`, `[data-testid=stTab]`), not BaseWeb.
+
+## Frontend: the well-kept board (2026-10-24)
+
+Owner feedback on the image-grid version: images too large, too many sentences, not visual enough; asked for
+inspiration from a Dribbble shot (ruled panels, big headline, flat red/blue/ink illustration, stat strip),
+popups instead of prose, and good topic images from the internet. Ran the taste-skill page run again:
+dealt directions, chose `dense-tiles` ("the well-kept board") because it is the library's version of the
+reference's panel layout; kept the reference palette (--keep palette); Switzer was dealt. Idea: the
+catalog's own photos become the specimen wall; the search is the panel docked on it; the ten picks light up.
+Signature motion: index with preview (CSS :hover, no JS, because st.html runs no scripts). Popups use
+`st.popover`. Found imagery: 9 CC0 photos (WordPress Photo Directory API, since Openverse timed out) and one
+CC BY-SA 4.0 clip (Wikimedia Commons), served from `app/static/` with `server.enableStaticServing`.
+Every figure on the page is read from results files; a test checks the two headline numbers against them.

@@ -32,8 +32,9 @@ def prices(at) -> list[float]:
 def test_first_screen_needs_no_models_and_shows_an_example(app):
     html = page(app)
     assert "Ask in a sentence." in html and "ranked." in html
-    assert "Example for" in html and html.count('class="pcard') == 10
-    assert "Language-model parsing is off" in html  # keys are removed in this fixture
+    assert "Example:" in html and html.count('class="irow"') == 10
+    assert html.count('class="t pick"') == 10  # the ten light up on the wall
+    assert "Language model off" in html  # keys are removed in this fixture
 
 
 def test_example_buttons_swap_the_whole_result(app):
@@ -45,7 +46,7 @@ def test_example_buttons_swap_the_whole_result(app):
     assert (
         "swingline stapler" in html
         and "4 stars and up" in html
-        and html.count('class="pcard') == 10
+        and html.count('class="irow"') == 10
     )
 
 
@@ -56,7 +57,7 @@ def test_search_applies_the_price_filter_to_every_row(app):
     assert not app.exception
     p = prices(app)
     assert p and all(x <= 10 for x in p)
-    assert "Results for" in page(app)
+    assert "“stapler under $10”" in page(app)
 
 
 @pytest.mark.skipif(not ARTIFACTS.exists(), reason="needs local model artifacts (not in CI)")

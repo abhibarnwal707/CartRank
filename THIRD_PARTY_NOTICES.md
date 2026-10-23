@@ -36,3 +36,13 @@ train and evaluate search; raw files are not redistributed.
 
 Main libraries: sentence-transformers, PyTorch, bm25s, FAISS, pandas, pydantic, Streamlit, httpx.
 Each carries its own open-source licence; see the respective projects.
+
+## Images and video in the app
+
+- `app/static/img/*.jpg`: nine photographs from the WordPress Photo Directory (wordpress.org/photos), released
+  under CC0. Sources are listed in `app/static/img/CREDITS.md`.
+- `app/static/video/pencil-sharpener.webm` (and its poster frame): "Aerra's Films of the Ordinary I --
+  Staedtler Pencil Sharpener" by Aerra Carnicom, CC BY-SA 4.0, via Wikimedia Commons
+  (https://commons.wikimedia.org/wiki/File:Aerra%27s_Films_of_the_Ordinary_I_--_Staedtler_Pencil_Sharpener.webm).
+  Shown unaltered; credited in the app footer. Record: `app/static/video/credits.json`.
+- Product photos are not stored in the repo; the app shows them from the Amazon listing URLs in the catalog.

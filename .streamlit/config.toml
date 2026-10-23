@@ -2,13 +2,17 @@
 # while the page itself is white.
 [theme]
 base = "light"
-primaryColor = "#232323"
-backgroundColor = "#ffffff"
-secondaryBackgroundColor = "#f3f3f3"
-textColor = "#232323"
+primaryColor = "#141414"
+backgroundColor = "#eceeec"
+secondaryBackgroundColor = "#ffffff"
+textColor = "#141414"
 
 [client]
 toolbarMode = "minimal"
 
 [browser]
 gatherUsageStats = false
+
+# Serves app/static/ (the scene photographs) at app/static/...
+[server]
+enableStaticServing = true

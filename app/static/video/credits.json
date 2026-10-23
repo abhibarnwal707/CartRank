@@ -1,0 +1,28 @@
+[
+ {
+  "file": "app/static/video/pencil-sharpener.webm",
+  "media": "video",
+  "poster": "app/static/video/pencil-sharpener-poster.jpg",
+  "ref": "commons:152964732",
+  "title": "Aerra's Films of the Ordinary I -- Staedtler Pencil Sharpener",
+  "creator": "Aerra Carnicom",
+  "creatorUrl": null,
+  "date": "2024-09-20",
+  "license": "CC BY-SA 4.0",
+  "licenseCode": "by-sa",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "creditRequired": true,
+  "page": "https://commons.wikimedia.org/wiki/File:Aerra%27s_Films_of_the_Ordinary_I_--_Staedtler_Pencil_Sharpener.webm",
+  "via": "Wikimedia Commons",
+  "video": "https://upload.wikimedia.org/wikipedia/commons/transcoded/9/96/Aerra%27s_Films_of_the_Ordinary_I_--_Staedtler_Pencil_Sharpener.webm/Aerra%27s_Films_of_the_Ordinary_I_--_Staedtler_Pencil_Sharpener.webm.480p.vp9.webm",
+  "width": 480,
+  "height": 480,
+  "duration": 22.2,
+  "bytes": 2308713,
+  "credit": "\"Aerra's Films of the Ordinary I -- Staedtler Pencil Sharpener\" by Aerra Carnicom, CC BY-SA 4.0, via Wikimedia Commons",
+  "notes": [
+   "Share-alike: an altered version (recoloured, combined with other pictures) must be shared under the same licence."
+  ],
+  "saved": "2026-10-23T17:48:53.411Z"
+ }
+]

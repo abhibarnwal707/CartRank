@@ -64,15 +64,21 @@ def _tags_and_attrs(markup: str):
 def test_everything_from_outside_is_escaped():
     evil = "<script>alert(1)</script><img src=x onerror=alert(2)>"
     r = _result(title=evil, store=evil, why=evil, image_url='"><script>x</script>')
-    html = ui.results_html(Response(evil, QueryIntent(text=evil), [r], "search"))
-    with_exclude = ui.results_html(
-        Response(evil, QueryIntent(text=evil, exclude=[evil]), [r], "search"), example=True
-    )
-    for out in (html, with_exclude):
+    resp = Response(evil, QueryIntent(text=evil, exclude=[evil]), [r], "search")
+    outs = [
+        ui.results_html(resp, example=True),
+        ui.wall_html([r.image_url], [r.image_url]),
+        ui.field_html(0, resp),
+        ui.field_html(2, resp),
+        ui.field_html(3, resp),
+        ui.hood_html(resp),
+        ui.mini_html(evil, r.image_url, 1.0),
+    ]
+    for out in outs:
         tags, attrs = _tags_and_attrs(out)
         assert "script" not in tags
         assert not any(a.startswith("on") for a in attrs)
-    assert "&lt;script&gt;" in html  # shown as text, not run
+    assert "&lt;script&gt;" in outs[0]  # shown as text, not run
 
 
 def test_tokens_cover_every_constraint_kind():
@@ -95,11 +101,11 @@ def test_tokens_cover_every_constraint_kind():
     assert ui.tokens_for(QueryIntent(price_min=20)) == [("need", "from $20")]
 
 
-def test_rail_shows_the_sentence_and_tokens_and_results_mark_examples():
+def test_results_show_query_tokens_and_mark_examples():
     html = ui.results_html(_resp(), example=True)
-    assert "black gel pens" in html and 'class="tok need"' in html and 'class="tok skip"' in html
-    assert "Example for" in html
-    assert "Results for" in ui.results_html(_resp(), example=False)
+    assert 'class="tok need"' in html and 'class="tok skip"' in html
+    assert "Example:" in html
+    assert "Example:" not in ui.results_html(_resp(), example=False)
 
 
 def test_funnel_uses_the_recorded_counts_in_order():
@@ -117,37 +123,52 @@ def test_relative_scores_span_the_list_and_never_hit_zero():
     assert ui._relative([2.0]) == [1.0]
 
 
-def test_rows_are_in_grid_column_order_and_carry_rank_and_price():
+def test_index_rows_carry_rank_price_and_one_preview_each():
     html = ui.results_html(_resp())
-    assert html.count('class="pcard') == 3 and 'class="pcard first"' in html
-    row = html.split("<article")[1]
-    order = [
-        row.index(c) for c in ('class="photo"', 'class="price"', 'class="title"', 'class="chips"')
-    ]
-    assert order == sorted(order)  # DOM order must follow the columns or CSS grid wraps rows
+    assert html.count('class="irow"') == 3 and html.count('class="pv"') == 3
+    row = html.split('<li class="irow"')[1]
+    order = [row.index(c) for c in ('class="ir"', 'class="it"', 'class="ip"', 'class="pv"')]
+    assert order == sorted(order)
     assert 'data-price="9.99"' in html and ">$9.99<" in html
 
 
-def test_hero_strip_holds_at_most_ten_photos_and_skips_missing():
-    imgs = [f"https://e.com/{i}.jpg" for i in range(14)] + [None]
-    assert ui.strip_html(imgs).count("<img") == 10
-    assert ui.strip_html([None, None]).count("<img") == 0
-    h = ui.title_html(imgs)
-    assert "<h1" in h and "Ask in a sentence." in h and "ranked." in h
+def test_chips_shorten_the_why_line_without_inventing():
+    why = "matches 'black', 'gel'; price $9.99 (at most $10); no 'clips' mentioned"
+    html = ui.chips_html(why)
+    assert ">Under $10<" in html and ">No clips<" in html and "matches" not in html
+    assert ">because you liked X<" in ui.chips_html("because you liked X")
 
 
-def test_how_panels_are_the_four_stages_in_order():
-    html = ui.how_html()
-    verbs = [v for v in ("Read", "Retrieve", "Filter", "Rerank") if f">{v}</h2>" in html]
-    assert verbs == ["Read", "Retrieve", "Filter", "Rerank"]
-    assert [html.index(f">{v}</h2>") for v in verbs] == sorted(
-        html.index(f">{v}</h2>") for v in verbs
+def test_wall_lights_up_the_picks_in_rank_order():
+    picks = [f"https://e.com/p{i}.jpg" for i in range(10)]
+    catalog = [f"https://e.com/c{i}.jpg" for i in range(30)]
+    html = ui.wall_html(picks, catalog)
+    assert html.count('class="t pick"') == 10
+    assert [int(n) for n in __import__("re").findall(r'class="rk">(\d+)<', html)] == sorted(
+        range(1, 11), key=lambda n: ui.PICK_AT[n - 1]
     )
+    assert html.count("app/static/img/") == len(ui.PHOTO_AT)
 
 
-def test_hood_formats_prices_and_hides_nothing_hostile():
+def test_how_fields_are_the_four_steps_in_order():
+    clauses = [ui.HOW[i][2] for i in range(4)]
+    assert clauses == ["First it reads.", "Then it gathers.", "Then it cuts.", "Then it orders."]
+    assert 'id="how"' in ui.field_html(0, _resp()) and 'id="how"' not in ui.field_html(1, _resp())
+    assert ui.field_html(3, _resp()).count('class="ct"') == 3
+
+
+def test_hood_formats_prices_and_timings():
     resp = _resp()
     resp.timings_ms = {"parse": 12.0, "total": 99.0}
     html = ui.hood_html(resp)
     assert "price up to</dt><dd>$10<" in html and "10.0" not in html
     assert "minimum rating</dt><dd>4 stars<" in html and "parse 12 ms" in html
+
+
+def test_stat_figures_come_from_results_files():
+    root = Path(__file__).resolve().parents[1] / "results"
+    search = (root / "search_baselines.md").read_text()
+    query = (root / "query_layer.md").read_text()
+    assert "| BM25 | 0.3172 |" in search and "| 0.4070 |" in search
+    assert round((0.4070 - 0.3172) / 0.3172 * 100) == 28 and ui.STATS[0][1] == "+28%"
+    assert "| 27.6% | 92.4% |" in query and ui.STATS[1][1] == "92%"
