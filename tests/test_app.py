@@ -32,7 +32,7 @@ def prices(at) -> list[float]:
 def test_first_screen_needs_no_models_and_shows_an_example(app):
     html = page(app)
     assert "Ask in a sentence." in html and "ranked." in html
-    assert "Example result for" in html and html.count('class="row') == 10
+    assert "Example for" in html and html.count('class="pcard') == 10
     assert "Language-model parsing is off" in html  # keys are removed in this fixture
 
 
@@ -43,7 +43,9 @@ def test_example_buttons_swap_the_whole_result(app):
     assert not app.exception
     html = page(app)
     assert (
-        "swingline stapler" in html and "4 stars and up" in html and html.count('class="row') == 10
+        "swingline stapler" in html
+        and "4 stars and up" in html
+        and html.count('class="pcard') == 10
     )
 
 

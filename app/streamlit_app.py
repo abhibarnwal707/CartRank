@@ -109,49 +109,48 @@ with tab_search:
 with tab_rec:
     st.html(
         ui.screen_head_html(
-            "Tell it what you like",
-            "Add two or three products. A recommender trained on 1.35 million reviews turns them "
-            "into a taste and ranks everything else.",
+            "Tell it what you like", "Pick two or three products. It finds more in your taste."
         )
     )
     with st.container(key="taste"):
-        left, right = st.columns([4, 6])
-        with left:
-            st.html(ui.label_html("Your picks"))
-            for asin, title in list(st.session_state.liked.items()):
-                if st.button(f"Remove  {title[:56]}".replace("$", "\\$"), key=f"rm_{asin}"):
-                    del st.session_state.liked[asin]
-                    st.rerun()
-            if not st.session_state.liked:
-                st.html('<p class="note">Nothing yet. Find a product and add it.</p>')
-            with st.container(key="recommend"):
-                recommend = st.button(
-                    "Recommend for me", disabled=not st.session_state.liked, width="stretch"
-                )
-        with right:
-            st.html(ui.label_html("Find a product"))
-            lookup = st.text_input(
-                "Find a product",
-                key="lookup",
-                placeholder="pilot g2 pens",
-                label_visibility="collapsed",
-            )
-            if lookup:
-                pipe = pipeline_or_stop()
-                for r in pipe.lookup(lookup, 5):
-                    label = f"Add  {r.title[:56]}  ·  \\${r.price:,.0f}"
-                    if st.button(label, key=f"add_{r.asin}"):
-                        st.session_state.liked[r.asin] = r.title
+        lookup = st.text_input(
+            "Find a product",
+            key="lookup",
+            placeholder="Find a product, for example pilot g2 pens",
+            label_visibility="collapsed",
+        )
+        if lookup:
+            found = pipeline_or_stop().lookup(lookup, 5)
+            for col, r in zip(st.columns(5), found, strict=False):
+                with col:
+                    st.html(ui.mini_html(r.title, r.image_url, r.price))
+                    if st.button("Add", key=f"add_{r.asin}", width="stretch"):
+                        st.session_state.liked[r.asin] = (r.title, r.image_url)
                         st.rerun()
+        picks = list(st.session_state.liked.items())
+        st.html(ui.label_html(f"Your picks ({len(picks)})" if picks else "Your picks"))
+        slots = st.columns(5)
+        for n, col in enumerate(slots, 1):
+            with col:
+                if n <= len(picks):
+                    asin, (title, image) = picks[n - 1]
+                    st.html(ui.mini_html(title, image))
+                    if st.button("Remove", key=f"rm_{asin}", width="stretch"):
+                        del st.session_state.liked[asin]
+                        st.rerun()
+                elif n <= 3:
+                    st.html(ui.slot_html(n))
+        with st.container(key="recommend"):
+            recommend = st.button(
+                "Recommend for me", disabled=not st.session_state.liked, width="stretch"
+            )
         if recommend:
-            pipe = pipeline_or_stop()
-            st.session_state.rec = pipe.recommend(list(st.session_state.liked))
+            st.session_state.rec = pipeline_or_stop().recommend(list(st.session_state.liked))
         if "rec" in st.session_state:
             st.html(ui.recs_html(st.session_state.rec.results))
 
 with tab_how:
-    st.html(ui.screen_head_html("How it ranks", "Four steps, in order, for every search."))
+    st.html(ui.screen_head_html("How it ranks", "Four steps run for every search."))
     st.html(ui.how_html())
 
-st.html(ui.about_html())
 st.html(ui.footer_html())

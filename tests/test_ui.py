@@ -98,7 +98,7 @@ def test_tokens_cover_every_constraint_kind():
 def test_rail_shows_the_sentence_and_tokens_and_results_mark_examples():
     html = ui.results_html(_resp(), example=True)
     assert "black gel pens" in html and 'class="tok need"' in html and 'class="tok skip"' in html
-    assert "Example result for" in html
+    assert "Example for" in html
     assert "Results for" in ui.results_html(_resp(), example=False)
 
 
@@ -106,7 +106,7 @@ def test_funnel_uses_the_recorded_counts_in_order():
     stages = ui.funnel_stages(_resp())
     assert [n for _, n, _ in stages] == [51814, 300, 130, 50, 3]
     html = ui.funnel_html(_resp())
-    assert "<b>51,814</b> in the catalog" in html and "<b>130</b> pass your filters" in html
+    assert "<b>51,814</b>" in html and "in the catalog" in html and "<b>130</b>" in html
     widths = [float(w) for w in __import__("re").findall(r"--w:([\d.]+)", html)]
     assert widths == sorted(widths, reverse=True) and widths[0] == 1.0
 
@@ -119,10 +119,10 @@ def test_relative_scores_span_the_list_and_never_hit_zero():
 
 def test_rows_are_in_grid_column_order_and_carry_rank_and_price():
     html = ui.results_html(_resp())
-    assert html.count('class="row') == 3 and 'class="row first"' in html
+    assert html.count('class="pcard') == 3 and 'class="pcard first"' in html
     row = html.split("<article")[1]
     order = [
-        row.index(c) for c in ('class="rank"', 'class="photo"', 'class="body"', 'class="side"')
+        row.index(c) for c in ('class="photo"', 'class="price"', 'class="title"', 'class="chips"')
     ]
     assert order == sorted(order)  # DOM order must follow the columns or CSS grid wraps rows
     assert 'data-price="9.99"' in html and ">$9.99<" in html
