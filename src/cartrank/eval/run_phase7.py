@@ -214,7 +214,67 @@ def dev_tt_tau(variant: str) -> float:
     return max(runs.values(), key=lambda r: r["dev_all"]["ndcg@10"])["tau"]
 
 
+def report() -> None:
+    """Write results/final_test.md from final_test.json. Reads results only; touches no split."""
+    d = json.loads((RESULTS / FINAL).read_text())
+    lad, ce = d["esci_ladder"], d["esci_ce"]
+    rows = [
+        ("BM25", lad["bm25|full"], lad["bm25|rerank"]),
+        ("Dense, bge-small off-the-shelf", lad["dense_base|full"], lad["dense_base|rerank"]),
+        ("Dense, fine-tuned on ESCI", lad["dense_ft|full"], lad["dense_ft|rerank"]),
+        ("Hybrid RRF (BM25 + fine-tuned dense)", lad["hybrid_ft|full"], lad["hybrid_ft|rerank"]),
+        ("Hybrid + cross-encoder (top-50)", ce["hybrid_ft_ce_k50|full"], ce["hybrid_ft_ce|rerank"]),
+    ]
+    out = [
+        "# Final test results\n",
+        "Each test split was evaluated once (see test_runs.md). Configurations were chosen on dev only. "
+        "No significance tests were run, so differences of about 0.005 or less should not be read as real.\n",
+        "## Search, ESCI test (8,956 queries)\n",
+        "| System | Full-corpus NDCG@10 | Δ vs previous | Recall@100 | Rerank-mode NDCG@10 | Δ vs previous |",
+        "|---|---|---|---|---|---|",
+    ]
+    prev = None
+    for name, full, rr in rows:
+        df = "-" if prev is None else f"{full['ndcg@10'] - prev[0]:+.4f}"
+        dr = "-" if prev is None else f"{rr['ndcg@10'] - prev[1]:+.4f}"
+        out.append(
+            f"| {name} | {full['ndcg@10']:.4f} | {df} | {full['recall@100']:.4f} | "
+            f"{rr['ndcg@10']:.4f} | {dr} |"
+        )
+        prev = (full["ndcg@10"], rr["ndcg@10"])
+    out += [
+        "",
+        "Full-corpus counts unjudged products as non-relevant and is not comparable to rerank mode. "
+        "In rerank mode the hybrid scores below the fine-tuned dense retriever alone (as on dev), and "
+        "the cross-encoder pipeline does not beat dense-only there; the full-corpus ladder is monotonic.\n",
+        "## Recommendation, Office_Products test (223,308 users, full ranking over 77,551 items)\n",
+        "| Model | HR@10 | NDCG@10 | Cold-slice HR@10 (28,803 users) |",
+        "|---|---|---|---|",
+    ]
+    names = [
+        ("popularity", "Popularity"),
+        ("itemknn", "ItemKNN"),
+        ("bpr", "BPR-MF"),
+        ("two_tower_id_only", "Two-tower, ID-only"),
+        ("two_tower_id_text", "Two-tower, ID + text"),
+    ]
+    for key, name in names:
+        r = d["recsys"][key]
+        out.append(
+            f"| {name} | {r['all']['hr@10']:.4f} | {r['all']['ndcg@10']:.4f} | {r['cold']['hr@10']:.4f} |"
+        )
+    chk = d["recsys"]["bpr_retrain_dev_check"]["all"]
+    out += [
+        "",
+        f"Check: the BPR retrained for the test run scores HR@10 {chk['hr@10']:.4f} / NDCG@10 "
+        f"{chk['ndcg@10']:.4f} on dev, matching its dev row. Every model scores lower on test than on "
+        "dev, with the same ordering. Cold items (fewer than 5 train interactions): only ItemKNN "
+        "retrieves them; both two-tower variants are near zero.\n",
+    ]
+    (RESULTS / "final_test.md").write_text("\n".join(out))
+
+
 if __name__ == "__main__":
-    {"search1": search1, "search2": search2, "recsys": recsys}.get(
-        sys.argv[1], lambda: print("use: search1 | search2 | recsys")
+    {"search1": search1, "search2": search2, "recsys": recsys, "report": report}.get(
+        sys.argv[1], lambda: print("use: search1 | search2 | recsys | report")
     )()

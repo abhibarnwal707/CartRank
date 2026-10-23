@@ -45,9 +45,10 @@ Hugging Face repo and are downloaded at start-up.
 ## Results
 
 Rule used throughout: no number appears without a results file the code wrote; the test splits are
-run once, last. **Test-split results are pending** (the runner `eval/run_phase7.py` is written and
-tested but not yet run). Dev numbers are shown for transparency and are optimistic because
-configurations were tuned on them.
+run once, last. Test numbers come from `results/final_test.md` (one run per split, logged in
+`results/test_runs.md`). Dev numbers are shown for transparency and are optimistic because
+configurations were tuned on them. No significance tests were run, so gaps of about 0.005 or less
+should not be read as real.
 
 ### Search, ESCI (Amazon's human-labelled shopping queries)
 
@@ -57,13 +58,15 @@ products as non-relevant, so it underestimates and is not comparable to rerank m
 
 | System | Test, full-corpus | Test, rerank mode | Dev, full-corpus | Dev, rerank mode |
 |---|---|---|---|---|
-| BM25 | pending | pending | 0.3172 | 0.7011 |
-| Dense, bge-small off-the-shelf | pending | pending | 0.3361 | 0.7261 |
-| Dense, fine-tuned on ESCI | pending | pending | 0.3542 | 0.7351 |
-| Hybrid (BM25 + fine-tuned dense) | pending | pending | 0.3776 | 0.7283 |
-| Hybrid + cross-encoder (top-50) | pending | pending | 0.4070 | 0.7352 |
+| BM25 | 0.3140 | 0.7021 | 0.3172 | 0.7011 |
+| Dense, bge-small off-the-shelf | 0.3325 | 0.7301 | 0.3361 | 0.7261 |
+| Dense, fine-tuned on ESCI | 0.3535 | 0.7407 | 0.3542 | 0.7351 |
+| Hybrid (BM25 + fine-tuned dense) | 0.3721 | 0.7313 | 0.3776 | 0.7283 |
+| Hybrid + cross-encoder (top-50) | 0.4023 | 0.7379 | 0.4070 | 0.7352 |
 
-Dev = 2,089 queries. Fine-tuning improved the retriever (dense 0.3361 to 0.3542 on dev) but barely
+Test = 8,956 queries, dev = 2,089 queries. In rerank mode the hybrid scores below the fine-tuned dense
+retriever alone and the cross-encoder pipeline (0.7379) does not beat it (0.7407), on test as on dev;
+the full-corpus ladder rises at every step, from 0.3140 (BM25) to 0.4023. Fine-tuning improved the retriever (dense 0.3361 to 0.3542 on dev) but barely
 improved the final pipeline once the cross-encoder was added (0.4052 to 0.4070 with the
 off-the-shelf encoder vs the fine-tuned one); the cross-encoder does most of the work.
 
@@ -71,13 +74,13 @@ off-the-shelf encoder vs the fine-tuned one); the cross-encoder does most of the
 
 Full ranking over all 77,551 items (no sampled negatives), temporal leave-last-out.
 
-| Model | Test HR@10 | Test NDCG@10 | Dev HR@10 | Dev NDCG@10 | Dev cold-slice HR@10 |
-|---|---|---|---|---|---|
-| Popularity | pending | pending | 0.0111 | 0.0062 | 0.0000 |
-| ItemKNN | pending | pending | 0.0269 | 0.0178 | 0.0109 |
-| BPR-MF | pending | pending | 0.0260 | 0.0147 | 0.0002 |
-| Two-tower, ID-only | pending | pending | 0.0392 | 0.0228 | 0.0003 |
-| Two-tower, ID + text | pending | pending | 0.0462 | 0.0267 | 0.0005 |
+| Model | Test HR@10 | Test NDCG@10 | Test cold-slice HR@10 | Dev HR@10 | Dev NDCG@10 | Dev cold-slice HR@10 |
+|---|---|---|---|---|---|---|
+| Popularity | 0.0098 | 0.0057 | 0.0000 | 0.0111 | 0.0062 | 0.0000 |
+| ItemKNN | 0.0212 | 0.0139 | 0.0106 | 0.0269 | 0.0178 | 0.0109 |
+| BPR-MF | 0.0186 | 0.0103 | 0.0001 | 0.0260 | 0.0147 | 0.0002 |
+| Two-tower, ID-only | 0.0303 | 0.0172 | 0.0002 | 0.0392 | 0.0228 | 0.0003 |
+| Two-tower, ID + text | 0.0354 | 0.0200 | 0.0004 | 0.0462 | 0.0267 | 0.0005 |
 
 The cold slice is the 10% of dev users whose target item has fewer than 5 train interactions. The
 text embedding helped overall ranking but did not rescue cold items: ItemKNN is far better there.
