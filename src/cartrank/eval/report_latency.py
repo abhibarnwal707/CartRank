@@ -14,12 +14,31 @@ def _t(headers, rows):
     )
 
 
+def _invalid(r: dict) -> bool:
+    """An LLM-on run where most queries got no LLM answer says nothing about LLM-on latency."""
+    return r["mode"] == "llm" and r["llm_answered"] < 0.9 * r["n_queries"]
+
+
 def write_report() -> None:
     d = json.loads((RESULTS / "latency.json").read_text())
     runs = [(k, v) for k, v in d.items() if k in ("local_no-llm", "local_llm")]
     rows = []
     for _, r in runs:
         w, m = r["wall_ms"], r["rss_mb"]
+        if _invalid(r):
+            rows.append(
+                [
+                    "LLM parser on (INVALID run)",
+                    f"{r['load_seconds']:.1f} + {r['first_query_seconds']:.1f}",
+                    "-",
+                    "-",
+                    "-",
+                    "-",
+                    "-",
+                    f"only {r['llm_answered']}/{r['n_queries']}: Groq daily token cap hit",
+                ]
+            )
+            continue
         rows.append(
             [
                 "LLM parser on" if r["mode"] == "llm" else "LLM off (regex-only)",
@@ -59,7 +78,18 @@ def write_report() -> None:
         "the deployed measurement will add.\n",
     ]
     for _, r in runs:
-        if r["mode"] == "llm":
+        if r["mode"] == "llm" and r["llm_answered"] < 0.9 * r["n_queries"]:
+            out.append(
+                "**The LLM-on run is invalid and its numbers are not reported.** Only "
+                f"{r['llm_answered']} of {r['n_queries']} queries received an LLM answer; the "
+                "rest fell back to regex-only parsing because Groq returned HTTP 429 on its "
+                '**daily token limit** (error text: "tokens per day (TPD): Limit 200000, Used '
+                '199306"), exhausted earlier the same day by evaluation runs. The end-to-end '
+                "LLM-on latency is pending a re-run after the quota refills. Measured separately: "
+                "the parser alone (Groq only, held-out set) had p50 0.78 s and p95 1.32 s "
+                "(`results/query_layer.md`), and the retrieval pipeline above takes p95 256 ms.\n"
+            )
+        elif r["mode"] == "llm":
             out.append(
                 f"LLM run: one query every {r['pace_seconds']:g} s (a burst would exceed Groq's "
                 f"free-tier token limit); providers used {r['providers']}; "
@@ -67,6 +97,8 @@ def write_report() -> None:
             )
     out.append("## Per-stage latency (ms)\n")
     for _, r in runs:
+        if r["mode"] == "llm" and r["llm_answered"] < 0.9 * r["n_queries"]:
+            continue
         out.append(f"{'LLM on' if r['mode'] == 'llm' else 'LLM off'}:\n")
         out.append(
             _t(

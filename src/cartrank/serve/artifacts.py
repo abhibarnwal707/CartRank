@@ -15,7 +15,7 @@ from cartrank.data.catalog import SLIM_PATH
 from cartrank.data.paths import ROOT
 
 BUNDLE = ROOT / "artifacts" / "bundle"
-HF_ARTIFACT_REPO: str | None = None  # set once the owner approves creating the Hub repo
+HF_ARTIFACT_REPO: str | None = "abhibarnwal707/cartrank-artifacts"  # private; needs HF_TOKEN
 ENCODER_LOCAL = ROOT / "artifacts" / "models" / "bge-small-esci-ft"
 VECS_LOCAL = ROOT / "artifacts" / "catalog" / "ft_vecs.npy"
 SERVING_LOCAL = ROOT / "artifacts" / "serving"

@@ -1,11 +1,11 @@
 # Claude Code project instructions (local only)
 CLAUDE.md
 
-# Data and artifacts
-data/
-artifacts/
-mlruns/
-wandb/
+# Data and artifacts (anchored to the repo root: a bare `data/` also matched src/cartrank/data/)
+/data/
+/artifacts/
+/mlruns/
+/wandb/
 
 # Python
 .venv/
@@ -23,4 +23,4 @@ __pycache__/
 .DS_Store
 .idea/
 .vscode/
-logs/
+/logs/

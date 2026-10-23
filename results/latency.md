@@ -7,11 +7,11 @@ Budgets (playbook): RSS <= 2,000 MB, cold start <= 90 s, p95 <= 3 s per query.
 | Mode | Cold start s (load + first query) | RSS after load MB | RSS after 50 queries MB | p50 ms | p95 ms | max ms | LLM answered |
 |---|---|---|---|---|---|---|---|
 | LLM off (regex-only) | 3.6 + 2.6 | 1,129 | 1,420 | 216 | 256 | 338 | 0/50 |
-| LLM parser on | 3.6 + 5.2 | 1,145 | 1,447 | 1,261 | 18,436 | 37,599 | 50/50 |
+| LLM parser on (INVALID run) | 3.7 + 3.1 | - | - | - | - | - | only 8/50: Groq daily token cap hit |
 
 Cold start here is component load plus the first query (which loads the cross-encoder lazily). It excludes downloading artifacts from the Hub and starting Streamlit, which the deployed measurement will add.
 
-LLM run: one query every 6.5 s (a burst would exceed Groq's free-tier token limit); providers used {'groq:openai/gpt-oss-20b': 38, 'openrouter:recursive/flint-v1.0:free': 12}; 0 queries fell back to regex-only parsing.
+**The LLM-on run is invalid and its numbers are not reported.** Only 8 of 50 queries received an LLM answer; the rest fell back to regex-only parsing because Groq returned HTTP 429 on its **daily token limit** (error text: "tokens per day (TPD): Limit 200000, Used 199306"), exhausted earlier the same day by evaluation runs. The end-to-end LLM-on latency is pending a re-run after the quota refills. Measured separately: the parser alone (Groq only, held-out set) had p50 0.78 s and p95 1.32 s (`results/query_layer.md`), and the retrieval pipeline above takes p95 256 ms.
 
 ## Per-stage latency (ms)
 
@@ -25,17 +25,6 @@ LLM off:
 | fuse | 0.1 | 0.1 |
 | parse | 0.0 | 0.0 |
 | rerank | 208.7 | 248.7 |
-
-LLM on:
-
-| Stage | p50 | p95 |
-|---|---|---|
-| bm25 | 1.2 | 2.1 |
-| dense | 23.0 | 24.9 |
-| filter | 1.9 | 14.2 |
-| fuse | 0.1 | 0.1 |
-| parse | 946.6 | 18159.9 |
-| rerank | 220.6 | 265.7 |
 
 ## Cross-encoder batch size vs memory (LLM off, 50 queries)
 

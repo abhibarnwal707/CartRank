@@ -31,3 +31,11 @@ test split is not used until Phase 7.
 ## Python
 
 Python 3.12 pinned in `pyproject.toml` (per the playbook), managed with uv.
+
+## Runtime artifacts on the Hugging Face Hub (2026-10-24)
+
+Owner approved the upload. Repo: `abhibarnwal707/cartrank-artifacts`, **private** (about 300 MB: fine-tuned
+encoder, slim catalog, catalog vectors, two-tower serving export, `config.json`). Private because the
+Amazon Reviews 2023 dataset card states no licence and the catalog file carries Amazon product titles,
+prices and image links. The Streamlit Cloud app downloads it at start-up with an `HF_TOKEN` secret;
+use a fine-grained read-only token for that, not the write token. The raw datasets are not uploaded.
