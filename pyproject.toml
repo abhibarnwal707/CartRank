@@ -48,6 +48,7 @@ select = ["E", "F", "I", "UP", "B"]
 "src/cartrank/query/parser.py" = ["E501"]  # prompt text
 "src/cartrank/eval/report_query.py" = ["E501"]
 "src/cartrank/eval/run_phase7.py" = ["E501"]
+"app/ui.py" = ["E501"]  # long HTML strings
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

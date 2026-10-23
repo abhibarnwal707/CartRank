@@ -24,3 +24,6 @@ __pycache__/
 .idea/
 .vscode/
 /logs/
+
+# taste-skill working files (screenshots, direction sheets)
+/.taste-skill/

@@ -1,0 +1,14 @@
+# Light theme is forced so Streamlit's own widgets never flip dark on a visitor's dark-mode OS
+# while the page itself is white.
+[theme]
+base = "light"
+primaryColor = "#232323"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f3f3f3"
+textColor = "#232323"
+
+[client]
+toolbarMode = "minimal"
+
+[browser]
+gatherUsageStats = false

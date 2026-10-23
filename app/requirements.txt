@@ -12,3 +12,4 @@ pyarrow
 pydantic>=2
 httpx
 huggingface_hub
+streamlit==1.66.1

@@ -33,3 +33,12 @@ Running log of things that went wrong, feeding the README.
   app would have crashed on import. It also hid that package from my local ruff runs, because ruff respects
   `.gitignore`: three lint/format problems sat unseen. Found by cloning the repo fresh and running the CI
   commands. Fixed by anchoring the rules (`/data/`, `/artifacts/`, `/logs/`...).
+- Frontend: `overflow-x: hidden` on both `html` and `body` turned the body into its own scroll box, so
+  `window.scrollTo` and anchor links did nothing. `overflow-x: clip` clips without creating a scroller.
+- Frontend: my CSS hid every `<footer>` element to remove Streamlit's, which also removed my own footer.
+  Renamed mine to a `div` with `role="contentinfo"`.
+- Frontend: a CSS grid places items in DOM order, so putting the price cell before the title cell made
+  every title drop a row. Cells must be in column order; a test now checks it.
+- Frontend: a broken string in `ui.py` was hidden by the running dev server, which kept serving the old
+  cached module. Restart the server after editing `app/ui.py`.
+- Frontend: Streamlit renders `$5 and $15` in a button label as a LaTeX formula; dollar signs are escaped.

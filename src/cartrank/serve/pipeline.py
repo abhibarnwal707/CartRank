@@ -26,6 +26,9 @@ class Result:
     rating_number: int
     image_url: str | None
     why: str
+    score: float | None = (
+        None  # route-specific: cross-encoder logit (search) or cosine (neighbours)
+    )
 
 
 @dataclass
@@ -100,7 +103,7 @@ class Pipeline:
         self.catalog_ids = set(cs.ids)
         self._ce = None
 
-    def _result(self, asin: str, why: str) -> Result:
+    def _result(self, asin: str, why: str, score: float | None = None) -> Result:
         row = self.cs.item(asin)
         meta = self.cs.meta(asin)
         return Result(
@@ -112,16 +115,22 @@ class Pipeline:
             int(meta["rating_number"]),
             meta["image_url"],
             why,
+            score,
         )
 
-    def _rerank(self, q: str, asins: list[str]) -> list[str]:
+    def _rerank_scored(self, q: str, asins: list[str]) -> list[tuple[str, float]]:
+        """Cross-encoder order of `asins` with the raw scores (best first)."""
         if not asins:
             return []
         if self._ce is None:
             self._ce = self.cs.ce or load_cross_encoder()
             self.cs.ce = self._ce
         scores = self._ce.predict([(q, self.cs.text[a]) for a in asins], batch_size=self.ce_batch)
-        return [a for a, _ in sorted(zip(asins, scores, strict=True), key=lambda x: -x[1])]
+        pairs = zip(asins, (float(x) for x in scores), strict=True)
+        return sorted(pairs, key=lambda x: -x[1])
+
+    def _rerank(self, q: str, asins: list[str]) -> list[str]:
+        return [a for a, _ in self._rerank_scored(q, asins)]
 
     def lookup(self, text: str, n: int = 6) -> list[Result]:
         """Cheap retrieval for the item picker: hybrid top-n, no LLM, no reranker."""
@@ -173,7 +182,9 @@ class Pipeline:
 
         t = time.perf_counter()
         head = kept[: self.ce_k]
-        ranked = self._rerank(q, head) + kept[self.ce_k :]
+        scored = self._rerank_scored(q, head)
+        score_of = dict(scored)
+        ranked = [a for a, _ in scored] + kept[self.ce_k :]
         timings["rerank"] = (time.perf_counter() - t) * 1000
 
         top = ranked[: self.k]
@@ -182,13 +193,18 @@ class Pipeline:
                 "Recommendations need a history: pick items you like in the sidebar for "
                 "personalised suggestions. Showing search results for your text meanwhile."
             )
-        results = [self._result(a, why_search(self.cs.item(a), q, intent, applied)) for a in top]
+        results = [
+            self._result(a, why_search(self.cs.item(a), q, intent, applied), score_of.get(a))
+            for a in top
+        ]
         debug["candidates"] = {
+            "catalog_size": len(self.cs.ids),
             "bm25": len(bm),
             "dense": len(dn),
             "fused": len(fused),
             "after_filter": len(kept),
             "reranked": len(head),
+            "shown": len(top),
             "bm25_top3": [self.cs.item(a)["title"][:70] for a in bm[:3]],
             "dense_top3": [self.cs.item(a)["title"][:70] for a in dn[:3]],
         }
@@ -207,6 +223,7 @@ class Pipeline:
         near = self.tt.similar(ref, k=self.pool, allowed=self.catalog_ids)
         applied = _has_constraints(intent)
         notes = []
+        cos = dict(near)
         asins = [a for a, _ in near if not applied or satisfies_all(self.cs.item(a), intent)]
         if applied and not asins:
             asins, applied = [a for a, _ in near], False
@@ -220,13 +237,16 @@ class Pipeline:
                 a,
                 f"similar to '{ref_title[:60]}' in the learned item space"
                 + ("; " + "; ".join(constraint_notes(self.cs.item(a), intent)) if applied else ""),
+                cos[a],
             )
             for a in asins[: self.k]
         ]
         debug["candidates"] = {
             "reference": ref_title,
+            "catalog_size": len(self.cs.ids),
             "neighbours_pool": len(near),
             "after_filter": len(asins),
+            "shown": min(len(asins), self.k),
         }
         timings["total"] = sum(timings.values())
         return Response(
@@ -247,11 +267,11 @@ class Pipeline:
         timings = {"user_tower+neighbours": (time.perf_counter() - t) * 1000}
         liked_vecs = {a: self.tt.vecs[self.tt.index[a]] for a in liked if a in self.tt.index}
         results = []
-        for a, _ in near:
+        for a, cosine in near:
             v = self.tt.vecs[self.tt.index[a]]
             best = max(liked_vecs, key=lambda x: float(liked_vecs[x] @ v))
             title = self.cs.item(best)["title"][:60]
-            results.append(self._result(a, f"because you liked '{title}'"))
+            results.append(self._result(a, f"because you liked '{title}'", cosine))
         timings["total"] = timings["user_tower+neighbours"]
         return Response(
             "(picked items)",

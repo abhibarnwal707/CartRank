@@ -20,7 +20,7 @@ parsing, and says so on screen.
 - **Similar items:** "something like the Swingline 747" finds the reference item, then returns its
   nearest neighbours in the two-tower item space.
 - **Recommend:** pick a few items you like in the sidebar; the user tower turns them into a vector.
-- **Debug panel:** the parsed intent, candidates per stage, per-stage latency and process memory.
+- **Under the hood:** a disclosure under the results with the parsed intent, the per-stage timings and the model that parsed the query. The funnel above the results shows how many candidates survived each stage for that very query.
 
 ## Architecture
 
@@ -106,6 +106,15 @@ system.
 The cross-encoder batch size mattered: at batch 64 the pipeline's memory grew to 2,406 MB over 50
 queries; at batch 4 it stays at 1,421 MB with identical rankings (`results/ce_batch_memory.md`).
 
+## Design
+
+The page is one idea: the sentence is the layout. The headline has the ten result photos where the word
+"ten" would go; a searched query becomes a heading with its constraints turned into flat tokens (mint
+for requirements, ink for exclusions); the narrowing from 51,814 products to ten is drawn from that
+query's own counts; rank 1 floods its row in mint. Hanken Grotesk in two weights, white, near-black and
+one mint, square corners, no rules, shadows or gradients. The first screen replays a precomputed example
+so it opens instantly and spends no language-model tokens; models load on the first real search.
+
 ## Datasets and licences
 
 - **Amazon Shopping Queries (ESCI):** repository under Apache-2.0; cite Reddy et al., 2022.
@@ -163,6 +172,6 @@ query parser.
 
 ## Layout
 
-`src/cartrank/` data, search, recsys, query, serve, eval; `app/` Streamlit app; `notebooks/kaggle/`
+`src/cartrank/` data, search, recsys, query, serve, eval; `app/` Streamlit app (`streamlit_app.py` flow, `ui.py` markup, `style.css` design, `examples.json` replayed example queries); `notebooks/kaggle/`
 GPU training; `evals/queries/` demo, gold and held-out query sets; `results/` every number quoted
 here; `docs/` decisions, failures, interview notes.

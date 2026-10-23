@@ -1,0 +1,598 @@
+[
+ {
+  "query": "black gel pens without clips under $10",
+  "intent": {
+   "route": "search",
+   "text": "black gel pens",
+   "price_min": null,
+   "price_max": 10.0,
+   "brand": null,
+   "category": null,
+   "min_rating": null,
+   "must_have": [],
+   "exclude": [
+    "clips"
+   ]
+  },
+  "route_used": "search",
+  "notes": [],
+  "llm_used": true,
+  "debug_candidates": {
+   "catalog_size": 51814,
+   "bm25": 200,
+   "dense": 200,
+   "fused": 300,
+   "after_filter": 130,
+   "reranked": 50,
+   "shown": 10,
+   "bm25_top3": [
+    "Mr. Pen- Retractable Gel Pens, 6 Pack, Morandi Barrels, Black Gel Pens",
+    "Mr. Pen- Pens, Black Gel Pens, 6 Pack, 0.7mm Fine Point, No Smear, Fas",
+    "SHARPIE S-Gel Gel Pens, Bold Point (1.0mm), Black Ink Gel Pen, 12 Coun"
+   ],
+   "dense_top3": [
+    "Black Gel Pens with Gel Grip, 12 Bulk Pens, Black Pen with 0.7mm Mediu",
+    "Gel Pens,20 Pack Black Gel Pen Fine Point,Gel Ink Rollerball Pens for ",
+    "10 Pack Retractable Gel Pens, Black Ink, Smooth Writing Pens, Fine Poi"
+   ]
+  },
+  "results": [
+   {
+    "asin": "B0874G9VN5",
+    "title": "ParKoo Retractable Gel Pens 0.7mm Quick Dry Black Ink, 12-Pack Fine Point Smooth Writing Pens for Bullet Journaling Writing Note Taking Office Supplies",
+    "store": "ParKoo",
+    "price": 9.99,
+    "rating": 4.5,
+    "rating_number": 2623,
+    "image_url": "https://m.media-amazon.com/images/I/41K6F9rE+NL._AC_.jpg",
+    "why": "matches 'black', 'gel', 'pens'; price $9.99 (at most $10); no 'clips' mentioned",
+    "score": 8.704127311706543
+   },
+   {
+    "asin": "B07RMV5ZSY",
+    "title": "Mr. Pen- Pens, Black Gel Pens, 6 Pack, 0.7mm Fine Point, No Smear, Fast Dry, Gel Ink Pens, Black Ink Pen, Pens Bulk, Gel pen, Black Pens, Pens for Journaling, Retractable Pens, Premium Ink Pen",
+    "store": "Mr. Pen",
+    "price": 3.99,
+    "rating": 4.3,
+    "rating_number": 793,
+    "image_url": "https://m.media-amazon.com/images/I/41yYh9QPupL._AC_.jpg",
+    "why": "matches 'black', 'gel', 'pens'; price $3.99 (at most $10); no 'clips' mentioned",
+    "score": 8.48311710357666
+   },
+   {
+    "asin": "B07TXGYTJX",
+    "title": "Gel Pens, 20 Pack Black Gel Pen Medium Point, Retractable Gel Ink Rollerball Pens with Premium Ink & Comfort Grip for Smooth Writing (0.7mm)",
+    "store": "Aen Art",
+    "price": 9.99,
+    "rating": 4.4,
+    "rating_number": 5209,
+    "image_url": "https://m.media-amazon.com/images/I/511gMkp3aAL._AC_.jpg",
+    "why": "matches 'black', 'gel', 'pens'; price $9.99 (at most $10); no 'clips' mentioned",
+    "score": 8.478828430175781
+   },
+   {
+    "asin": "B019QBNZ9Q",
+    "title": "Paper Mate Inkjoy Gel Pens, Medium Point, 2-Pack, Black (1951634)",
+    "store": "Paper Mate",
+    "price": 5.9,
+    "rating": 4.7,
+    "rating_number": 1151,
+    "image_url": "https://m.media-amazon.com/images/I/41d+r8GvZlL._AC_.jpg",
+    "why": "matches 'black', 'gel', 'pens'; price $5.90 (at most $10); no 'clips' mentioned",
+    "score": 8.123533248901367
+   },
+   {
+    "asin": "B0BF9PH7CB",
+    "title": "LINFANC Black Gel Pens Fine Point Smooth Writing Pens Bulk, Soft Touch Cute Pens Aesthetic School Supplies, 0.5mm Black Ink Pens for Journaling, Cute Office Supplies for Women Man 10-Count",
+    "store": "LINFANC",
+    "price": 7.99,
+    "rating": 4.4,
+    "rating_number": 80,
+    "image_url": "https://m.media-amazon.com/images/I/41BvGo8rPrL._AC_.jpg",
+    "why": "matches 'black', 'gel', 'pens'; price $7.99 (at most $10); no 'clips' mentioned",
+    "score": 8.100332260131836
+   },
+   {
+    "asin": "B09YL2NJ5N",
+    "title": "Gel Pens,20 Pack Black Gel Pen Fine Point,Gel Ink Rollerball Pens for Smooth Writing (0.5mm)",
+    "store": "Herolland",
+    "price": 9.99,
+    "rating": 3.7,
+    "rating_number": 25,
+    "image_url": "https://m.media-amazon.com/images/I/51cJtWxNRNL._AC_.jpg",
+    "why": "matches 'black', 'gel', 'pens'; price $9.99 (at most $10); no 'clips' mentioned",
+    "score": 8.069313049316406
+   },
+   {
+    "asin": "B01HZ94HN4",
+    "title": "12 packs of Easyinsmile gel ink Black Pens for Student and Office with Different Shape (Silicon Grass Shape)",
+    "store": "Easyinsmile",
+    "price": 6.99,
+    "rating": 4.1,
+    "rating_number": 183,
+    "image_url": "https://m.media-amazon.com/images/I/41QT0FdtKAL._AC_.jpg",
+    "why": "matches 'black', 'gel', 'pens'; price $6.99 (at most $10); no 'clips' mentioned",
+    "score": 8.048155784606934
+   },
+   {
+    "asin": "B09VKWHMW7",
+    "title": "Shuttle Art Black Gel Pens, 36 Pack(18 Gel Pens with 18 Refills) Retractable Medium Point Rollerball Gel Ink Pens Smooth Writing with Comfortable Grip",
+    "store": "Shuttle Art",
+    "price": 9.99,
+    "rating": 4.4,
+    "rating_number": 2289,
+    "image_url": "https://m.media-amazon.com/images/I/510nGg-DrbL._AC_.jpg",
+    "why": "matches 'black', 'gel', 'pens'; price $9.99 (at most $10); no 'clips' mentioned",
+    "score": 8.026087760925293
+   },
+   {
+    "asin": "B0BML9J81Y",
+    "title": "LINFANC Metal Gel Pens, Matte Black Gel Ink Pens for Journaling, Black Ink Pens Fine Point Smooth Writing Pens for Note Taking, Nice EDC Pen Office Supplies for Women & Men (3 Pens & 3 Refills)",
+    "store": "LINFANC",
+    "price": 7.99,
+    "rating": 4.3,
+    "rating_number": 40,
+    "image_url": "https://m.media-amazon.com/images/I/41zYG13grfL._AC_.jpg",
+    "why": "matches 'black', 'gel', 'pens'; price $7.99 (at most $10); no 'clips' mentioned",
+    "score": 8.025688171386719
+   },
+   {
+    "asin": "B09P4NKMYB",
+    "title": "SHARPIE S-Gel, Gel Pens, Medium Point (0.7Mm), Frost Blue Body, Black Gel Ink Pens, 4 Count",
+    "store": "SHARPIE",
+    "price": 4.97,
+    "rating": 4.7,
+    "rating_number": 10017,
+    "image_url": "https://m.media-amazon.com/images/I/41q-3Y9jI7L._AC_.jpg",
+    "why": "matches 'black', 'gel', 'pens'; price $4.97 (at most $10); no 'clips' mentioned",
+    "score": 7.987176895141602
+   }
+  ],
+  "reference": null
+ },
+ {
+  "query": "swingline stapler 4 stars and up",
+  "intent": {
+   "route": "search",
+   "text": "swingline stapler",
+   "price_min": null,
+   "price_max": null,
+   "brand": "Swingline",
+   "category": null,
+   "min_rating": 4.0,
+   "must_have": [],
+   "exclude": []
+  },
+  "route_used": "search",
+  "notes": [],
+  "llm_used": true,
+  "debug_candidates": {
+   "catalog_size": 51814,
+   "bm25": 200,
+   "dense": 200,
+   "fused": 289,
+   "after_filter": 87,
+   "reranked": 50,
+   "shown": 10,
+   "bm25_top3": [
+    "Swingline Smart Touch Stapler, 25 Sheet Capacity, Stapler Remover Valu",
+    "Swingline Red Mini Stapler With Staples, Tot, 12 Sheet Capacity, Small",
+    "Swingline Stapler Value Pack, Heavy Duty Stapler, 15 Sheet Capacity, p"
+   ],
+   "dense_top3": [
+    "Swingline Optima Grip Black Stapler (S7087810B)",
+    "Swingline Optima Grip Silver Stapler (S7087811B)",
+    "Swingline Stapler Value Pack, Heavy Duty Stapler, 15 Sheet Capacity, p"
+   ]
+  },
+  "results": [
+   {
+    "asin": "B091MZ9MFS",
+    "title": "Swingline Stapler, Eco Version Desktop Stapler, 20 Sheet Capacity, Black, 2 Pack (54501)",
+    "store": "Swingline",
+    "price": 12.63,
+    "rating": 4.6,
+    "rating_number": 877,
+    "image_url": "https://m.media-amazon.com/images/I/41JCaLVwRBL._AC_.jpg",
+    "why": "matches 'swingline', 'stapler'; rated 4.6 (min 4); brand matches 'Swingline'",
+    "score": 8.88451099395752
+   },
+   {
+    "asin": "B019OUDY1S",
+    "title": "Swingline Standard Stapler, Eco Version, 15 Sheets, Black (S7054501)",
+    "store": "Swingline",
+    "price": 6.98,
+    "rating": 4.5,
+    "rating_number": 200,
+    "image_url": "https://m.media-amazon.com/images/I/41MGmvyaZtL._AC_.jpg",
+    "why": "matches 'swingline', 'stapler'; rated 4.5 (min 4); brand matches 'Swingline'",
+    "score": 8.841938018798828
+   },
+   {
+    "asin": "B07Y2QZ59M",
+    "title": "Swingline Stapler, 747 Half Strip Business Stapler, 25 Sheet Capacity, Red (S70747102)",
+    "store": "Swingline",
+    "price": 20.39,
+    "rating": 4.6,
+    "rating_number": 213,
+    "image_url": "https://m.media-amazon.com/images/I/41ZRhSnDPDL._AC_.jpg",
+    "why": "matches 'swingline', 'stapler'; rated 4.6 (min 4); brand matches 'Swingline'",
+    "score": 8.818883895874023
+   },
+   {
+    "asin": "B0BW46GVDB",
+    "title": "Swingline Stapler, 747 Iconic Desktop Stapler, 25 Sheet Capacity, Desk, Office, Sky Blue (74722)",
+    "store": "Swingline",
+    "price": 18.5,
+    "rating": 4.8,
+    "rating_number": 18411,
+    "image_url": "https://m.media-amazon.com/images/I/41UY3OSHmGL._AC_.jpg",
+    "why": "matches 'swingline', 'stapler'; rated 4.8 (min 4); brand matches 'Swingline'",
+    "score": 8.813653945922852
+   },
+   {
+    "asin": "B09BKPKW53",
+    "title": "Swingline Stapler, 747 Iconic Desktop Stapler, 25 Sheet Capacity, Desk, Office, Gray (74734)",
+    "store": "Swingline",
+    "price": 19.99,
+    "rating": 4.4,
+    "rating_number": 94,
+    "image_url": "https://m.media-amazon.com/images/I/41ji06dn0lL._AC_.jpg",
+    "why": "matches 'swingline', 'stapler'; rated 4.4 (min 4); brand matches 'Swingline'",
+    "score": 8.791498184204102
+   },
+   {
+    "asin": "B00006IFKW",
+    "title": "Swingline Stapler Value Pack, Heavy Duty Stapler, 15 Sheet Capacity, plus Staples & Stapler Remover (754551)",
+    "store": "Swingline",
+    "price": 7.87,
+    "rating": 4.7,
+    "rating_number": 2492,
+    "image_url": "https://m.media-amazon.com/images/I/41nj1G-zcaL._AC_.jpg",
+    "why": "matches 'swingline', 'stapler'; rated 4.7 (min 4); brand matches 'Swingline'",
+    "score": 8.680486679077148
+   },
+   {
+    "asin": "B0B4M61PVQ",
+    "title": "Swingline Stapler, 747 Classic Desktop Stapler, 30 Sheet Capacity, Metal, Sky Blue (74708)",
+    "store": "Swingline",
+    "price": 17.99,
+    "rating": 4.6,
+    "rating_number": 5288,
+    "image_url": "https://m.media-amazon.com/images/I/3144bDZpI8L._AC_.jpg",
+    "why": "matches 'swingline', 'stapler'; rated 4.6 (min 4); brand matches 'Swingline'",
+    "score": 8.66332721710205
+   },
+   {
+    "asin": "B091N11F4Z",
+    "title": "Swingline Stapler, 2 Pack, Commercial Desktop Stapler, 20 Sheet Capacity, Durable Metal Stapler for Desk, Black (44401AZ)",
+    "store": "Swingline",
+    "price": 17.75,
+    "rating": 4.7,
+    "rating_number": 16026,
+    "image_url": "https://m.media-amazon.com/images/I/41NHIjFw2kL._AC_.jpg",
+    "why": "matches 'swingline', 'stapler'; rated 4.7 (min 4); brand matches 'Swingline'",
+    "score": 8.641098976135254
+   },
+   {
+    "asin": "B09BKNKK1D",
+    "title": "Swingline Electric Stapler, Compact, Half Strip, 20 Sheet Capacity, Battery Powered, Portable, Black (42132)",
+    "store": "Swingline",
+    "price": 31.87,
+    "rating": 4.4,
+    "rating_number": 983,
+    "image_url": "https://m.media-amazon.com/images/I/31wJtAVKUEL._AC_.jpg",
+    "why": "matches 'swingline', 'stapler'; rated 4.4 (min 4); brand matches 'Swingline'",
+    "score": 8.636728286743164
+   },
+   {
+    "asin": "B0BPHSL4KQ",
+    "title": "Swingline Stapler, NeXXt Series Wow, Desktop Stapler, 40 Sheet Capacity, Blue (55047036)",
+    "store": "Swingline",
+    "price": 29.0,
+    "rating": 4.2,
+    "rating_number": 707,
+    "image_url": "https://m.media-amazon.com/images/I/41W0tW+TymL._AC_.jpg",
+    "why": "matches 'swingline', 'stapler'; rated 4.2 (min 4); brand matches 'Swingline'",
+    "score": 8.634567260742188
+   }
+  ],
+  "reference": null
+ },
+ {
+  "query": "notebook not spiral bound between $5 and $15",
+  "intent": {
+   "route": "search",
+   "text": "notebook",
+   "price_min": 5.0,
+   "price_max": 15.0,
+   "brand": null,
+   "category": "notebook",
+   "min_rating": null,
+   "must_have": [],
+   "exclude": []
+  },
+  "route_used": "search",
+  "notes": [],
+  "llm_used": true,
+  "debug_candidates": {
+   "catalog_size": 51814,
+   "bm25": 200,
+   "dense": 200,
+   "fused": 300,
+   "after_filter": 134,
+   "reranked": 50,
+   "shown": 10,
+   "bm25_top3": [
+    "Zealor 2 Pack Thickness Notebooks Journals Hardcover Notebook College ",
+    "Rocutus 5pcs Colorful Spiral Notebook Student Small Study Book Spiral ",
+    "Kokuyo Systemic Cover Notebook, with One Semi-B5 (7\" X 9.8\"), B 6mm Ru"
+   ],
+   "dense_top3": [
+    "\u30c8\u30e9\u30d9\u30e9\u30fc\u30ba\u30ab\u30f3\u30d1\u30cb\u30fc Traveler's Notebook, Regular Size, Blue 15239006",
+    "Hardcover Notebook Set - Thick Classic Ruled Premium Paper Notebook wi",
+    "VESTURINA Premium Texture Hard Cover Notebook 200 Pages, Notebook"
+   ]
+  },
+  "results": [
+   {
+    "asin": "B0B17N72WL",
+    "title": "Compera Pocket Notebooks, 4-Pack, 144 Pages, 100GSM Thick Paper, 3.5 x 5.5, (4 Morandi colors), Small Notebooks, Hardcover Journals Notebook with Inner Pocket, Mini Size",
+    "store": "Compera",
+    "price": 14.99,
+    "rating": 4.6,
+    "rating_number": 66,
+    "image_url": "https://m.media-amazon.com/images/I/21ZRm3vXGaL._AC_.jpg",
+    "why": "matches 'notebook'; price $14.99 ($5 to $15)",
+    "score": 5.658056259155273
+   },
+   {
+    "asin": "B0BR55266Z",
+    "title": "DENIK, Softcover, Journal Notebook, 5.25\" x 8.25\" Writing Notebook with 144 Lined Pages, Multi-Use for Travel, Planning, and Gratitude Journaling, Aesthetic Adventure Notebook for Students, Writers and Artists - Design: Sky",
+    "store": "DENIK",
+    "price": 10.99,
+    "rating": 4.7,
+    "rating_number": 469,
+    "image_url": "https://m.media-amazon.com/images/I/31b9CnDcsGL._AC_.jpg",
+    "why": "matches 'notebook'; price $10.99 ($5 to $15)",
+    "score": 5.428319454193115
+   },
+   {
+    "asin": "B00X9UVLME",
+    "title": "AT-A-GLANCE Notebooks, Small / Medium / Large, Collection, Assorted Colors, 3-PACK (YP23200)",
+    "store": "AT-A-GLANCE",
+    "price": 13.49,
+    "rating": 3.0,
+    "rating_number": 18,
+    "image_url": "https://m.media-amazon.com/images/I/51LC698tsYL._AC_.jpg",
+    "why": "matches 'notebook'; price $13.49 ($5 to $15)",
+    "score": 5.421507358551025
+   },
+   {
+    "asin": "1441311335",
+    "title": "Essentials Grid-lined Notebook, Large, A5 Size (Journal, Diary)",
+    "store": "Peter Pauper Press Inc. (Author)",
+    "price": 12.99,
+    "rating": 4.7,
+    "rating_number": 1064,
+    "image_url": "https://m.media-amazon.com/images/I/41FeAVhE8HL._SX341_BO1,204,203,200_.jpg",
+    "why": "matches 'notebook'; price $12.99 ($5 to $15)",
+    "score": 5.014030933380127
+   },
+   {
+    "asin": "B094485T9W",
+    "title": "Mr. Pen- Spiral Notebook, Kraft Cover, 2 Pack, 80 Pages, Blank Spiral Notebook, Blank Notebook, Drawing Notebook, Spiral Sketchbook, Small Sketchbooks, Unlined Notebook, Wire Bound Notebook",
+    "store": "Mr. Pen",
+    "price": 6.85,
+    "rating": 4.6,
+    "rating_number": 501,
+    "image_url": "https://m.media-amazon.com/images/I/41vT2BYDn9L._AC_.jpg",
+    "why": "matches 'notebook'; price $6.85 ($5 to $15)",
+    "score": 4.909732818603516
+   },
+   {
+    "asin": "B06XYRQY5N",
+    "title": "AT-A-GLANCE Notebook, Casebound, Ruled, 80 Sheets, 9-1/2 x 7-1/4\", Collection, Tan/Blue (YP146-07)",
+    "store": "AT-A-GLANCE",
+    "price": 8.0,
+    "rating": 4.3,
+    "rating_number": 66,
+    "image_url": "https://m.media-amazon.com/images/I/41x83rS7V7L._AC_.jpg",
+    "why": "matches 'notebook'; price $8.00 ($5 to $15)",
+    "score": 4.710989952087402
+   },
+   {
+    "asin": "B09MFB2X3D",
+    "title": "Portable Journal Hardcover Notebook Writing Note book Premium Cloth Notebooks for Office Home School Business Writing 128 Sheets",
+    "store": "Mhaurzo",
+    "price": 12.99,
+    "rating": 4.4,
+    "rating_number": 26,
+    "image_url": "https://m.media-amazon.com/images/I/51Xm3PaOzyL._AC_.jpg",
+    "why": "matches 'notebook'; price $12.99 ($5 to $15)",
+    "score": 4.496455669403076
+   },
+   {
+    "asin": "B07T6ZS1MP",
+    "title": "TOP-Pindu Notebook A5 Journal, Thick Classic Notebook, Hardcover Executive Notebooks, 296pp, 80gsm, 8.4 x 5.7 inch (Kraft)",
+    "store": "TOP-Pindu",
+    "price": 8.99,
+    "rating": 4.6,
+    "rating_number": 675,
+    "image_url": "https://m.media-amazon.com/images/I/51fHjA+t11L._AC_.jpg",
+    "why": "matches 'notebook'; price $8.99 ($5 to $15)",
+    "score": 4.470643520355225
+   },
+   {
+    "asin": "B097SQ5B9T",
+    "title": "2 Pack Spiral Notebook,Elegant Marble Design Notebooks College Ruled,Journal Notebook with Premium Thick Paper,Notebooks for Note Taking,Diary, Drawing,160 Ruled Pages (6X8.2in)",
+    "store": "Kingwora",
+    "price": 12.99,
+    "rating": 4.3,
+    "rating_number": 48,
+    "image_url": "https://m.media-amazon.com/images/I/51eQw2W0w8L._AC_.jpg",
+    "why": "matches 'notebook'; price $12.99 ($5 to $15)",
+    "score": 4.455973148345947
+   },
+   {
+    "asin": "B0C4YDVH3B",
+    "title": "Forvencer Perforated Notebook, A5 Notebooks for Work w/ 160 Easy-tear Perforated Pages, 100GSM Thick Paper Lined Journals for Writing, Hardcover Notebook with Pen Loop, Inner Pocket, Bookmark, Lay Flat Notebook Journal, Dark Brown",
+    "store": "Forvencer",
+    "price": 5.99,
+    "rating": 4.5,
+    "rating_number": 44,
+    "image_url": "https://m.media-amazon.com/images/I/41K7ZwxgJzL._AC_.jpg",
+    "why": "matches 'notebook'; price $5.99 ($5 to $15)",
+    "score": 4.443203449249268
+   }
+  ],
+  "reference": null
+ },
+ {
+  "query": "something like the swingline 747 stapler",
+  "intent": {
+   "route": "similar_to",
+   "text": "swingline 747 stapler",
+   "price_min": null,
+   "price_max": null,
+   "brand": "Swingline",
+   "category": null,
+   "min_rating": null,
+   "must_have": [],
+   "exclude": []
+  },
+  "route_used": "similar_to",
+  "notes": [],
+  "llm_used": true,
+  "debug_candidates": {
+   "reference": "Swingline Stapler, 747 Iconic Desktop Stapler, 25 Sheet Capacity, Desk, Office, Sky Blue (74722)",
+   "catalog_size": 51814,
+   "neighbours_pool": 300,
+   "after_filter": 16,
+   "shown": 10
+  },
+  "results": [
+   {
+    "asin": "B091N11F4Z",
+    "title": "Swingline Stapler, 2 Pack, Commercial Desktop Stapler, 20 Sheet Capacity, Durable Metal Stapler for Desk, Black (44401AZ)",
+    "store": "Swingline",
+    "price": 17.75,
+    "rating": 4.7,
+    "rating_number": 16026,
+    "image_url": "https://m.media-amazon.com/images/I/41NHIjFw2kL._AC_.jpg",
+    "why": "similar to 'Swingline Stapler, 747 Iconic Desktop Stapler, 25 Sheet Capa' in the learned item space; brand matches 'Swingline'",
+    "score": 0.7807080745697021
+   },
+   {
+    "asin": "B09BKNT888",
+    "title": "Swingline Stapler, 6 Pack, Desktop Stapler, 25 Sheet Capacity, Optima 25 Reduced Effort, Blue/Gray (S7066404CS)",
+    "store": "Swingline",
+    "price": 96.28,
+    "rating": 4.7,
+    "rating_number": 7623,
+    "image_url": "https://m.media-amazon.com/images/I/5124rohxO6L._AC_.jpg",
+    "why": "similar to 'Swingline Stapler, 747 Iconic Desktop Stapler, 25 Sheet Capa' in the learned item space; brand matches 'Swingline'",
+    "score": 0.7637977600097656
+   },
+   {
+    "asin": "B0BPHYKTV8",
+    "title": "Swingline Staples, S.F. 4, Premium, 1/4\" Length, 210/Strip, 5000/Box, 5 Pack (35481)",
+    "store": "Swingline",
+    "price": 13.99,
+    "rating": 4.8,
+    "rating_number": 21043,
+    "image_url": "https://m.media-amazon.com/images/I/51cIKkK2oaL._AC_.jpg",
+    "why": "similar to 'Swingline Stapler, 747 Iconic Desktop Stapler, 25 Sheet Capa' in the learned item space; brand matches 'Swingline'",
+    "score": 0.7609692811965942
+   },
+   {
+    "asin": "B09BKPYNXD",
+    "title": "Swingline Stapler, Half Strip Desktop Stapler, 40 Sheet Capacity, Low Force, Compact Size, Optima 40, Orange/Silver/Black, 1 Count (87842)",
+    "store": "Swingline",
+    "price": 21.72,
+    "rating": 4.7,
+    "rating_number": 10904,
+    "image_url": "https://m.media-amazon.com/images/I/51Atv9lG6gL._AC_.jpg",
+    "why": "similar to 'Swingline Stapler, 747 Iconic Desktop Stapler, 25 Sheet Capa' in the learned item space; brand matches 'Swingline'",
+    "score": 0.7403647303581238
+   },
+   {
+    "asin": "B09BKPM8BV",
+    "title": "Swingline Staples, Optima, High Capacity, 3/8\" Length, Jam Free, 125/Strip, 2500/Box, 1 Box (35550)",
+    "store": "Swingline",
+    "price": 5.98,
+    "rating": 4.7,
+    "rating_number": 10611,
+    "image_url": "https://m.media-amazon.com/images/I/41RCdDjjykL._AC_.jpg",
+    "why": "similar to 'Swingline Stapler, 747 Iconic Desktop Stapler, 25 Sheet Capa' in the learned item space; brand matches 'Swingline'",
+    "score": 0.7161654233932495
+   },
+   {
+    "asin": "B09BKNKJZD",
+    "title": "Swingline Stapler, High-Capacity, 60 Sheet Capacity, Reduced Effort, Black (77701)",
+    "store": "Swingline",
+    "price": 26.3,
+    "rating": 4.6,
+    "rating_number": 3379,
+    "image_url": "https://m.media-amazon.com/images/I/31dwsIyLrDL._AC_.jpg",
+    "why": "similar to 'Swingline Stapler, 747 Iconic Desktop Stapler, 25 Sheet Capa' in the learned item space; brand matches 'Swingline'",
+    "score": 0.7044045925140381
+   },
+   {
+    "asin": "B09BKNFXVL",
+    "title": "Swingline Optima 20 Electric Stapler, 20 Sheet Capacity, Quick Reloading, Jam Free, Orange/Gray (48208)",
+    "store": "Swingline",
+    "price": 66.57,
+    "rating": 4.1,
+    "rating_number": 2465,
+    "image_url": "https://m.media-amazon.com/images/I/41RZrEWBxPL._AC_.jpg",
+    "why": "similar to 'Swingline Stapler, 747 Iconic Desktop Stapler, 25 Sheet Capa' in the learned item space; brand matches 'Swingline'",
+    "score": 0.5799262523651123
+   },
+   {
+    "asin": "B09BKP9HN1",
+    "title": "Swingline Mini Stapler, Tot, 12 Sheet Capacity, includes Built-In Staple Remover & 1000 Standard Staples, Blue - S7079172",
+    "store": "Swingline",
+    "price": 5.59,
+    "rating": 4.6,
+    "rating_number": 9160,
+    "image_url": "https://m.media-amazon.com/images/I/41d6N3NZRuL._AC_.jpg",
+    "why": "similar to 'Swingline Stapler, 747 Iconic Desktop Stapler, 25 Sheet Capa' in the learned item space; brand matches 'Swingline'",
+    "score": 0.5765675902366638
+   },
+   {
+    "asin": "B09BKQ7W11",
+    "title": "Swingline Heavy Duty Stapler, 160 Sheet Capacity, Includes Alignment Guide, Desktop Stapling, Platinum (39002)",
+    "store": "Swingline",
+    "price": 40.0,
+    "rating": 4.2,
+    "rating_number": 2356,
+    "image_url": "https://m.media-amazon.com/images/I/31Ob1u8CyJL._AC_.jpg",
+    "why": "similar to 'Swingline Stapler, 747 Iconic Desktop Stapler, 25 Sheet Capa' in the learned item space; brand matches 'Swingline'",
+    "score": 0.5619401931762695
+   },
+   {
+    "asin": "B0B4M61PVQ",
+    "title": "Swingline Stapler, 747 Classic Desktop Stapler, 30 Sheet Capacity, Metal, Sky Blue (74708)",
+    "store": "Swingline",
+    "price": 17.99,
+    "rating": 4.6,
+    "rating_number": 5288,
+    "image_url": "https://m.media-amazon.com/images/I/3144bDZpI8L._AC_.jpg",
+    "why": "similar to 'Swingline Stapler, 747 Iconic Desktop Stapler, 25 Sheet Capa' in the learned item space; brand matches 'Swingline'",
+    "score": 0.5578970909118652
+   }
+  ],
+  "reference": {
+   "asin": "B0BW46GVDB",
+   "title": "Swingline Stapler, 747 Iconic Desktop Stapler, 25 Sheet Capacity, Desk, Office, Sky Blue (74722)",
+   "store": "Swingline",
+   "price": 18.5,
+   "rating": 4.8,
+   "rating_number": 18411,
+   "image_url": "https://m.media-amazon.com/images/I/41UY3OSHmGL._AC_.jpg",
+   "why": "reference product",
+   "score": null
+  }
+ }
+]
